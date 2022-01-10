@@ -1,5 +1,5 @@
 <script>
-  import { Col, Card, CardBody } from "sveltestrap";
+  import { Col, Card, CardBody, Row } from "sveltestrap";
   import dayjs from "dayjs";
   import utc from "dayjs/plugin/utc";
   import timezone from "dayjs/plugin/timezone";
@@ -477,59 +477,60 @@
     </div>
   </nav>
 {:else}
-  <center style="margin-bottom:5px;">
-    <a href="/?token={client_token}" title="SDSB4D">
-      <img
-        id="imglogo"
-        alt="SDSB4D"
-        style="margin-top:10px;"
-        width="100"
-        src="logo.svg"
-      />
-    </a>
-  </center>
-  <Col xxl="12" xl="12" lg="12" md="12" sm="12" style="padding:5px;margin:0px;">
-    <Card>
-      <CardBody style="background-color: transparent;">
-        <span style="font-size:12px;">Welcome, {client_username}</span><br />
-        <span style="font-size:12px;"
-          >Credit : IDR <span id="style_text">{display_credit}</span></span
-        ><br />
-        <span style="font-size:12px;"
-          >IPADDRESS : <span id="style_text">{client_ipaddress}</span></span
-        ><br />
-        <span style="font-size:12px;"
-          >TIMEZONE : <span id="style_text">{client_timezone}</span></span
-        ><br />
-        <span style="font-size:12px;"
-          >CLOCK : <span id="style_text">{clockmachine} WIB</span></span
-        >
-      </CardBody>
-    </Card>
-  </Col>
-  <div class="btn-group" role="group" aria-label="Basic example">
+  <Row>
+    <Col style="padding:5px;margin:0px;">
+      <div style="margin:20px 10px;">
+        <a href="/?token={client_token}" title="SDSB4D">
+          <img
+            id="imglogo"
+            alt="SDSB4D"
+            style="margin-top:10px;"
+            width="123"
+            src="logo.svg"
+          />
+        </a>
+      </div>
+    </Col>
+    <Col style="padding:5px;margin:0px;">
+      <Card style="border:none;background-color:transparent;text-align:right;">
+        <CardBody style="background-color: transparent; padding: 1rem 0;">
+          <span style="font-size:12px;color:#fff;"
+            >{client_username} ({client_ipaddress})</span
+          ><br />
+          <span style="font-size:12px;color:#fff;"
+            >Saldo : IDR <span id="style_text">{display_credit}</span></span
+          ><br />
+          <span style="font-size:10px;">Timezone : {client_timezone}</span><br
+          />
+          <span id="style_text">{clockmachine} WIB</span>
+        </CardBody>
+      </Card>
+    </Col>
+  </Row>
+  <div
+    class="btn-group text-center mobile"
+    role="group"
+    aria-label="Basic example"
+  >
     <button
       on:click={() => {
         handleClickButtonTop("result");
       }}
-      id="btn1"
-      class="btn btn-secondary "
+      class="btn btn-play "
       type="button">RESULT</button
     >&nbsp;
     <button
       on:click={() => {
         handleClickButtonTop("invoice");
       }}
-      id="btn1"
-      class="btn btn-secondary"
+      class="btn btn-play"
       type="button">INVOICE</button
     >&nbsp;
     <button
       on:click={() => {
         handleClickButtonTop("bukumimpi");
       }}
-      id="btn1"
-      class="btn btn-secondary"
+      class="btn btn-play"
       type="button">BUKU MIMPI</button
     >
   </div>
@@ -1593,5 +1594,9 @@
     border-radius: 15px;
     margin: 1rem 0.5rem 0;
     width: 11em;
+  }
+
+  .mobile .btn.btn-play {
+    width: 100% !important;
   }
 </style>

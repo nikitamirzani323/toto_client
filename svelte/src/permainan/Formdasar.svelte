@@ -378,7 +378,7 @@
       {pasaran_code}
     />
     <CardBody style="background:#121212;padding:0px;margin:0px;">
-      <div style="margin:5px;">
+      <div style="margin:10px;">
         <table class="table" style="background:none;width:100%;">
           <tr>
             <td
@@ -462,7 +462,7 @@
       </h1>
     </CardHeader>
     <CardBody style="background:#121212;padding:0px;margin:0px;">
-      <div style="margin:5px">
+      <div style="margin:10px 0">
         <table class="table" style="background:none;width:100%;">
           <tr>
             <td

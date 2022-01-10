@@ -140,7 +140,7 @@
                         ><Icon name="trash" /> Hapus Semua</Button
                     >
                     <Button
-                        id="btn1"
+                        id="btn2"
                         on:click={handleSave}
                         style="margin-top:5px;"
                         ><Icon name="cart-check" /> BELI</Button
@@ -177,7 +177,7 @@
                     >
                     <Button
                         size="sm"
-                        id="btn1"
+                        id="btn2"
                         on:click={handleSave}
                         style="margin-top:5px;"
                         ><Icon name="cart-check" /> BELI</Button

@@ -1187,7 +1187,7 @@
           active
           style="padding:5px;"
         >
-          <div style="margin:5px;">
+          <div style="margin:10px 0;">
             <table class="table" style="background:none;width:100%;">
               <tr>
                 <td
@@ -1255,7 +1255,7 @@
           </div>
         </TabPane>
         <TabPane tabId="form_colokmacau" tab="MACAU">
-          <div style="margin:5px;">
+          <div style="margin:10px 0;">
             <table class="table" style="background:none;width:100%;">
               <tr>
                 <td
@@ -1350,7 +1350,7 @@
           </div>
         </TabPane>
         <TabPane tabId="form_coloknaga" tab="NAGA">
-          <div style="margin:5px;">
+          <div style="margin:10px 0;">
             <table class="table" style="background:none;width:100%;">
               <tr>
                 <td
@@ -1470,7 +1470,7 @@
           </div>
         </TabPane>
         <TabPane tabId="form_colokjitu" tab="JITU">
-          <div style="margin:5px;">
+          <div style="margin:10px 0;">
             <table class="table" style="background:none;width:100%;">
               <tr>
                 <td

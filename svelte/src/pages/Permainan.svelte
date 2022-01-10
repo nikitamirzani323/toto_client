@@ -307,62 +307,76 @@
     <Col xs="12" style="padding:0;">
       <Panel>
         <slot:template slot="body">
-          <ul class="nav top-menu nav-pills justify-content-center">
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                class:active={selected === "4-3-2"}
-                on:click={() => {
-                  changePermainan("4-3-2");
-                }}>4D/3D/2D</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                class:active={selected === "colok"}
-                on:click={() => {
-                  changePermainan("colok");
-                }}>Colok</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                class:active={selected === "5050"}
-                on:click={() => {
-                  changePermainan("5050");
-                }}>50-50</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                class:active={selected === "kombinasi"}
-                on:click={() => {
-                  changePermainan("kombinasi");
-                }}>KOMBINASI</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                class:active={selected === "dasar"}
-                on:click={() => {
-                  changePermainan("dasar");
-                }}>DASAR</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                class:active={selected === "shio"}
-                on:click={() => {
-                  changePermainan("shio");
-                }}>SHIO</a
-              >
-            </li>
-          </ul>
+          <nav class="navbar">
+            <a
+              class="navbar-brand"
+              style="font-family: Poppins;text-decoration: none"
+              href="/?token={client_token}&agent={client_company}"
+              ><img
+                style="margin-top: 0px;"
+                width="30"
+                src="/back_home.png"
+                alt="close"
+              /> Back</a
+            >
+            <ul class="nav top-menu nav-pills justify-content-center">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  class:active={selected === "4-3-2"}
+                  on:click={() => {
+                    changePermainan("4-3-2");
+                  }}>4D/3D/2D</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  class:active={selected === "colok"}
+                  on:click={() => {
+                    changePermainan("colok");
+                  }}>Colok</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  class:active={selected === "5050"}
+                  on:click={() => {
+                    changePermainan("5050");
+                  }}>50-50</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  class:active={selected === "kombinasi"}
+                  on:click={() => {
+                    changePermainan("kombinasi");
+                  }}>KOMBINASI</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  class:active={selected === "dasar"}
+                  on:click={() => {
+                    changePermainan("dasar");
+                  }}>DASAR</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  class:active={selected === "shio"}
+                  on:click={() => {
+                    changePermainan("shio");
+                  }}>SHIO</a
+                >
+              </li>
+            </ul>
+            <div class="justify-content-center" />
+          </nav>
         </slot:template>
       </Panel>
     </Col>
@@ -542,7 +556,10 @@
             header={true}
             footer={true}
             header_style="padding:0px;margin:0px;"
-            body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:655px;"
+            body_style="padding:0px;margin:0px;background: url(/bg-invoice.svg);
+            background-position: bottom right;
+            background-repeat: no-repeat;
+            background-size: 400px;border:1px solid #0e0c13;height:655px;"
           >
             <slot:template slot="header">
               <div
@@ -1174,7 +1191,6 @@
               </tbody>
             </table>
           </slot:template>
-          <slot:template slot="footer" />
         </PanelFull>
       </div>
     </div>

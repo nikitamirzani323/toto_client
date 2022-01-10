@@ -212,12 +212,28 @@
     </Container>
   </div>
 {:else}
-  <Container>
-    {#if token_browser != ""}
-      <Row align-items-start>
-        {#if pasaran_code != ""}
-          {#if client_token != ""}
-            <Permainan
+  <div class="content mobile">
+    <Container>
+      {#if token_browser != ""}
+        <Row align-items-start>
+          {#if pasaran_code != ""}
+            {#if client_token != ""}
+              <Permainan
+                {client_token}
+                {client_company}
+                {client_username}
+                {client_credit}
+                {client_ipaddress}
+                {client_timezone}
+                {client_device}
+                {pasaran_code}
+                {pasaran_name}
+                {pasaran_periode}
+                {permainan}
+              />
+            {/if}
+          {:else if client_token != ""}
+            <Home
               {client_token}
               {client_company}
               {client_username}
@@ -225,34 +241,20 @@
               {client_ipaddress}
               {client_timezone}
               {client_device}
-              {pasaran_code}
-              {pasaran_name}
-              {pasaran_periode}
-              {permainan}
+              {listkeluaran}
+              on:pasaran={pasaran}
             />
+          {:else}
+            <div style="height: 100%;margin:100px 0px 100px 0px;">
+              <center>
+                <Loader cssstyle={"height: 100%;margin:100px 0px 100px 0px;"} />
+              </center>
+            </div>
           {/if}
-        {:else if client_token != ""}
-          <Home
-            {client_token}
-            {client_company}
-            {client_username}
-            {client_credit}
-            {client_ipaddress}
-            {client_timezone}
-            {client_device}
-            {listkeluaran}
-            on:pasaran={pasaran}
-          />
-        {:else}
-          <div style="height: 100%;margin:100px 0px 100px 0px;">
-            <center>
-              <Loader cssstyle={"height: 100%;margin:100px 0px 100px 0px;"} />
-            </center>
-          </div>
-        {/if}
-      </Row>
-    {/if}
-  </Container>
+        </Row>
+      {/if}
+    </Container>
+  </div>
 {/if}
 
 <style>
@@ -266,5 +268,14 @@
       url("/bg-cover.svg");
     background-repeat: no-repeat;
     background-size: contain;
+  }
+
+  .content.mobile {
+    background-image: linear-gradient(
+        180deg,
+        rgba(51, 0, 5, 0) 17.78%,
+        #330500 52.74%
+      ),
+      url("/bg-mobile.svg");
   }
 </style>

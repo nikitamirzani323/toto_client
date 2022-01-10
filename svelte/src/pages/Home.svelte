@@ -96,7 +96,7 @@
       md="6"
       sm="6"
       xs="6"
-      style="cursor:pointer;padding:5px;margin:0px;"
+      style="cursor:pointer;padding:10px;margin:0px;"
     >
       <div
         class="default-block mobile-block card"
@@ -128,7 +128,7 @@
         </div>
         <CardBody>
           <center id="style_text" style="font-size:15px;">
-            <h4 class="head-fonts">{rec.pasaran}</h4>
+            <h5 class="head-fonts">{rec.pasaran}</h5>
             <span style="font-size: 11px;">
               PERIODE : {rec.pasaran_periode}
             </span>
@@ -180,9 +180,10 @@
   }
 
   .mobile-block {
-    width: 163px;
+    width: 100%;
     height: 163px;
     border-radius: 14px;
+    margin-bottom: 0;
   }
   .blink_me {
     animation: blinker 1s linear infinite;

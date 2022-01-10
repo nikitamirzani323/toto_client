@@ -1322,7 +1322,7 @@
     <CardBody style="background:#121212;padding:0px;margin:0px;">
       <TabContent style="padding:0px;margin:0px;">
         <TabPane tabId="form_5050umum" tab="UMUM" active style="padding:5px;">
-          <div style="margin:5px;">
+          <div style="margin:10px 0;">
             <table class="table" style="background:none;width:100%;">
               <tr>
                 <td
@@ -1390,7 +1390,7 @@
           </div>
         </TabPane>
         <TabPane tabId="form_5050special" tab="SPECIAL">
-          <div style="margin:5px;">
+          <div style="margin:10px 0;">
             <table class="table" style="background:none;width:100%;">
               <tr>
                 <td
@@ -1481,7 +1481,7 @@
           </div>
         </TabPane>
         <TabPane tabId="form_5050kombinasi" tab="KOMBINASI">
-          <div style="margin:5px;">
+          <div style="margin:10px 0;">
             <table class="table" style="background:none;width:100%;">
               <tr>
                 <td

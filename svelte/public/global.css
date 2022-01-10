@@ -10,7 +10,7 @@ body {
 }
 
 #btn1 {
-    border-radius: 0px;
+    border-radius: 4px;
     background: #424242;
     border: 1px solid #424242;
     text-decoration: none;
@@ -22,9 +22,9 @@ body {
 }
 
 #btn2 {
-    border-radius: 0px;
-    background: #fc0669;
-    border: 1px solid #fc0669;
+    background: #007741;
+    border: 1px solid #007741;
+    border-radius: 4px;
     text-decoration: none;
     cursor: pointer;
     color: white;
