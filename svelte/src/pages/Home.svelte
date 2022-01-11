@@ -152,8 +152,8 @@
     padding: 5px 25px;
   }
 
-  .btn-play:hover {
-    background-color: #ff9900;
+  .btn.btn-play:hover {
+    background: linear-gradient(100.05deg, #ff9900 24.87%, #e56b00 85.21%);
   }
   .bg-online {
     background-color: #009e42 !important;

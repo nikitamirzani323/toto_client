@@ -789,6 +789,7 @@ func Savetransaksi(c *fiber.Ctx) error {
 
 	axios := resty.New()
 
+	log.Println("cek pasaran", client.Pasaran_code, client.Pasaran_periode)
 	resp, err := axios.R().
 		SetResult(response{}).
 		SetHeaders(map[string]string{

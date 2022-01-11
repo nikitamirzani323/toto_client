@@ -1552,7 +1552,9 @@
     margin: 1rem 0.5rem 0;
     width: 11em;
   }
-
+  .btn.btn-play:hover {
+    background: linear-gradient(100.05deg, #ff9900 24.87%, #e56b00 85.21%);
+  }
   .mobile .btn.btn-play {
     width: 100% !important;
   }
