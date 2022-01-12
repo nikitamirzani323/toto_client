@@ -422,54 +422,56 @@
 </script>
 
 {#if client_device == "WEBSITE"}
-    <nav class="navbar fixed-top " style="background-color: #252525;">
+    <nav class="navbar fixed-top " style="background-color: #252525;margin-bottom:100px;">
         <div class="container">
-            <div class="col">
-                <a href="/?token={client_token}" title="totoapp">
-                    <img
-                        id="imglogo"
-                        alt="SDSB4D"
-                        style="margin-top:0px;"
-                        src="logo.svg"/>
-                </a>
-            </div>
-            <div class="col">
-                <form class="d-flex">
-                    <button
-                        on:click={() => {
-                            handleClickButtonTop("result");
-                        }}
-                        id="btn1"
-                        class="btn btn-secondary"
-                        type="button">RESULT</button>
-                    &nbsp;
-                    <button
-                        on:click={() => {
-                            handleClickButtonTop("invoice");
-                        }}
-                        id="btn1"
-                        class="btn btn-secondary"
-                        type="button">INVOICE</button>
-                    &nbsp;
-                    <button
-                        on:click={() => {
-                            handleClickButtonTop("bukumimpi");
-                        }}
-                        id="btn1"
-                        class="btn btn-secondary"
-                        type="button">BUKU MIMPI</button>
-                </form>
-            </div>
-            <div class="col">
-                <Card color="dark" style="border:none;background-color:#252525;">
-                    <CardBody style="background-color:#252525;text-align:right;">
-                        <span style="font-size:13px;">TIMEZONE : <span id="style_text">{client_timezone}</span> | <span id="style_text">{clockmachine} WIB</span><br />
-                        <span style="font-size:13px;">{client_username}</span>&nbsp;(<span id="style_text">{client_ipaddress}</span>)<br />
-                        <span style="font-size:13px;">Credit : IDR <span id="style_text">{display_credit}</span><br />
-                    </CardBody>
-                </Card>
-                
-            </div>
+                <div class="col">
+                    <a href="/?token={client_token}" title="totoapp">
+                        <img
+                            id="imglogo"
+                            alt="SDSB4D"
+                            style="margin-top:0px;"
+                            src="logo.svg"/>
+                    </a>
+                </div>
+                <div class="col">
+                    <center>
+                        <form class="d-flex">
+                            <button
+                                on:click={() => {
+                                    handleClickButtonTop("result");
+                                }}
+                                id="btn1"
+                                class="btn btn-secondary"
+                                type="button">RESULT</button>
+                            &nbsp;
+                            <button
+                                on:click={() => {
+                                    handleClickButtonTop("invoice");
+                                }}
+                                id="btn1"
+                                class="btn btn-secondary"
+                                type="button">INVOICE</button>
+                            &nbsp;
+                            <button
+                                on:click={() => {
+                                    handleClickButtonTop("bukumimpi");
+                                }}
+                                id="btn1"
+                                class="btn btn-secondary"
+                                type="button">BUKU MIMPI</button>
+                        </form>
+                    </center>
+                </div>
+                <div class="col">
+                    <Card color="dark" style="border:none;background-color:#252525;">
+                        <CardBody style="background-color:#252525;text-align:right;">
+                            <span style="font-size:13px;">TIMEZONE : <span id="style_text">{client_timezone}</span>  <span id="style_text">{clockmachine} WIB</span><br />
+                            <span style="font-size:13px;">{client_username}</span>&nbsp;(<span id="style_text">{client_ipaddress}</span>)<br />
+                            <span style="font-size:13px;">Credit : IDR <span id="style_text">{display_credit}</span><br />
+                        </CardBody>
+                    </Card>
+                </div>
+            
         </div>
     </nav>
     
@@ -543,7 +545,7 @@
     </div>
 {/if}
 
-<div class="clearfix mb-10" />
+<div class="clearfix " />
 <Modal
     modal_id={"modalhasilkeluaran"}
     modal_footer_flag={false}
@@ -607,8 +609,7 @@
     modal_id={"modalhasilkeluaranpasaran"}
     modal_footer_flag={false}
     modal_body_height={"height:350px;"}
-    modal_size={"modal-dialog-centered"}
->
+    modal_size={"modal-dialog-centered"}>
     <slot:template slot="header">
         <h5 class="modal-title">PASARAN : {nmpasaran}</h5>
     </slot:template>
@@ -672,8 +673,7 @@
     modal_id={"modalhasilinvoice"}
     modal_footer_flag={false}
     modal_body_height={"height:350px;"}
-    modal_size={"modal-dialog-centered"}
->
+    modal_size={"modal-dialog-centered"}>
     <slot:template slot="header">
         <h5 class="modal-title">INVOICE</h5>
     </slot:template>
@@ -756,8 +756,7 @@
     modal_headerbootom_flag={true}
     modal_footer_flag={false}
     modal_body_height={"height:500px;"}
-    modal_size={"modal-dialog-centered"}
->
+    modal_size={"modal-dialog-centered"}>
     <slot:template slot="header">
         <h5 class="modal-title">BUKU MIMPI</h5>
     </slot:template>
@@ -827,8 +826,7 @@
                     handleClickBukuMimpi("2D");
                 }}
                 class="nav-item"
-                role="presentation"
-            >
+                role="presentation">
                 <button
                     class="nav-link"
                     id="pills-contact-tab"
@@ -837,8 +835,7 @@
                     type="button"
                     role="tab"
                     aria-controls="pills-bukumimpi2d"
-                    aria-selected="false">2D</button
-                >
+                    aria-selected="false">2D</button>
             </li>
         </ul>
         <input
@@ -856,13 +853,11 @@
                 class="tab-pane fade show active"
                 id="pills-bukumimpiall"
                 role="tabpanel"
-                aria-labelledby="pills-bukumimpiall-tab"
-            >
+                aria-labelledby="pills-bukumimpiall-tab">
                 <PanelFull
                     header={false}
                     footer={false}
-                    body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:500px;"
-                >
+                    body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:500px;">
                     <slot:template slot="body">
                         <table>
                             <tbody>
@@ -895,13 +890,11 @@
                 class="tab-pane fade"
                 id="pills-bukumimpi4d"
                 role="tabpanel"
-                aria-labelledby="pills-bukumimpi4d-tab"
-            >
+                aria-labelledby="pills-bukumimpi4d-tab">
                 <PanelFull
                     header={false}
                     footer={false}
-                    body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:500px;"
-                >
+                    body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:500px;">
                     <slot:template slot="body">
                         <table>
                             <tbody>
@@ -934,13 +927,11 @@
                 class="tab-pane fade"
                 id="pills-bukumimpi3d"
                 role="tabpanel"
-                aria-labelledby="pills-bukumimpi3d-tab"
-            >
+                aria-labelledby="pills-bukumimpi3d-tab">
                 <PanelFull
                     header={false}
                     footer={false}
-                    body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:500px;"
-                >
+                    body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:500px;">
                     <slot:template slot="body">
                         <table>
                             <tbody>
@@ -1015,8 +1006,7 @@
     modal_id={"modalslipalldetail"}
     modal_footer_flag={true}
     modal_body_height={"height:350px;"}
-    modal_size={"modal-dialog-centered"}
->
+    modal_size={"modal-dialog-centered"}>
     <slot:template slot="header">
         <h5 class="modal-title">
             PASARAN : {detailslipheader}
