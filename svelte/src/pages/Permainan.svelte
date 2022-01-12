@@ -352,9 +352,7 @@
         <Col xs="12" style="padding: 0px; margin:0px;margin-top:40px;">
             <Panel>
                 <slot:template slot="header">
-                    <h1
-                        style="padding:0px;margin:0px;color:white;font-size:13px;"
-                    >
+                    <h1 style="padding:0px;margin:0px;color:white;font-size:13px;">
                         JENIS PERMAINAN
                     </h1>
                 </slot:template>

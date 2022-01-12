@@ -2547,6 +2547,12 @@
 			form4d_add();
 		}
 	};
+	const handleKeyboard432set_checkenter = (e) => {
+		let keyCode = e.which || e.keyCode;
+		if (keyCode === 13) {
+			form4dset_add();
+		}
+	};
 	const handleKeyboardbbfs_checkenter = (e) => {
 		let keyCode = e.which || e.keyCode;
 		if (keyCode === 13) {
@@ -2670,7 +2676,7 @@
 										bind:this={nomorset_input}
 										bind:value={nomorset}
 										on:keyup={handleKeyboard_format}
-										on:keypress={handleKeyboardbbfs_checkenter}
+										on:keypress={handleKeyboard432set_checkenter}
 										type="text"
 										class="form-control form-control-sm"
 										placeholder="Input 4D/3D/2D Digit"
@@ -2691,7 +2697,7 @@
 									<input
 										bind:value={betset_1}
 										on:keyup={handleKeyboard_number}
-										on:keypress={handleKeyboardbbfs_checkenter}
+										on:keypress={handleKeyboard432set_checkenter}
 										type="text"
 										class="form-control"
 										placeholder="Bet"
@@ -2713,7 +2719,7 @@
 									<input
 										bind:value={betset_2}
 										on:keyup={handleKeyboard_number}
-										on:keypress={handleKeyboardbbfs_checkenter}
+										on:keypress={handleKeyboard432set_checkenter}
 										type="text"
 										class="form-control"
 										placeholder="Bet"
@@ -2731,7 +2737,7 @@
 									<input
 										bind:value={betset_4}
 										on:keyup={handleKeyboard_number}
-										on:keypress={handleKeyboardbbfs_checkenter}
+										on:keypress={handleKeyboard432set_checkenter}
 										type="text"
 										class="form-control"
 										placeholder="Bet"
@@ -2751,7 +2757,7 @@
 									<input
 										bind:value={betset_3}
 										on:keyup={handleKeyboard_number}
-										on:keypress={handleKeyboardbbfs_checkenter}
+										on:keypress={handleKeyboard432set_checkenter}
 										type="text"
 										class="form-control"
 										placeholder="Bet"
@@ -2767,7 +2773,7 @@
 									<input
 										bind:value={betset_5}
 										on:keyup={handleKeyboard_number}
-										on:keypress={handleKeyboardbbfs_checkenter}
+										on:keypress={handleKeyboard432set_checkenter}
 										type="text"
 										class="form-control"
 										placeholder="Bet"
@@ -3363,7 +3369,7 @@
 										bind:this={nomorset_input}
 										bind:value={nomorset}
 										on:keyup={handleKeyboard_format}
-										on:keypress={handleKeyboardbbfs_checkenter}
+										on:keypress={handleKeyboard432set_checkenter}
 										type="text"
 										class="form-control form-control-sm"
 										placeholder="Input 4D/3D/2D Digit"
@@ -3386,7 +3392,7 @@
 									<input
 										bind:value={betset_1}
 										on:keyup={handleKeyboard_number}
-										on:keypress={handleKeyboardbbfs_checkenter}
+										on:keypress={handleKeyboard432set_checkenter}
 										type="text"
 										class="form-control"
 										placeholder="Bet"
@@ -3409,7 +3415,7 @@
 									<input
 										bind:value={betset_2}
 										on:keyup={handleKeyboard_number}
-										on:keypress={handleKeyboardbbfs_checkenter}
+										on:keypress={handleKeyboard432set_checkenter}
 										type="text"
 										class="form-control"
 										placeholder="Bet"
@@ -3427,7 +3433,7 @@
 									<input
 										bind:value={betset_4}
 										on:keyup={handleKeyboard_number}
-										on:keypress={handleKeyboardbbfs_checkenter}
+										on:keypress={handleKeyboard432set_checkenter}
 										type="text"
 										class="form-control"
 										placeholder="Bet"
@@ -3448,7 +3454,7 @@
 									<input
 										bind:value={betset_3}
 										on:keyup={handleKeyboard_number}
-										on:keypress={handleKeyboardbbfs_checkenter}
+										on:keypress={handleKeyboard432set_checkenter}
 										type="text"
 										class="form-control"
 										placeholder="Bet"
@@ -3465,7 +3471,7 @@
 									<input
 										bind:value={betset_5}
 										on:keyup={handleKeyboard_number}
-										on:keypress={handleKeyboardbbfs_checkenter}
+										on:keypress={handleKeyboard432set_checkenter}
 										type="text"
 										class="form-control"
 										placeholder="Bet"

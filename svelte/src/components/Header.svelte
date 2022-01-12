@@ -422,78 +422,57 @@
 </script>
 
 {#if client_device == "WEBSITE"}
-    <nav class="navbar fixed-top " style="background-color: #2b2a33;">
+    <nav class="navbar fixed-top " style="background-color: #252525;">
         <div class="container">
-            <a href="/?token={client_token}" title="totoapp">
-                <img
-                    id="imglogo"
-                    alt="SDSB4D"
-                    style="margin-top:0px;"
-                    width="80"
-                    src="SDSB4D.png"
-                />
-            </a>
-            <form class="d-flex">
-                <button
-                    on:click={() => {
-                        handleClickButtonTop("result");
-                    }}
-                    id="btn1"
-                    class="btn btn-secondary"
-                    type="button">RESULT</button
-                >
-                &nbsp;
-                <button
-                    on:click={() => {
-                        handleClickButtonTop("invoice");
-                    }}
-                    id="btn1"
-                    class="btn btn-secondary"
-                    type="button">INVOICE</button
-                >
-                &nbsp;
-                <button
-                    on:click={() => {
-                        handleClickButtonTop("bukumimpi");
-                    }}
-                    id="btn1"
-                    class="btn btn-secondary"
-                    type="button">BUKU MIMPI</button
-                >
-            </form>
+            <div class="col">
+                <a href="/?token={client_token}" title="totoapp">
+                    <img
+                        id="imglogo"
+                        alt="SDSB4D"
+                        style="margin-top:0px;"
+                        src="logo.svg"/>
+                </a>
+            </div>
+            <div class="col">
+                <form class="d-flex">
+                    <button
+                        on:click={() => {
+                            handleClickButtonTop("result");
+                        }}
+                        id="btn1"
+                        class="btn btn-secondary"
+                        type="button">RESULT</button>
+                    &nbsp;
+                    <button
+                        on:click={() => {
+                            handleClickButtonTop("invoice");
+                        }}
+                        id="btn1"
+                        class="btn btn-secondary"
+                        type="button">INVOICE</button>
+                    &nbsp;
+                    <button
+                        on:click={() => {
+                            handleClickButtonTop("bukumimpi");
+                        }}
+                        id="btn1"
+                        class="btn btn-secondary"
+                        type="button">BUKU MIMPI</button>
+                </form>
+            </div>
+            <div class="col">
+                <Card color="dark" style="border:none;background-color:#252525;">
+                    <CardBody style="background-color:#252525;text-align:right;">
+                        <span style="font-size:13px;">TIMEZONE : <span id="style_text">{client_timezone}</span> | <span id="style_text">{clockmachine} WIB</span><br />
+                        <span style="font-size:13px;">{client_username}</span>&nbsp;(<span id="style_text">{client_ipaddress}</span>)<br />
+                        <span style="font-size:13px;">Credit : IDR <span id="style_text">{display_credit}</span><br />
+                    </CardBody>
+                </Card>
+                
+            </div>
         </div>
     </nav>
-    <Col
-        xxl="3"
-        xl="3"
-        lg="4"
-        md="12"
-        sm="12"
-        style="padding:5px;margin:0px;margin-top:50px;"
-    >
-        <Card color="dark" style="border:none;">
-            <CardBody style="background-color:#2b3038;">
-                <span style="font-size:13px;">Welcome, {client_username}</span
-                ><br />
-                <span style="font-size:13px;"
-                    >Credit : IDR <span id="style_text">{display_credit}</span
-                    ></span
-                ><br />
-                <span style="font-size:13px;"
-                    >IPADDRESS : <span id="style_text">{client_ipaddress}</span
-                    ></span
-                ><br />
-                <span style="font-size:13px;"
-                    >TIMEZONE : <span id="style_text">{client_timezone}</span
-                    ></span
-                ><br />
-                <span style="font-size:13px;"
-                    >CLOCK : <span id="style_text">{clockmachine} WIB</span
-                    ></span
-                >
-            </CardBody>
-        </Card>
-    </Col>
+    
 {:else}
     <center style="margin-bottom:5px;">
         <a href="/?token={client_token}" title="SDSB4D">
@@ -512,8 +491,7 @@
         lg="12"
         md="12"
         sm="12"
-        style="padding:5px;margin:0px;"
-    >
+        style="padding:5px;margin:0px;">
         <Card color="dark">
             <CardBody style="background-color:#2b3038;">
                 <span style="font-size:12px;">Welcome, {client_username}</span

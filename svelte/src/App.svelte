@@ -54,16 +54,16 @@
   let message_err = "";
   let css_err = "display:none;";
   async function initTimezone() {
-    const res = await fetch("https://ipinfo.io/json?token=dbbfb216692964");
+    const res = await fetch("/api/healthz");
     if (!res.ok) {
       const message = `An error has occured: ${res.status}`;
       throw new Error(message);
     } else {
       const json = await res.json();
-      client_ipaddress = json.ip;
-      client_timezone = json.timezone;
-      initapp(token_browser);
+      client_ipaddress = json.real_ip;
+      client_timezone = "Asia/Jakarta";
     }
+    initapp(token_browser);
   }
   async function initapp(e) {
     const resInit = await fetch("/api/init", {
