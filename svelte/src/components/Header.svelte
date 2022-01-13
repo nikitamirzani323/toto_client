@@ -4,6 +4,7 @@
     import utc from "dayjs/plugin/utc";
     import timezone from "dayjs/plugin/timezone";
     import Modal from "../components/Modalfull2.svelte";
+    import Placeholder from "../components/Placeholder.svelte";
     dayjs.extend(utc);
     dayjs.extend(timezone);
 
@@ -554,12 +555,13 @@
         <h5 class="modal-title">RESULT</h5>
     </slot:template>
     <slot:template slot="body">
+        {#if listhasilkeluaran != ""}
         <table class="table table-dark table-striped">
             <thead>
                 <tr>
                     <th
                         width="1%"
-                        style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;">NO</th>
+                        style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:1px solid #303030;">NO</th>
                     <th
                         width="15%"
                         style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;">TANGGAL</th>
@@ -602,6 +604,9 @@
                 {/each}
             </tbody>
         </table>
+        {:else}
+        <Placeholder total_placeholder="3" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+        {/if}
     </slot:template>
 </Modal>
 <Modal
@@ -613,6 +618,7 @@
         <h5 class="modal-title">PASARAN : {nmpasaran}</h5>
     </slot:template>
     <slot:template slot="body">
+        {#if resulttogel != ""}
         <table class="table table-dark table-striped">
             <thead>
                 <tr>
@@ -650,6 +656,9 @@
                 {/each}
             </tbody>
         </table>
+        {:else}
+        <Placeholder total_placeholder="3" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+        {/if}
     </slot:template>
 </Modal>
 <Modal
@@ -661,6 +670,7 @@
         <h5 class="modal-title">INVOICE</h5>
     </slot:template>
     <slot:template slot="body">
+        {#if listhasilinvoice != ""}
         <table class="table table-dark">
             <thead>
                 <tr>
@@ -713,6 +723,9 @@
                 {/each}
             </tbody>
         </table>
+        {:else}
+            <Placeholder total_placeholder="5" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+        {/if}
     </slot:template>
 </Modal>
 <Modal
@@ -806,10 +819,11 @@
     <slot:template slot="body">
         <div class="tab-content" id="pills-tabContent">
             <div
-                class="tab-pane fade show active"
-                id="pills-bukumimpiall"
-                role="tabpanel"
-                aria-labelledby="pills-bukumimpiall-tab">
+            class="tab-pane fade show active"
+            id="pills-bukumimpiall"
+            role="tabpanel"
+            aria-labelledby="pills-bukumimpiall-tab">
+            {#if filterBukuMimpi != ""}
                 <table>
                     <tbody>
                         {#each filterBukuMimpi as rec}
@@ -829,81 +843,96 @@
                         {/each}
                     </tbody>
                 </table>
+            {:else}
+                <Placeholder total_placeholder="10" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+            {/if}
             </div>
             <div
                 class="tab-pane fade"
                 id="pills-bukumimpi4d"
                 role="tabpanel"
                 aria-labelledby="pills-bukumimpi4d-tab">
-                <table>
-                    <tbody>
-                        {#each filterBukuMimpi as rec}
-                            <tr>
-                                <td
-                                    NOWRAP
-                                    width="30px"
-                                    style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#fc0;">{rec.bukumimpi_tipe}</td>
-                                <td
-                                    width="*"
-                                    style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#8b8989;">
-                                    {rec.bukumimpi_nama}
-                                    <br />
-                                    <span style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};">{rec.bukumimpi_nomor}</span>
-                                </td>
-                            </tr>
-                        {/each}
-                    </tbody>
-                </table>
+                {#if filterBukuMimpi != ""}
+                    <table>
+                        <tbody>
+                            {#each filterBukuMimpi as rec}
+                                <tr>
+                                    <td
+                                        NOWRAP
+                                        width="30px"
+                                        style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#fc0;">{rec.bukumimpi_tipe}</td>
+                                    <td
+                                        width="*"
+                                        style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#8b8989;">
+                                        {rec.bukumimpi_nama}
+                                        <br />
+                                        <span style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};">{rec.bukumimpi_nomor}</span>
+                                    </td>
+                                </tr>
+                            {/each}
+                        </tbody>
+                    </table>
+                {:else}
+                    <Placeholder total_placeholder="1-" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+                {/if}
             </div>
             <div
                 class="tab-pane fade"
                 id="pills-bukumimpi3d"
                 role="tabpanel"
                 aria-labelledby="pills-bukumimpi3d-tab">
-                <table>
-                    <tbody>
-                        {#each filterBukuMimpi as rec}
-                            <tr>
-                                <td
-                                    NOWRAP
-                                    width="30px"
-                                    style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#fc0;">{rec.bukumimpi_tipe}</td>
-                                <td
-                                    width="*"
-                                    style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#8b8989;">
-                                    {rec.bukumimpi_nama}
-                                    <br />
-                                    <span style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};">{rec.bukumimpi_nomor}</span>
-                                </td>
-                            </tr>
-                        {/each}
-                    </tbody>
-                </table>
+                {#if filterBukuMimpi != ""}
+                    <table>
+                        <tbody>
+                            {#each filterBukuMimpi as rec}
+                                <tr>
+                                    <td
+                                        NOWRAP
+                                        width="30px"
+                                        style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#fc0;">{rec.bukumimpi_tipe}</td>
+                                    <td
+                                        width="*"
+                                        style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#8b8989;">
+                                        {rec.bukumimpi_nama}
+                                        <br />
+                                        <span style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};">{rec.bukumimpi_nomor}</span>
+                                    </td>
+                                </tr>
+                            {/each}
+                        </tbody>
+                    </table>
+                {:else}
+                    <Placeholder total_placeholder="1-" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+                {/if}
             </div>
             <div
                 class="tab-pane fade"
                 id="pills-bukumimpi2d"
                 role="tabpanel"
                 aria-labelledby="pills-bukumimpi2d-tab">
-                <table>
-                    <tbody>
-                        {#each filterBukuMimpi as rec}
-                            <tr>
-                                <td
-                                    NOWRAP
-                                    width="30px"
-                                    style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#fc0;">{rec.bukumimpi_tipe}</td>
-                                <td
-                                    width="*"
-                                    style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#8b8989;">
-                                    {rec.bukumimpi_nama}
-                                    <br />
-                                    <span style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};">{rec.bukumimpi_nomor}</span>
-                                </td>
-                            </tr>
-                        {/each}
-                    </tbody>
-                </table>
+                {#if filterBukuMimpi != ""}
+                    <table>
+                        <tbody>
+                            {#each filterBukuMimpi as rec}
+                                <tr>
+                                    <td
+                                        NOWRAP
+                                        width="30px"
+                                        style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#fc0;">{rec.bukumimpi_tipe}</td>
+                                    <td
+                                        width="*"
+                                        style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#8b8989;">
+                                        {rec.bukumimpi_nama}
+                                        <br />
+                                        <span style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};">{rec.bukumimpi_nomor}</span>
+                                    </td>
+                                </tr>
+                            {/each}
+                        </tbody>
+                    </table>
+                {:else}
+                    <Placeholder total_placeholder="1-" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+                {/if}
             </div>
         </div>
     </slot:template>
@@ -1484,3 +1513,8 @@
         </table>
     </slot:template>
 </Modal>
+<style>
+    .table>:not(:first-child) {
+         border-top: none; 
+    }
+</style>
