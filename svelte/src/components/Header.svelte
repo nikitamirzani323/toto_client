@@ -4,7 +4,6 @@
     import utc from "dayjs/plugin/utc";
     import timezone from "dayjs/plugin/timezone";
     import Modal from "../components/Modalfull2.svelte";
-    import PanelFull from "../components/Panelfull.svelte";
     dayjs.extend(utc);
     dayjs.extend(timezone);
 
@@ -619,24 +618,16 @@
                 <tr>
                     <th
                         width="1%"
-                        style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-                        >NO</th
-                    >
+                        style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;">NO</th>
                     <th
                         width="15%"
-                        style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-                        >TANGGAL</th
-                    >
+                        style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;">TANGGAL</th>
                     <th
                         width="15%"
-                        style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-                        >PERIODE</th
-                    >
+                        style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;">PERIODE</th>
                     <th
                         width="25%"
-                        style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-                        >HASIL</th
-                    >
+                        style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;">HASIL</th>
                 </tr>
             </thead>
             <tbody>
@@ -644,25 +635,17 @@
                     <tr>
                         <td
                             NOWRAP
-                            style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
-                            >{rec.no}</td
-                        >
+                            style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};">{rec.no}</td>
                         <td
                             NOWRAP
-                            style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
-                            >{rec.date}</td
-                        >
+                            style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};">{rec.date}</td>
 
                         <td
                             NOWRAP
-                            style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
-                            >{rec.periode}</td
-                        >
+                            style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};">{rec.periode}</td>
                         <td
                             NOWRAP
-                            style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};color:rgb(255, 204, 0);"
-                            >{rec.result}</td
-                        >
+                            style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};color:rgb(255, 204, 0);">{rec.result}</td>
                     </tr>
                 {/each}
             </tbody>
@@ -683,29 +666,19 @@
                 <tr>
                     <th
                         width="1%"
-                        style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-                        >STATUS</th
-                    >
+                        style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;">STATUS</th>
                     <th
                         width="15%"
-                        style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-                        >TANGGAL</th
-                    >
+                        style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;">TANGGAL</th>
                     <th
                         width="*"
-                        style="text-align:left;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-                        >PASARAN</th
-                    >
+                        style="text-align:left;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;">PASARAN</th>
                     <th
                         width="15%"
-                        style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-                        >PERIODE</th
-                    >
+                        style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;">PERIODE</th>
                     <th
                         width="25%"
-                        style="text-align:right;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-                        >WINLOSE</th
-                    >
+                        style="text-align:right;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;">WINLOSE</th>
                 </tr>
             </thead>
             <tbody>
@@ -713,19 +686,13 @@
                     <tr>
                         <td
                             NOWRAP
-                            style="text-align: center;vertical-align: top;{rec.invoice_background};"
-                            >{rec.invoice_status}</td
-                        >
+                            style="text-align: center;vertical-align: top;{rec.invoice_background};">{rec.invoice_status}</td>
                         <td
                             NOWRAP
-                            style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
-                            >{rec.invoice_tglkeluaran}
-                        </td>
+                            style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};">{rec.invoice_tglkeluaran}</td>
                         <td
                             NOWRAP
-                            style="text-align: left;vertical-align: top;font-size:{modal_table_fontsize_body};"
-                            >{rec.invoice_pasaran}</td
-                        >
+                            style="text-align: left;vertical-align: top;font-size:{modal_table_fontsize_body};">{rec.invoice_pasaran}</td>
                         <td
                             on:click={() => {
                                 fetch_invoicelldetail(
@@ -734,13 +701,10 @@
                                 );
                             }}
                             NOWRAP
-                            style="text-decoration:underline;cursor:pointer;text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
-                            >{rec.invoice_periode}</td
-                        >
+                            style="text-decoration:underline;cursor:pointer;text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};">{rec.invoice_periode}</td>
                         <td
                             NOWRAP
-                            style="text-align: right;vertical-align: top;font-size:{modal_table_fontsize_body};color:rgb(255, 204, 0);"
-                        >
+                            style="text-align: right;vertical-align: top;font-size:{modal_table_fontsize_body};color:rgb(255, 204, 0);">
                             {new Intl.NumberFormat().format(
                                 rec.invoice_totallose
                             )}
@@ -765,15 +729,13 @@
             class="nav nav-pills mb-3"
             id="pills-tab"
             role="tablist"
-            style="background-color: #181818;"
-        >
+            style="background-color: #181818;">
             <li
                 on:click={() => {
                     handleClickBukuMimpi("ALL");
                 }}
                 class="nav-item"
-                role="presentation"
-            >
+                role="presentation">
                 <button
                     class="nav-link active"
                     id="pills-home-tab"
@@ -782,16 +744,14 @@
                     type="button"
                     role="tab"
                     aria-controls="pills-bukumimpiall"
-                    aria-selected="true">ALL</button
-                >
+                    aria-selected="true">ALL</button>
             </li>
             <li
                 on:click={() => {
                     handleClickBukuMimpi("4D");
                 }}
                 class="nav-item"
-                role="presentation"
-            >
+                role="presentation">
                 <button
                     class="nav-link"
                     id="pills-profile-tab"
@@ -800,16 +760,14 @@
                     type="button"
                     role="tab"
                     aria-controls="pills-bukumimpi4d"
-                    aria-selected="false">4D</button
-                >
+                    aria-selected="false">4D</button>
             </li>
             <li
                 on:click={() => {
                     handleClickBukuMimpi("3D");
                 }}
                 class="nav-item"
-                role="presentation"
-            >
+                role="presentation">
                 <button
                     class="nav-link"
                     id="pills-contact-tab"
@@ -818,8 +776,7 @@
                     type="button"
                     role="tab"
                     aria-controls="pills-bukumimpi3d"
-                    aria-selected="false">3D</button
-                >
+                    aria-selected="false">3D</button>
             </li>
             <li
                 on:click={() => {
@@ -842,10 +799,9 @@
             bind:value={searchbukumimpi}
             on:keypress={handleKeyboardbukumimpi_checkenter}
             style="border-radius: none;border: none; background: rgb(48, 48, 48) none repeat scroll 0% 0%; color: white; font-size: {modal_table_fontsize_bukumimpi_header}; "
-            placeholder="Ketik apa yang telah kamu impikan"
+            placeholder="Ketik apa yang telah kamu mimpikan"
             class="form-control"
-            type="text"
-        />
+            type="text"/>
     </slot:template>
     <slot:template slot="body">
         <div class="tab-content" id="pills-tabContent">
@@ -854,150 +810,100 @@
                 id="pills-bukumimpiall"
                 role="tabpanel"
                 aria-labelledby="pills-bukumimpiall-tab">
-                <PanelFull
-                    header={false}
-                    footer={false}
-                    body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:500px;">
-                    <slot:template slot="body">
-                        <table>
-                            <tbody>
-                                {#each filterBukuMimpi as rec}
-                                    <tr>
-                                        <td
-                                            NOWRAP
-                                            width="30px"
-                                            style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#fc0;"
-                                            >{rec.bukumimpi_tipe}</td
-                                        >
-                                        <td
-                                            width="*"
-                                            style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#8b8989;"
-                                            >{rec.bukumimpi_nama}
-                                            <br />
-                                            <span
-                                                style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
-                                                >{rec.bukumimpi_nomor}</span
-                                            >
-                                        </td>
-                                    </tr>
-                                {/each}
-                            </tbody>
-                        </table>
-                    </slot:template>
-                </PanelFull>
+                <table>
+                    <tbody>
+                        {#each filterBukuMimpi as rec}
+                            <tr>
+                                <td
+                                    NOWRAP
+                                    width="30px"
+                                    style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#fc0;">{rec.bukumimpi_tipe}</td>
+                                <td
+                                    width="*"
+                                    style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#8b8989;">
+                                    {rec.bukumimpi_nama}
+                                    <br />
+                                    <span style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};">{rec.bukumimpi_nomor}</span>
+                                </td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                </table>
             </div>
             <div
                 class="tab-pane fade"
                 id="pills-bukumimpi4d"
                 role="tabpanel"
                 aria-labelledby="pills-bukumimpi4d-tab">
-                <PanelFull
-                    header={false}
-                    footer={false}
-                    body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:500px;">
-                    <slot:template slot="body">
-                        <table>
-                            <tbody>
-                                {#each filterBukuMimpi as rec}
-                                    <tr>
-                                        <td
-                                            NOWRAP
-                                            width="30px"
-                                            style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#fc0;"
-                                            >{rec.bukumimpi_tipe}</td
-                                        >
-                                        <td
-                                            width="*"
-                                            style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#8b8989;"
-                                            >{rec.bukumimpi_nama}
-                                            <br />
-                                            <span
-                                                style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
-                                                >{rec.bukumimpi_nomor}</span
-                                            >
-                                        </td>
-                                    </tr>
-                                {/each}
-                            </tbody>
-                        </table>
-                    </slot:template>
-                </PanelFull>
+                <table>
+                    <tbody>
+                        {#each filterBukuMimpi as rec}
+                            <tr>
+                                <td
+                                    NOWRAP
+                                    width="30px"
+                                    style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#fc0;">{rec.bukumimpi_tipe}</td>
+                                <td
+                                    width="*"
+                                    style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#8b8989;">
+                                    {rec.bukumimpi_nama}
+                                    <br />
+                                    <span style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};">{rec.bukumimpi_nomor}</span>
+                                </td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                </table>
             </div>
             <div
                 class="tab-pane fade"
                 id="pills-bukumimpi3d"
                 role="tabpanel"
                 aria-labelledby="pills-bukumimpi3d-tab">
-                <PanelFull
-                    header={false}
-                    footer={false}
-                    body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:500px;">
-                    <slot:template slot="body">
-                        <table>
-                            <tbody>
-                                {#each filterBukuMimpi as rec}
-                                    <tr>
-                                        <td
-                                            NOWRAP
-                                            width="30px"
-                                            style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#fc0;"
-                                            >{rec.bukumimpi_tipe}</td
-                                        >
-                                        <td
-                                            width="*"
-                                            style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#8b8989;"
-                                            >{rec.bukumimpi_nama}
-                                            <br />
-                                            <span
-                                                style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
-                                                >{rec.bukumimpi_nomor}</span
-                                            >
-                                        </td>
-                                    </tr>
-                                {/each}
-                            </tbody>
-                        </table>
-                    </slot:template>
-                </PanelFull>
+                <table>
+                    <tbody>
+                        {#each filterBukuMimpi as rec}
+                            <tr>
+                                <td
+                                    NOWRAP
+                                    width="30px"
+                                    style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#fc0;">{rec.bukumimpi_tipe}</td>
+                                <td
+                                    width="*"
+                                    style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#8b8989;">
+                                    {rec.bukumimpi_nama}
+                                    <br />
+                                    <span style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};">{rec.bukumimpi_nomor}</span>
+                                </td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                </table>
             </div>
             <div
                 class="tab-pane fade"
                 id="pills-bukumimpi2d"
                 role="tabpanel"
-                aria-labelledby="pills-bukumimpi2d-tab"
-            >
-                <PanelFull
-                    header={false}
-                    footer={false}
-                    body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:500px;"
-                >
-                    <slot:template slot="body">
-                        <table>
-                            <tbody>
-                                {#each filterBukuMimpi as rec}
-                                    <tr>
-                                        <td
-                                            NOWRAP
-                                            width="30px"
-                                            style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#fc0;"
-                                            >{rec.bukumimpi_tipe}</td
-                                        >
-                                        <td
-                                            width="*"
-                                            style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#8b8989;"
-                                            >{rec.bukumimpi_nama}
-                                            <br />
-                                            <span
-                                                style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
-                                                >{rec.bukumimpi_nomor}</span
-                                            >
-                                        </td>
-                                    </tr>
-                                {/each}
-                            </tbody>
-                        </table>
-                    </slot:template>
-                </PanelFull>
+                aria-labelledby="pills-bukumimpi2d-tab">
+                <table>
+                    <tbody>
+                        {#each filterBukuMimpi as rec}
+                            <tr>
+                                <td
+                                    NOWRAP
+                                    width="30px"
+                                    style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#fc0;">{rec.bukumimpi_tipe}</td>
+                                <td
+                                    width="*"
+                                    style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#8b8989;">
+                                    {rec.bukumimpi_nama}
+                                    <br />
+                                    <span style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};">{rec.bukumimpi_nomor}</span>
+                                </td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                </table>
             </div>
         </div>
     </slot:template>
@@ -1462,8 +1368,7 @@
     modal_id={"modalslipalldetailbyid"}
     modal_footer_flag={true}
     modal_body_height={"height:450px;"}
-    modal_size={"modal-lg modal-dialog-centered"}
->
+    modal_size={"modal-lg modal-dialog-centered"}>
     <slot:template slot="header">
         <h5 class="modal-title">
             PERMAINAN : {detailslipheaderpermainan}

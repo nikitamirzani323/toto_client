@@ -10,21 +10,18 @@
     class="modal fade"
     id={modal_id}
     tabindex="-1"
-    data-bs-backdrop="false"
->
+    data-bs-backdrop="false">
     <div class="modal-dialog {modal_size}">
         <div class="modal-content">
             <div
                 class="modal-header"
-                style="border-bottom:none;background: #2e323e;with:100%;"
-            >
+                style="border-bottom:none;background: #424242;with:100%;">
                 <slot name="header" />
                 <button
                     type="button"
                     class="btn-close btn-close-white"
                     data-bs-dismiss="modal"
-                    aria-label="Close"
-                />
+                    aria-label="Close"/>
             </div>
             {#if modal_headerbootom_flag}
             <div style="background-color: #181818;">
@@ -53,12 +50,12 @@
     }
 
     #streaminvoice::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        -webkit-box-shadow: inset 0 0 6px rgba(66, 66, 66, 0.3);
     }
 
     #streaminvoice::-webkit-scrollbar-thumb {
-        background-color: #505768;
-        outline: 1px solid slategrey;
+        background-color: #424242;
+        outline: 1px solid #424242;
     }
 
     .table-dark {
