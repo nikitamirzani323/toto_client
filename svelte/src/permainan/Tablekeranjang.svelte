@@ -10,27 +10,32 @@
     export let group_btn_beli = false;
     export let count_line_4d = 0;
     export let count_line_3d = 0;
+    export let count_line_3dd = 0;
     export let count_line_2d = 0;
     export let count_line_2dd = 0;
     export let count_line_2dt = 0;
     export let minimal_bet = 0;
     export let max4d_bet = 0;
     export let max3d_bet = 0;
+    export let max3dd_bet = 0;
     export let max2d_bet = 0;
     export let max2dd_bet = 0;
     export let max2dt_bet = 0;
     export let disc4d_bet = 0;
     export let disc3d_bet = 0;
+    export let disc3dd_bet = 0;
     export let disc2d_bet = 0;
     export let disc2dd_bet = 0;
     export let disc2dt_bet = 0;
     export let win4d_bet = 0;
     export let win3d_bet = 0;
+    export let win3dd_bet = 0;
     export let win2d_bet = 0;
     export let win2dd_bet = 0;
     export let win2dt_bet = 0;
     export let limitline_4d = 0;
     export let limitline_3d = 0;
+    export let limitline_3dd = 0;
     export let limitline_2d = 0;
     export let limitline_2dd = 0;
     export let limitline_2dt = 0;
@@ -59,6 +64,7 @@
     $: count_line =
         count_line_4d +
         count_line_3d +
+        count_line_3dd +
         count_line_2d +
         count_line_2dd +
         count_line_2dt;
@@ -89,15 +95,11 @@
                 </div>
             {/if}
             <h1 style="padding:5px;margin:0px;color:white;font-size:15px;">
-                TOTAL BAYAR : <span style="color:#fc0;"
-                    >{new Intl.NumberFormat().format(totalkeranjang)}</span
-                >
+                TOTAL BAYAR : <span style="color:#fc0;">{new Intl.NumberFormat().format(totalkeranjang)}</span>
             </h1>
         {:else}
             <h1 style="padding:5px;margin:0px;color:white;font-size:13px;">
-                TOTAL BAYAR : <span style="color:#fc0;"
-                    >{new Intl.NumberFormat().format(totalkeranjang)}</span
-                >
+                TOTAL BAYAR : <span style="color:#fc0;">{new Intl.NumberFormat().format(totalkeranjang)}</span>
             </h1>
             <br />
             {#if group_btn_beli == true}
@@ -268,6 +270,7 @@
                 <tr>
                     <td style="color:white;">4D : <span style="color:#f7941d;">{count_line_4d}</span></td>
                     <td style="color:white;">3D : <span style="color:#f7941d;">{count_line_3d}</span></td>
+                    <td style="color:white;">3DD : <span style="color:#f7941d;">{count_line_3dd}</span></td>
                     <td style="color:white;">2D : <span style="color:#f7941d;">{count_line_2d}</span></td>
                     <td style="color:white;">2D DEPAN : <span style="color:#f7941d;">{count_line_2dd}</span></td>
                     <td style="color:white;">2D TENGAH : <span style="color:#f7941d;">{count_line_2dt}</span></td>
@@ -283,6 +286,7 @@
                 <tr>
                     <td style="color:white;">4D : <span style="color:#f7941d;">{count_line_4d}</span></td>
                     <td style="color:white;">3D : <span style="color:#f7941d;">{count_line_3d}</span></td>
+                    <td style="color:white;">3DD : <span style="color:#f7941d;">{count_line_3d}</span></td>
                     <td style="color:white;">2D : <span style="color:#f7941d;">{count_line_2d}</span></td>
                     <td style="color:white;">2DD : <span style="color:#f7941d;">{count_line_2dd}</span></td>
                     <td style="color:white;">2DT : <span style="color:#f7941d;">{count_line_2dt}</span></td>
@@ -311,6 +315,8 @@
                     <th
                         style="background:#303030;border:1px solid #282828;text-align:right;border-bottom:none;">3D</th>
                     <th
+                        style="background:#303030;border:1px solid #282828;text-align:right;border-bottom:none;">3DD</th>
+                    <th
                         style="background:#303030;border:1px solid #282828;text-align:right;border-bottom:none;">2D</th>
                     <th
                         style="background:#303030;border:1px solid #282828;text-align:right;border-bottom:none;">2DD</th>
@@ -337,6 +343,11 @@
                         nowrap
                         style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">
                         {new Intl.NumberFormat().format(
+                            minimal_bet)}</td>
+                    <td
+                        nowrap
+                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">
+                        {new Intl.NumberFormat().format(
                             minimal_bet
                         )}</td>
                     <td
@@ -353,75 +364,64 @@
                         )}</td>
                 </tr>
                 <tr>
-                    <td
-                        style="background:#303030;border:1px solid #282828;font-size:12px;">MAX BET</td>
-                    <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{new Intl.NumberFormat().format(max4d_bet)}</td>
-                    <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{new Intl.NumberFormat().format(max3d_bet)}</td>
-                    <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{new Intl.NumberFormat().format(max2d_bet)}</td>
-                    <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{new Intl.NumberFormat().format(
-                            max2dd_bet)}</td>
-                    <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{new Intl.NumberFormat().format(
-                            max2dt_bet)}</td>
+                    <td style="background:#303030;border:1px solid #282828;font-size:11px;">MAX BET</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{new Intl.NumberFormat().format(max4d_bet)}</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{new Intl.NumberFormat().format(max3d_bet)}</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{new Intl.NumberFormat().format(max3dd_bet)}</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{new Intl.NumberFormat().format(max2d_bet)}</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{new Intl.NumberFormat().format( max2dd_bet)}</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{new Intl.NumberFormat().format(max2dt_bet)}</td>
+                </tr>
+                <tr>
+                    <td style="background:#303030;border:1px solid #282828;font-size:11px;">DISKON</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{Math.ceil(disc4d_bet * 100)}%</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{Math.ceil(disc3d_bet * 100)}%</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{Math.ceil(disc3dd_bet * 100)}%</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{Math.ceil(disc2d_bet * 100)}%</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{Math.ceil(disc2dd_bet * 100)}%</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{Math.ceil(disc2dt_bet * 100)}%</td>
                 </tr>
                 <tr>
                     <td
-                        style="background:#303030;border:1px solid #282828;font-size:12px;">DISKON</td>
-                    <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{Math.ceil(disc4d_bet * 100)}%</td>
-                    <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{Math.ceil(disc3d_bet * 100)}%</td>
-                    <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{Math.ceil(disc2d_bet * 100)}%</td>
-                    <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{Math.ceil(disc2dd_bet * 100)}%</td>
-                    <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{Math.ceil(disc2dt_bet * 100)}%</td>
-                </tr>
-                <tr>
-                    <td
-                        style="background:#303030;border:1px solid #282828;font-size:12px;">HADIAH</td>
+                        style="background:#303030;border:1px solid #282828;font-size:11px;">HADIAH</td>
                     <td
                         style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{win4d_bet}x</td>
-                    <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{win3d_bet}x</td>
-                    <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{win2d_bet}x</td>
-                    <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{win2dd_bet}x</td>
-                    <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{win2dt_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win3d_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win3dd_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2d_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2dd_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2dt_bet}x</td>
                 </tr>
                 <tr>
                     <td
-                        style="background:#303030;border:1px solid #282828;font-size:12px;"
-                        >LIMIT LINE</td>
+                        style="background:#303030;border:1px solid #282828;font-size:11px;">LIMIT LINE</td>
                     <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">
+                        style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">
                         {new Intl.NumberFormat().format(
                             limitline_4d
                         )}</td>
                     <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">
+                        style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">
                         {new Intl.NumberFormat().format(
                             limitline_3d
                         )}</td>
                     <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">
+                        style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">
+                        {new Intl.NumberFormat().format(
+                            limitline_3dd
+                        )}</td>
+                    <td
+                        style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">
                         {new Intl.NumberFormat().format(
                             limitline_2d
                         )}</td>
                     <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;"
+                        style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;"
                         >{new Intl.NumberFormat().format(
                             limitline_2dd
                         )}</td>
                     <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;"
+                        style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;"
                         >{new Intl.NumberFormat().format(
                             limitline_2dt
                         )}</td>
@@ -430,7 +430,9 @@
         </table>
         <p style="font-size:13px;padding:5px;color:white;">
             <b>Contoh Penulisan 4D/3D/2D:</b><br />
-            1234 : 4D<br /> 123 : 3D<br /> 12 : 2D <br />
+            1234 : 4D<br /> 
+            123 : 3D<br /> *123 : 3D<br /> 123* : 3DD<br /> 
+            12 : 2D <br />
             **12 : 2D<br /> 12** : 2DD<br /> *12* : 2DT
         </p>
         <p style="font-size:13px;padding: 5px;color:white;">
@@ -443,6 +445,7 @@
             Berarti pemenang untuk<br />
             4D = 4321<br />
             3D = 321<br />
+            3DD = 432<br />
             2D = 21<br />
             2DD = 43<br />
             2DT = 32<br /><br />

@@ -34,26 +34,31 @@
 	let minimal_bet = 0;
 	let max4d_bet = 0;
 	let max3d_bet = 0;
+	let max3dd_bet = 0;
 	let max2d_bet = 0;
 	let max2dd_bet = 0;
 	let max2dt_bet = 0;
 	let disc4d_bet = 0;
 	let disc3d_bet = 0;
+	let disc3dd_bet = 0;
 	let disc2d_bet = 0;
 	let disc2dd_bet = 0;
 	let disc2dt_bet = 0;
 	let win4d_bet = 0;
 	let win3d_bet = 0;
+	let win3dd_bet = 0;
 	let win2d_bet = 0;
 	let win2dd_bet = 0;
 	let win2dt_bet = 0;
 	let limittotal4d_bet = 0;
 	let limittotal3d_bet = 0;
+	let limittotal3dd_bet = 0;
 	let limittotal2d_bet = 0;
 	let limittotal2dd_bet = 0;
 	let limittotal2dt_bet = 0;
 	let limitline_4d = 0;
 	let limitline_3d = 0;
+	let limitline_3dd = 0;
 	let limitline_2d = 0;
 	let limitline_2dd = 0;
 	let limitline_2dt = 0;
@@ -61,12 +66,14 @@
 
 	let count_line_4d = 0;
 	let count_line_3d = 0;
+	let count_line_3dd = 0;
 	let count_line_2d = 0;
 	let count_line_2dd = 0;
 	let count_line_2dt = 0;
 
 	let db_form4d_4d_count_temp = 0;
 	let db_form4d_3d_count_temp = 0;
+	let db_form4d_3dd_count_temp = 0;
 	let db_form4d_2d_count_temp = 0;
 	let db_form4d_2dd_count_temp = 0;
 	let db_form4d_2dt_count_temp = 0;
@@ -94,26 +101,31 @@
 			minimal_bet = parseInt(record[i]["min_bet"]);
 			max4d_bet = parseInt(record[i]["max4d_bet"]);
 			max3d_bet = parseInt(record[i]["max3d_bet"]);
+			max3dd_bet = parseInt(record[i]["max3dd_bet"]);
 			max2d_bet = parseInt(record[i]["max2d_bet"]);
 			max2dd_bet = parseInt(record[i]["max2dd_bet"]);
 			max2dt_bet = parseInt(record[i]["max2dt_bet"]);
 			disc4d_bet = parseFloat(record[i]["disc4d_bet"]);
 			disc3d_bet = parseFloat(record[i]["disc3d_bet"]);
+			disc3dd_bet = parseFloat(record[i]["disc3dd_bet"]);
 			disc2d_bet = parseFloat(record[i]["disc2d_bet"]);
 			disc2dd_bet = parseFloat(record[i]["disc2dd_bet"]);
 			disc2dt_bet = parseFloat(record[i]["disc2dt_bet"]);
 			win4d_bet = parseInt(record[i]["win4d_bet"]);
 			win3d_bet = parseInt(record[i]["win3d_bet"]);
+			win3dd_bet = parseInt(record[i]["win3dd_bet"]);
 			win2d_bet = parseInt(record[i]["win2d_bet"]);
 			win2dd_bet = parseInt(record[i]["win2dd_bet"]);
 			win2dt_bet = parseInt(record[i]["win2dt_bet"]);
 			limittotal4d_bet = parseInt(record[i]["limittotal4d_bet"]);
 			limittotal3d_bet = parseInt(record[i]["limittotal3d_bet"]);
+			limittotal3dd_bet = parseInt(record[i]["limittotal3dd_bet"]);
 			limittotal2d_bet = parseInt(record[i]["limittotal2d_bet"]);
 			limittotal2dd_bet = parseInt(record[i]["limittotal2dd_bet"]);
 			limittotal2dt_bet = parseInt(record[i]["limittotal2dt_bet"]);
 			limitline_4d = parseInt(record[i]["limitline_4d"]);
 			limitline_3d = parseInt(record[i]["limitline_3d"]);
+			limitline_3dd = parseInt(record[i]["limitline_3dd"]);
 			limitline_2d = parseInt(record[i]["limitline_2d"]);
 			limitline_2dd = parseInt(record[i]["limitline_2dd"]);
 			limitline_2dt = parseInt(record[i]["limitline_2dt"]);
@@ -152,11 +164,9 @@
 	}
 	async function savetransaksi() {
 		if (client_device == "WEBSITE") {
-			css_loader =
-				"position:absolute;z-index: 1000;left: 50%;top: 35%;display:inline;";
+			css_loader = "position:absolute;z-index: 1000;left: 50%;top: 35%;display:inline;";
 		} else {
-			css_loader =
-				"position:absolute;z-index: 1000;left: 40%;top: 50%;display:inline;";
+			css_loader = "position:absolute;z-index: 1000;left: 40%;top: 50%;display:inline;";
 		}
 		group_btn_beli = false;
 		const res = await fetch("/api/savetransaksi", {
@@ -202,6 +212,7 @@
 		totalkeranjang = 0;
 		count_line_4d = 0;
 		count_line_3d = 0;
+		count_line_3dd = 0;
 		count_line_2d = 0;
 		count_line_2dd = 0;
 		count_line_2dt = 0;
@@ -229,25 +240,13 @@
 						let maxtotal_bayar4d = 0;
 						for (var j = 0; j < keranjang.length; j++) {
 							if ("4D" == keranjang[j].permainan) {
-								if (
-									parseInt(nomor) ==
-									parseInt(keranjang[j].nomor)
-								) {
-									maxtotal_bayar4d =
-										parseInt(maxtotal_bayar4d) +
-										(parseInt(keranjang[j].bet) +
-											parseInt(bet));
+								if (parseInt(nomor) ==parseInt(keranjang[j].nomor)) {
+									maxtotal_bayar4d =parseInt(maxtotal_bayar4d) +(parseInt(keranjang[j].bet) +parseInt(bet));
 								}
 							}
 						}
-						if (
-							parseInt(limittotal4d_bet) <
-							parseInt(maxtotal_bayar4d)
-						) {
-							temp_bulk_error +=
-								"Nomor ini : " +
-								nomor +
-								" sudah melebihi LIMIT TOTAL 4D<br />";
+						if (parseInt(limittotal4d_bet) < parseInt(maxtotal_bayar4d)) {
+							temp_bulk_error +="Nomor ini : " +nomor +" sudah melebihi LIMIT TOTAL 4D<br />";
 							flag_data = true;
 						}
 					}
@@ -257,26 +256,31 @@
 						let maxtotal_bayar3d = 0;
 						for (var j = 0; j < keranjang.length; j++) {
 							if ("3D" == keranjang[j].permainan) {
-								if (
-									parseInt(nomor) ==
-									parseInt(keranjang[j].nomor)
-								) {
-									maxtotal_bayar3d =
-										parseInt(maxtotal_bayar3d) +
-										(parseInt(keranjang[j].bet) +
-											parseInt(bet));
+								if (parseInt(nomor) ==parseInt(keranjang[j].nomor)) {
+									maxtotal_bayar3d =parseInt(maxtotal_bayar3d) +(parseInt(keranjang[j].bet) +parseInt(bet));
 								}
 							}
 						}
 
-						if (
-							parseInt(limittotal3d_bet) <
-							parseInt(maxtotal_bayar3d)
-						) {
-							temp_bulk_error +=
-								"Nomor ini : " +
-								nomor +
-								" sudah melebihi LIMIT TOTAL 3D<br />";
+						if (parseInt(limittotal3d_bet) < parseInt(maxtotal_bayar3d)) {
+							temp_bulk_error +="Nomor ini : " +nomor +" sudah melebihi LIMIT TOTAL 3D<br />";
+							flag_data = true;
+						}
+					}
+					break;
+				case "3DD":
+					if (nomor == keranjang[i].nomor.toString()) {
+						let maxtotal_bayar3dd = 0;
+						for (var j = 0; j < keranjang.length; j++) {
+							if ("3DD" == keranjang[j].permainan) {
+								if (parseInt(nomor) == parseInt(keranjang[j].nomor)) {
+									maxtotal_bayar3dd = parseInt(maxtotal_bayar3dd) + (parseInt(keranjang[j].bet) + parseInt(bet));
+								}
+							}
+						}
+
+						if (parseInt(limittotal3dd_bet) < parseInt(maxtotal_bayar3dd)) {
+							temp_bulk_error += "Nomor ini : " +nomor +" sudah melebihi LIMIT TOTAL 3DD<br />";
 							flag_data = true;
 						}
 					}
@@ -286,26 +290,14 @@
 						let maxtotal_bayar2d = 0;
 						for (var j = 0; j < keranjang.length; j++) {
 							if ("2D" == keranjang[j].game) {
-								if (
-									parseInt(nomor) ==
-									parseInt(keranjang[j].nomor)
-								) {
-									maxtotal_bayar2d =
-										parseInt(maxtotal_bayar2d) +
-										(parseInt(keranjang[j].bet) +
-											parseInt(bet));
+								if (parseInt(nomor) ==parseInt(keranjang[j].nomor)) {
+									maxtotal_bayar2d =parseInt(maxtotal_bayar2d) +(parseInt(keranjang[j].bet) +parseInt(bet));
 								}
 							}
 						}
 
-						if (
-							parseInt(limittotal2d_bet) <
-							parseInt(maxtotal_bayar2d)
-						) {
-							temp_bulk_error +=
-								"Nomor ini : " +
-								nomor +
-								" sudah melebihi LIMIT TOTAL 2D<br />";
+						if (parseInt(limittotal2d_bet) <parseInt(maxtotal_bayar2d)) {
+							temp_bulk_error +="Nomor ini : " +nomor +" sudah melebihi LIMIT TOTAL 2D<br />";
 							flag_data = true;
 						}
 					}
@@ -412,6 +404,7 @@
 	function count_keranjang() {
 		let count_4d = 0;
 		let count_3d = 0;
+		let count_3dd = 0;
 		let count_2d = 0;
 		let count_2dd = 0;
 		let count_2dt = 0;
@@ -422,6 +415,9 @@
 					break;
 				case "3D":
 					count_3d = count_3d + 1;
+					break;
+				case "3DD":
+					count_3dd = count_3dd + 1;
 					break;
 				case "2D":
 					count_2d = count_2d + 1;
@@ -436,6 +432,7 @@
 		}
 		count_line_4d = count_4d + db_form4d_4d_count_temp;
 		count_line_3d = count_3d + db_form4d_3d_count_temp;
+		count_line_3dd = count_3dd + db_form4d_3dd_count_temp;
 		count_line_2d = count_2d + db_form4d_2d_count_temp;
 		count_line_2dd = count_2dd + db_form4d_2dd_count_temp;
 		count_line_2dt = count_2dt + db_form4d_2dt_count_temp;
@@ -445,7 +442,7 @@
 	let nomor = "";
 	let nomor_input;
 	let bet_432 = "";
-	//BBFS - INIT FORM
+	//SET - INIT FORM
 	let nomorset = "";
 	let nomorset_input;
 	let betset_1 = "";
@@ -453,6 +450,7 @@
 	let betset_3 = "";
 	let betset_4 = "";
 	let betset_5 = "";
+	let betset_6 = "";
 	//BBFS - INIT FORM
 	let nomorbbfs = "";
 	let nomorbbfs_input;
@@ -461,9 +459,14 @@
 	let bet_3 = "";
 	let bet_4 = "";
 	let bet_5 = "";
+	let bet_6 = "";
 	//WAP
 	let nomorwap = "";
 	let nomorwap_input;
+	//3DD - INIT FORM
+	let nomor3dd = "";
+	let nomor3dd_input;
+	let bet_3dd = "";
 	//2DD - INIT FORM
 	let nomor2dd = "";
 	let nomor2dd_input;
@@ -484,6 +487,7 @@
 	let generate2DD = [];
 	let generate2DT = [];
 	let generate3D = [];
+	let generate3DD = [];
 	let generate4D = [];
 	let data_bbfs = [];
 	let nol = 0;
@@ -512,6 +516,7 @@
 				betset_3 = "";
 				betset_4 = "";
 				betset_5 = "";
+				betset_6 = "";
 				break;
 			case "bbfs":
 				nomorbbfs = "";
@@ -526,6 +531,11 @@
 			case "wap":
 				nomorwap = "";
 				nomorwap_input.focus();
+				break;
+			case "3DD":
+				nomor3dd = "";
+				nomor3dd_input.focus();
+				bet_3dd = "";
 				break;
 			case "2DD":
 				nomor2dd = "";
@@ -553,8 +563,6 @@
 		let diskon = 0;
 		let diskonpercen = 0;
 		let win = 0;
-		let kei = 0;
-		let kei_percen = 0;
 		let bayar = 0;
 		let nmgame = "";
 		let msg = "";
@@ -572,11 +580,16 @@
 			flag = false;
 			form_clear("4-3-2");
 			nomor_input.focus();
-			alert(
-				"Format Salah\nContoh:\n4D: 1234\n3D: 123\n2D: 12 atau **10\n2DD: 10**\n2DT: *10*\n"
-			);
+			msg += "Format Salah\nContoh:\n4D: 1234\n3D: 123\n3DD: 123*\n2D: 12 atau **10\n2DD: 10**\n2DT: *10*\n";
 		}
-
+		if (nomor[3] == "*") {
+			nomor = String(nomor[0]) + String(nomor[1])+ String(nomor[2]);
+			game = "3DD";
+		}
+		if (nomor[0] == "*") {
+			nomor = String(nomor[1]) + String(nomor[2])+ String(nomor[3]);
+			game = "3";
+		}
 		if (nomor[0] == "*" && nomor[1] == "*") {
 			nomor = String(nomor[2]) + String(nomor[3]);
 			game = "2";
@@ -593,31 +606,26 @@
 			flag = false;
 			nomor_input.focus();
 			nomor = "";
-			alert("Nomor 2 - 4 Digit");
+			msg += "Minimal Nomor 2 Digit"+"\n";
 		}
 		if (bet_432 == "") {
 			flag = false;
-			alert("Amount tidak boleh kosong");
+			msg += "Bet tidak boleh kosong"+"\n";
 		}
 		if (parseInt(bet_432) < parseInt(minimal_bet)) {
 			bet_432 = minimal_bet;
 			flag = false;
-			alert(
-				"Minimal Bet : " + new Intl.NumberFormat().format(minimal_bet)
-			);
+			msg += "Minimal Bet : " + new Intl.NumberFormat().format(minimal_bet)+"\n";
 		}
 		if (game.toString() == "4") {
 			if (parseInt(bet_432) > parseInt(max4d_bet)) {
 				bet_432 = minimal_bet;
 				flag = false;
-				alert(
-					"Maximal Bet 4D : " +
-						new Intl.NumberFormat().format(max4d_bet)
-				);
+				msg += "Maximal Bet 4D : " +new Intl.NumberFormat().format(max4d_bet)+"\n";
 			}
 			if (checkLimitLine("4D") == false) {
 				flag = false;
-				alert("Maximal Line 4D : " + limitline_4d);
+				msg += "Maximal Line 4D : " + limitline_4d+"\n";
 				form_clear("4-3-2");
 			}
 		}
@@ -625,14 +633,23 @@
 			if (parseInt(bet_432) > parseInt(max3d_bet)) {
 				bet_432 = minimal_bet;
 				flag = false;
-				alert(
-					"Maximal Bet 3D : " +
-						new Intl.NumberFormat().format(max3d_bet)
-				);
+				msg += "Maximal Bet 3D : " +new Intl.NumberFormat().format(max3d_bet)+"\n";
 			}
 			if (checkLimitLine("3D") == false) {
 				flag = false;
-				alert("Maximal Line 3D : " + limitline_3d);
+				msg += "Maximal Line 3D : " + limitline_3d+"\n";
+				form_clear("4-3-2");
+			}
+		}
+		if (game.toString() == "3DD") {
+			if (parseInt(bet_432) > parseInt(max3dd_bet)) {
+				bet_432 = minimal_bet;
+				flag = false;
+				msg += "Maximal Bet 3DD : " +new Intl.NumberFormat().format(max3dd_bet)+"\n";
+			}
+			if (checkLimitLine("3DD") == false) {
+				flag = false;
+				msg += "Maximal Line 3DD : " + limitline_3dd+"\n";
 				form_clear("4-3-2");
 			}
 		}
@@ -640,14 +657,11 @@
 			if (parseInt(bet_432) > parseInt(max2d_bet)) {
 				bet_432 = minimal_bet;
 				flag = false;
-				alert(
-					"Maximal Bet 2D : " +
-						new Intl.NumberFormat().format(max2d_bet)
-				);
+				msg += "Maximal Bet 2D : " + new Intl.NumberFormat().format(max2d_bet)+"\n";
 			}
 			if (checkLimitLine("2D") == false) {
 				flag = false;
-				alert("Maximal Line 2D : " + limitline_2d);
+				msg +="Maximal Line 2D : " + limitline_2d+"\n";
 				form_clear("4-3-2");
 			}
 		}
@@ -655,14 +669,11 @@
 			if (parseInt(bet_432) > parseInt(max2dd_bet)) {
 				bet_432 = minimal_bet;
 				flag = false;
-				alert(
-					"Maximal Bet 2D : " +
-						new Intl.NumberFormat().format(max2dd_bet)
-				);
+				msg += "Maximal Bet 2D : " +new Intl.NumberFormat().format(max2dd_bet)+"\n";
 			}
 			if (checkLimitLine("2DD") == false) {
 				flag = false;
-				alert("Maximal Line 2DD : " + limitline_2dd);
+				msg += "Maximal Line 2DD : " + limitline_2dd;
 				form_clear("4-3-2");
 			}
 		}
@@ -670,14 +681,11 @@
 			if (parseInt(bet_432) > parseInt(max2dt_bet)) {
 				bet = minimal_bet;
 				flag = false;
-				alert(
-					"Maximal Bet 2DT : " +
-						new Intl.NumberFormat().format(max2dt_bet)
-				);
+				msg += "Maximal Bet 2DT : " +new Intl.NumberFormat().format(max2dt_bet)+"\n";
 			}
 			if (checkLimitLine("2DT") == false) {
 				flag = false;
-				alert("Maximal Line 2DT : " + limitline_2dt);
+				msg += "Maximal Line 2DT : " + limitline_2dt+"\n";
 				form_clear("4-3-2");
 			}
 		}
@@ -691,6 +699,12 @@
 					break;
 				case "3":
 					nmgame = "3D";
+					diskon = bet_432 * disc3d_bet;
+					diskonpercen = disc3d_bet;
+					win = win3d_bet;
+					break;
+				case "3DD":
+					nmgame = "3DD";
 					diskon = bet_432 * disc3d_bet;
 					diskonpercen = disc3d_bet;
 					win = win3d_bet;
@@ -735,6 +749,9 @@
 				);
 				myModal.show();
 			}
+		}
+		if(msg != ""){
+			alert(msg)
 		}
 	}
 	function form4dset_add() {
@@ -1014,6 +1031,58 @@
 				}
 			}
 		}
+		if (parseInt(betset_6) > 0) {
+			if (parseInt(betset_6) < parseInt(minimal_bet)) {
+				betset_6 = minimal_bet;
+				flag = false;
+				msg += "Minimal Bet 3DD : " +new Intl.NumberFormat().format(minimal_bet)+"\n";
+			}
+			if (parseInt(betset_6) > parseInt(max3dd_bet)) {
+				betset_6 = max3dd_bet;
+				flag = false;
+				msg += "Maximal Bet 3DD : " +new Intl.NumberFormat().format(max3dd_bet)+"\n";
+			}
+			if (flag == true) {
+				if (game.toString() == "4" || game.toString() == "3") {
+					diskon = Math.ceil(betset_6 * disc3d_bet);
+					diskonpercen = disc3d_bet;
+					win = win3d_bet;
+					bayar = parseInt(betset_6) - parseInt(Math.ceil(diskon));
+					if (checkLimitLine("3DD") == true) {
+						switch(game.toString()){
+							case "4":
+								nomor = nomorset[1]+nomorset[2]+nomorset[3];
+								break;
+							case "3":
+								nomor = nomorset[1]+nomorset[2]+nomorset[3];
+								break;
+						}
+						totalkeranjang = bayar + totalkeranjang;
+						bet = betset_6;
+						addKeranjang(
+							nomor,
+							"3DD",
+							bet,
+							diskonpercen,
+							diskon,
+							bayar,
+							win,
+							0,
+							0
+						);
+						flagfinish = true
+					} else {
+						code_alert = 1;
+						note_alert = "Line 3DD sudah melebihi limit";
+					}
+
+					if (code_alert == 1) {
+						alert(note_alert);
+						code_alert = 0;
+					}
+				}
+			}
+		}
 		if(msg != ""){
 			alert(msg)
 		}
@@ -1024,6 +1093,7 @@
 	function formbbfs_add() {
 		generate4D = [];
 		generate3D = [];
+		generate3DD = [];
 		generate2D = [];
 		generate2DD = [];
 		generate2DT = [];
@@ -1441,7 +1511,155 @@
 				}
 			}
 		}
+		if (parseInt(bet_6) > 0) {
+			if (parseInt(bet_6) < parseInt(minimal_bet)) {
+				bet_6 = minimal_bet;
+				flag = false;
+				alert("Minimal Bet 3DD : " + minimal_bet);
+			}
+			if (parseInt(bet_6) > parseInt(max3dd_bet)) {
+				bet_6 = max3dd_bet;
+				flag = false;
+				alert("Maximal Bet 3DD : " +new Intl.NumberFormat().format(max3dd_bet));
+			}
+			if (flag == true) {
+				diskon = Math.ceil(bet_6 * disc3dd_bet);
+				diskonpercen = disc3dd_bet;
+				win = win3dd_bet;
+				bayar = parseInt(bet_6) - parseInt(Math.ceil(diskon));
+				for (let a = 0; a < data_bbfs.length; a++) {
+					for (let b = 0; b < data_bbfs.length; b++) {
+						for (let c = 0; c < data_bbfs.length; c++) {
+							let dat = data_bbfs[a] + data_bbfs[b] + data_bbfs[c];
+							if (generate3DD.length > 0) {
+								for (let x = 0; x < generate3DD.length; x++) {
+									if (dat == generate3DD[x]) {
+										found = true;
+									}
+								}
+								if (found == false) {
+									generate3DD.push(dat);
+								}
+							} else {
+								generate3DD.push(dat);
+							}
+							found = false;
+							dat = "";
+						}
+					}
+				}
+				for (let x = 0; x < generate3DD.length; x++) {
+					if (checkcountangka(generate3DD[x]) == true) {
+						if (checkLimitLine("3DD") == true) {
+							nomor = generate3DD[x];
+							totalkeranjang = bayar + totalkeranjang;
+							bet = bet_6;
+							addKeranjang(
+								nomor,
+								"3DD",
+								bet,
+								diskonpercen,
+								diskon,
+								bayar,
+								win,
+								0,
+								0
+							);
+						} else {
+							code_alert = 1;
+							note_alert = "Line 3DD sudah melebihi limit";
+							break;
+						}
+					}
+				}
+
+				if (code_alert == 1) {
+					alert(note_alert);
+					code_alert = 0;
+				}
+			}
+		}
 		form_clear("bbfs");
+	}
+	function form3dd_add() {
+		let flag = true;
+		let game = nomor3dd.length;
+		let bet = 0;
+		let diskon = 0;
+		let diskonpercen = 0;
+		let win = 0;
+		let kei = 0;
+		let kei_percen = 0;
+		let bayar = 0;
+		let nmgame = "";
+		if (nomor3dd == "") {
+			nomor3dd_input.focus();
+			flag = false;
+		}
+		if (bet_3dd == "") {
+			flag = false;
+			alert("Bet tidak boleh kosong");
+		}
+		if (parseInt(bet_3dd) < parseInt(minimal_bet)) {
+			bet_3dd = minimal_bet;
+			flag = false;
+			alert("Minimal Bet : " + minimal_bet);
+		}
+
+		if (game.toString() == "3") {
+			if (parseInt(bet_3dd) > parseInt(max3dd_bet)) {
+				bet_3dd = minimal_bet;
+				flag = false;
+				alert("Maximal Bet 3D Depan : " + max3dd_bet);
+			}
+			if (checkLimitLine("3DD") == false) {
+				flag = false;
+				alert("Maximal Line 3D Depan : " + limitline_3dd);
+				form_clear("3DD");
+			}
+		}else{
+			flag = false;
+			alert("Minimal 3 Digit");
+			form_clear("3DD");
+		}
+
+		for (var i = 0; i < nomor3dd.length; i++) {
+			let numbera = parseInt(nomor3dd[i]);
+			if (isNaN(numbera)) {
+				flag = false;
+				alert("Error");
+				form_clear("3DD");
+			}
+		}
+		
+		if (flag == true) {
+			nmgame = "3DD";
+			diskon = bet_3dd * disc3dd_bet;
+			diskonpercen = disc3dd_bet;
+			win = win3dd_bet;
+			nomor = nomor3dd;
+			bet = bet_3dd;
+			bayar = parseInt(bet_3dd) - parseInt(Math.ceil(diskon));
+			totalkeranjang = bayar + totalkeranjang;
+			addKeranjang(
+				nomor,
+				nmgame,
+				bet,
+				diskonpercen,
+				diskon,
+				bayar,
+				win,
+				0,
+				0
+			);
+			form_clear("3DD");
+		}
+		if (temp_bulk_error != "") {
+			let myModal = new bootstrap.Modal(
+				document.getElementById("modalError")
+			);
+			myModal.show();
+		}
 	}
 	function form2dd_add() {
 		let flag = true;
@@ -1480,6 +1698,10 @@
 				alert("Maximal Line 2D Depan : " + limitline_2dd);
 				form_clear("2DD");
 			}
+		}else{
+			flag = false;
+			alert("Minimal 2 Digit");
+			form_clear("2DD");
 		}
 
 		for (var i = 0; i < nomor2dd.length; i++) {
@@ -1556,6 +1778,10 @@
 				alert("Maximal Line 2T Tengah : " + limitline_2dd);
 				form_clear("2DT");
 			}
+		}else{
+			flag = false;
+			alert("Minimal 2 Digit");
+			form_clear("2DD");
 		}
 
 		for (var i = 0; i < nomor2dt.length; i++) {
@@ -2090,12 +2316,7 @@
 					flag = false;
 					temp_bulk_error +=
 						"Data Tidak Valid: " +
-						nomor +
-						"-" +
-						game +
-						"D-" +
-						money +
-						" | Maximal Bet 2D : " +
+						nomor +"-" +game +"D-" +money +" | Maximal Bet 2D : " +
 						new Intl.NumberFormat().format(max2d_bet) +
 						"<br />";
 				}
@@ -2115,6 +2336,7 @@
 		let flag = false;
 		let limit4d = 0;
 		let limit3d = 0;
+		let limit3dd = 0;
 		let limit2d = 0;
 		let limit2dd = 0;
 		let limit2dt = 0;
@@ -2128,6 +2350,12 @@
 			case "3D":
 				limit3d = parseInt(count_line_3d);
 				if (parseInt(limit3d) < parseInt(limitline_3d)) {
+					flag = true;
+				}
+				break;
+			case "3DD":
+				limit3dd = parseInt(count_line_3dd);
+				if (parseInt(limit3dd) < parseInt(limitline_3dd)) {
 					flag = true;
 				}
 				break;
@@ -2352,10 +2580,37 @@
 					formwap_add();
 				}
 				break;
+			case "3DD":
+				if (nomor3dd == "" && parseInt(bet_3dd) < minimal_bet) {
+					nomor3dd_input.focus();
+				} else {
+					if (nomor3dd.length < 3){
+						nomor3dd = "";
+						bet_3dd = 0;
+						flag = false;
+					}
+					if (isNaN(nomor3dd)) {
+						nomor3dd = "";
+						flag = false;
+					}
+					if (isNaN(bet_3dd)) {
+						bet_3dd = 0;
+						flag = false;
+					}
+					if (flag) {
+						form3dd_add();
+					}
+				}
+				break;
 			case "2DD":
 				if (nomor2dd == "" && parseInt(bet_2dd) < minimal_bet) {
 					nomor2dd_input.focus();
 				} else {
+					if (nomor2dd.length < 2){
+						nomor2dd = "";
+						bet_2dd = 0;
+						flag = false;
+					}
 					if (isNaN(nomor2dd)) {
 						nomor2dd = "";
 						flag = false;
@@ -2373,6 +2628,11 @@
 				if (nomor2dt == "" && parseInt(bet_2dt) < minimal_bet) {
 					nomor2dt_input.focus();
 				} else {
+					if (nomor2dt.length < 2){
+						nomor2dt = "";
+						bet_2dt = 0;
+						flag = false;
+					}
 					if (isNaN(nomor2dt)) {
 						nomor2dt = "";
 						flag = false;
@@ -2474,6 +2734,12 @@
 				betset_5 = "";
 			}
 		}
+		for (let i = 0; i < betset_6.length; i++) {
+			numbera = parseInt(betset_6[i]);
+			if (isNaN(numbera)) {
+				betset_6 = "";
+			}
+		}
 		for (let i = 0; i < bet_1.length; i++) {
 			numbera = parseInt(bet_1[i]);
 			if (isNaN(numbera)) {
@@ -2559,6 +2825,12 @@
 			formbbfs_add();
 		}
 	};
+	const handleKeyboard3dd_checkenter = (e) => {
+		let keyCode = e.which || e.keyCode;
+		if (keyCode === 13) {
+			form3dd_add();
+		}
+	};
 	const handleKeyboard2dd_checkenter = (e) => {
 		let keyCode = e.which || e.keyCode;
 		if (keyCode === 13) {
@@ -2586,8 +2858,7 @@
 		<CardHeader
 			style="background:#323030;border-bottom:1px solid #333;border-top: 0 solid #333;">
 			<div class="float-end">
-				<div
-					style="color:white;text-align:right;font-size:13px;font-weight:bold;">
+				<div style="color:white;text-align:right;font-size:13px;font-weight:bold;">
 					{pasaran_name}
 				</div>
 			</div>
@@ -2643,9 +2914,9 @@
 										minlength="3"
 										maxlength="7"
 										tab_index="0"/>
-									<span style="text-align:right;font-size:12px;color:#8a8a8a;">{new Intl.NumberFormat().format(
-											bet_432
-										)}</span>
+									<span style="text-align:right;font-size:12px;color:#8a8a8a;">
+										{new Intl.NumberFormat().format(bet_432)}
+									</span>
 								</td>
 								<td
 									width="20%"
@@ -2710,6 +2981,23 @@
 										>{new Intl.NumberFormat().format(
 											betset_1
 										)}</span>
+									<br>
+									<span style="color:#8a8a8a;">2D - Bet (min : {minimal_bet})</span>
+									<input
+										bind:value={betset_3}
+										on:keyup={handleKeyboard_number}
+										on:keypress={handleKeyboard432set_checkenter}
+										type="text"
+										class="form-control"
+										placeholder="Bet"
+										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
+										minlength="3"
+										maxlength="7"
+										tab_index="2"/>
+									<span style="text-align:right;font-size:12px;color:#8a8a8a;">{new Intl.NumberFormat().format(
+											betset_3
+										)}</span>
+									<br>
 								</td>
 								<td
 									width="22%"
@@ -2753,9 +3041,9 @@
 									width="22%"
 									NOWRAP
 									style="padding-right:10px;vertical-align: top;text-align:right;">
-									<span style="color:#8a8a8a;">2D - Bet (min : {minimal_bet})</span>
+									<span style="color:#8a8a8a;">3DD - Bet (min : {minimal_bet})</span>
 									<input
-										bind:value={betset_3}
+										bind:value={betset_6}
 										on:keyup={handleKeyboard_number}
 										on:keypress={handleKeyboard432set_checkenter}
 										type="text"
@@ -2764,9 +3052,11 @@
 										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
 										minlength="3"
 										maxlength="7"
-										tab_index="2"/>
-									<span style="text-align:right;font-size:12px;color:#8a8a8a;">{new Intl.NumberFormat().format(
-											betset_3
+										tab_index="1"/>
+									<span
+										style="text-align:right;font-size:12px;color:#8a8a8a;"
+										>{new Intl.NumberFormat().format(
+											betset_6
 										)}</span>
 									<br>
 									<span style="color:#8a8a8a;">2DT - Bet (min : {minimal_bet})</span>
@@ -2806,17 +3096,13 @@
 					<div style="margin:5px;">
 						<table
 							class="table"
-							style="background:none;width:100%;"
-						>
+							style="background:none;width:100%;">
 							<tr>
 								<td
 									width="15%"
 									NOWRAP
-									style="padding-right:10px;vertical-align: top;"
-								>
-									<span style="color:#8a8a8a;"
-										>Nomor (2-{bbfs})</span
-									>
+									style="padding-right:10px;vertical-align: top;">
+									<span style="color:#8a8a8a;">Nomor (2-{bbfs})</span>
 									<input
 										bind:this={nomorbbfs_input}
 										bind:value={nomorbbfs}
@@ -2829,21 +3115,16 @@
 										minlength="4"
 										maxlength={bbfs}
 										tab_index="-1"
-										autocomplete="off"
-									/>
+										autocomplete="off"/>
 									<span
 										class="help-block"
-										style="text-align:right;font-size:12px;"
-									/>
+										style="text-align:right;font-size:12px;"/>
 								</td>
 								<td
 									width="22%"
 									NOWRAP
-									style="padding-right:10px;vertical-align: top;text-align:right;"
-								>
-									<span style="color:#8a8a8a;"
-										>4D - Bet (min : {minimal_bet})</span
-									>
+									style="padding-right:10px;vertical-align: top;text-align:right;">
+									<span style="color:#8a8a8a;">4D - Bet (min : {minimal_bet})</span>
 									<input
 										bind:value={bet_1}
 										on:keyup={handleKeyboard_number}
@@ -2854,72 +3135,14 @@
 										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
 										minlength="3"
 										maxlength="7"
-										tab_index="0"
-									/>
+										tab_index="0"/>
 									<span
 										style="text-align:right;font-size:12px;color:#8a8a8a;"
 										>{new Intl.NumberFormat().format(
 											bet_1
-										)}</span
-									>
-								</td>
-								<td
-									width="22%"
-									NOWRAP
-									style="padding-right:10px;vertical-align: top;text-align:right;"
-								>
-									<span style="color:#8a8a8a;"
-										>3D - Bet (min : {minimal_bet})</span
-									>
-									<input
-										bind:value={bet_2}
-										on:keyup={handleKeyboard_number}
-										on:keypress={handleKeyboardbbfs_checkenter}
-										type="text"
-										class="form-control"
-										placeholder="Bet"
-										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
-										minlength="3"
-										maxlength="7"
-										tab_index="1"
-									/>
-									<span
-										style="text-align:right;font-size:12px;color:#8a8a8a;"
-										>{new Intl.NumberFormat().format(
-											bet_2
-										)}</span
-									>
+										)}</span>
 									<br>
-									<span style="color:#8a8a8a;"
-										>2DD - Bet (min : {minimal_bet})</span
-									>
-									<input
-										bind:value={bet_4}
-										on:keyup={handleKeyboard_number}
-										on:keypress={handleKeyboardbbfs_checkenter}
-										type="text"
-										class="form-control"
-										placeholder="Bet"
-										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
-										minlength="3"
-										maxlength="7"
-										tab_index="3"
-									/>
-									<span
-										style="text-align:right;font-size:12px;color:#8a8a8a;"
-										>{new Intl.NumberFormat().format(
-											bet_4
-										)}</span
-									>
-								</td>
-								<td
-									width="22%"
-									NOWRAP
-									style="padding-right:10px;vertical-align: top;text-align:right;"
-								>
-									<span style="color:#8a8a8a;"
-										>2D - Bet (min : {minimal_bet})</span
-									>
+									<span style="color:#8a8a8a;">2D - Bet (min : {minimal_bet})</span>
 									<input
 										bind:value={bet_3}
 										on:keyup={handleKeyboard_number}
@@ -2930,18 +3153,76 @@
 										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
 										minlength="3"
 										maxlength="7"
-										tab_index="2"
-									/>
+										tab_index="2"/>
 									<span
 										style="text-align:right;font-size:12px;color:#8a8a8a;"
 										>{new Intl.NumberFormat().format(
 											bet_3
-										)}</span
-									>
+										)}</span>
+								</td>
+								<td
+									width="22%"
+									NOWRAP
+									style="padding-right:10px;vertical-align: top;text-align:right;">
+									<span style="color:#8a8a8a;">3D - Bet (min : {minimal_bet})</span>
+									<input
+										bind:value={bet_2}
+										on:keyup={handleKeyboard_number}
+										on:keypress={handleKeyboardbbfs_checkenter}
+										type="text"
+										class="form-control"
+										placeholder="Bet"
+										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
+										minlength="3"
+										maxlength="7"
+										tab_index="1"/>
+									<span
+										style="text-align:right;font-size:12px;color:#8a8a8a;"
+										>{new Intl.NumberFormat().format(
+											bet_2
+										)}</span>
 									<br>
-									<span style="color:#8a8a8a;"
-										>2DT - Bet (min : {minimal_bet})</span
-									>
+									<span style="color:#8a8a8a;">2DD - Bet (min : {minimal_bet})</span>
+									<input
+										bind:value={bet_4}
+										on:keyup={handleKeyboard_number}
+										on:keypress={handleKeyboardbbfs_checkenter}
+										type="text"
+										class="form-control"
+										placeholder="Bet"
+										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
+										minlength="3"
+										maxlength="7"
+										tab_index="3"/>
+									<span
+										style="text-align:right;font-size:12px;color:#8a8a8a;"
+										>{new Intl.NumberFormat().format(
+											bet_4
+										)}</span>
+								</td>
+								<td
+									width="22%"
+									NOWRAP
+									style="padding-right:10px;vertical-align: top;text-align:right;">
+									<span style="color:#8a8a8a;">3DD - Bet (min : {minimal_bet})</span>
+									<input
+										bind:value={bet_6}
+										on:keyup={handleKeyboard_number}
+										on:keypress={handleKeyboardbbfs_checkenter}
+										type="text"
+										class="form-control"
+										placeholder="Bet"
+										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
+										minlength="3"
+										maxlength="7"
+										tab_index="1"/>
+									<span
+										style="text-align:right;font-size:12px;color:#8a8a8a;"
+										>{new Intl.NumberFormat().format(
+											bet_6
+										)}</span>
+									<br>
+									<span style="color:#8a8a8a;">2DT - Bet (min : {minimal_bet})</span>
 									<input
 										bind:value={bet_5}
 										on:keyup={handleKeyboard_number}
@@ -2952,16 +3233,13 @@
 										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
 										minlength="3"
 										maxlength="7"
-										tab_index="4"
-									/>
+										tab_index="4"/>
 									<span
 										style="text-align:right;font-size:12px;color:#8a8a8a;"
 										>{new Intl.NumberFormat().format(
 											bet_5
-										)}</span
-									>
+										)}</span>
 								</td>
-								
 							</tr>
 							<tr>
 								<td colspan="4">
@@ -3092,6 +3370,69 @@
 										id="btn2"
 										on:click={() => {
 											handleTambah("quick2D");
+										}}>TAMBAH</Button
+									>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</TabPane>
+				<TabPane tabId="form_3dd" tab="3D DEPAN">
+					<div style="margin:5px;">
+						<table
+							class="table"
+							style="background:none;width:100%;">
+							<tr>
+								<td
+									width="25%"
+									NOWRAP
+									style="padding-right:10px;vertical-align: center;">
+									<span style="color:#8a8a8a;">Nomor (3 digit)</span>
+									<input
+										bind:this={nomor3dd_input}
+										bind:value={nomor3dd}
+										on:keyup={handleKeyboard_format}
+										on:keypress={handleKeyboard3dd_checkenter}
+										type="text"
+										class="form-control form-control-sm"
+										placeholder="Input 3DD Digit"
+										style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
+										minlength="3"
+										maxlength="3"
+										tab_index="-1"
+										autocomplete="off"/>
+									<span class="help-block" style="text-align:right;font-size:12px;"/>
+								</td>
+								<td
+									width="*"
+									NOWRAP
+									style="padding-right:10px;vertical-align: center;text-align:right;">
+									<span style="color:#8a8a8a;">Bet (min : {minimal_bet})</span>
+									<input
+										bind:value={bet_3dd}
+										on:keyup={handleKeyboard_number}
+										on:keypress={handleKeyboard3dd_checkenter}
+										type="text"
+										class="form-control"
+										placeholder="Bet"
+										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
+										minlength="3"
+										maxlength="7"
+										tab_index="0"/>
+									<span
+										style="text-align:right;font-size:12px;color:#8a8a8a;"
+										>{new Intl.NumberFormat().format(
+											bet_3dd
+										)}</span>
+								</td>
+								<td
+									width="20%"
+									NOWRAP
+									style="vertical-align: center;">
+									<Button
+										id="btn2"
+										on:click={() => {
+											handleTambah("3DD");
 										}}>TAMBAH</Button
 									>
 								</td>
@@ -3834,6 +4175,7 @@
 	{group_btn_beli}
 	{count_line_4d}
 	{count_line_3d}
+	{count_line_3dd}
 	{count_line_2d}
 	{count_line_2dd}
 	{count_line_2dt}
@@ -3842,21 +4184,25 @@
 	{minimal_bet}
 	{max4d_bet}
 	{max3d_bet}
+	{max3dd_bet}
 	{max2d_bet}
 	{max2dd_bet}
 	{max2dt_bet}
 	{disc4d_bet}
 	{disc3d_bet}
+	{disc3dd_bet}
 	{disc2d_bet}
 	{disc2dd_bet}
 	{disc2dt_bet}
 	{win4d_bet}
 	{win3d_bet}
+	{win3dd_bet}
 	{win2d_bet}
 	{win2dd_bet}
 	{win2dt_bet}
 	{limitline_4d}
 	{limitline_3d}
+	{limitline_3dd}
 	{limitline_2d}
 	{limitline_2dd}
 	{limitline_2dt}
