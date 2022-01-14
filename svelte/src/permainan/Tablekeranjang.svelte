@@ -369,7 +369,7 @@
                     <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{new Intl.NumberFormat().format(max3d_bet)}</td>
                     <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{new Intl.NumberFormat().format(max3dd_bet)}</td>
                     <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{new Intl.NumberFormat().format(max2d_bet)}</td>
-                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{new Intl.NumberFormat().format( max2dd_bet)}</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{new Intl.NumberFormat().format(max2dd_bet)}</td>
                     <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{new Intl.NumberFormat().format(max2dt_bet)}</td>
                 </tr>
                 <tr>

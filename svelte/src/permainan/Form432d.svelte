@@ -152,12 +152,14 @@
 
 		db_form4d_4d_count_temp = record.total_4d;
 		db_form4d_3d_count_temp = record.total_3d;
+		db_form4d_3dd_count_temp = record.total_3dd;
 		db_form4d_2d_count_temp = record.total_2d;
 		db_form4d_2dd_count_temp = record.total_2dd;
 		db_form4d_2dt_count_temp = record.total_2dt;
 
 		count_line_4d = count_line_4d + db_form4d_4d_count_temp;
 		count_line_3d = count_line_3d + db_form4d_3d_count_temp;
+		count_line_3dd = count_line_3dd + db_form4d_3dd_count_temp;
 		count_line_2d = count_line_2d + db_form4d_2d_count_temp;
 		count_line_2dd = count_line_2dd + db_form4d_2dd_count_temp;
 		count_line_2dt = count_line_2dt + db_form4d_2dt_count_temp;
@@ -2868,8 +2870,101 @@
 			</h1>
 		</CardHeader>
 		<CardBody style="background:#121212;padding:0px;margin:0px;">
-			<TabContent style="padding: 0px;margin:0px;">
-				<TabPane tabId="form_432d" tab="4D/3D/2D" active>
+			<ul class="nav nav-pills">
+				<li class="nav-item">
+				  <button
+					class="nav-link active"
+					id="pills-form432d-tab"
+					data-bs-toggle="pill"
+					data-bs-target="#pills-form432d"
+					type="button"
+					role="tab"
+					aria-controls="pills-form432d"
+					aria-selected="true">4D/3D/2D</button>
+				</li>
+				<li class="nav-item">
+					<button
+					  class="nav-link"
+					  id="pills-form432dset-tab"
+					  data-bs-toggle="pill"
+					  data-bs-target="#pills-form432dset"
+					  type="button"
+					  role="tab"
+					  aria-controls="pills-form432dset"
+					  aria-selected="true">4D/3D/2D SET</button>
+				</li>
+				<li class="nav-item">
+					<button
+					  class="nav-link"
+					  id="pills-bolakbalik-tab"
+					  data-bs-toggle="pill"
+					  data-bs-target="#pills-bolakbalik"
+					  type="button"
+					  role="tab"
+					  aria-controls="pills-bolakbalik"
+					  aria-selected="true">BOLAK BALIK</button>
+				</li>
+				<li class="nav-item">
+					<button
+					  class="nav-link"
+					  id="pills-wap-tab"
+					  data-bs-toggle="pill"
+					  data-bs-target="#pills-wap"
+					  type="button"
+					  role="tab"
+					  aria-controls="pills-wap"
+					  aria-selected="true">WAP</button>
+				</li>
+				<li class="nav-item">
+					<button
+					  class="nav-link"
+					  id="pills-quick2d-tab"
+					  data-bs-toggle="pill"
+					  data-bs-target="#pills-quick2d"
+					  type="button"
+					  role="tab"
+					  aria-controls="pills-quick2d"
+					  aria-selected="true">QUICK 2D</button>
+				</li>
+				<li class="nav-item">
+					<button
+					  class="nav-link"
+					  id="pills-3dd-tab"
+					  data-bs-toggle="pill"
+					  data-bs-target="#pills-3dd"
+					  type="button"
+					  role="tab"
+					  aria-controls="pills-3dd"
+					  aria-selected="true">3DD</button>
+				</li>
+				<li class="nav-item">
+					<button
+					  class="nav-link"
+					  id="pills-2dd-tab"
+					  data-bs-toggle="pill"
+					  data-bs-target="#pills-2dd"
+					  type="button"
+					  role="tab"
+					  aria-controls="pills-2dd"
+					  aria-selected="true">2DD</button>
+				</li>
+				<li class="nav-item">
+					<button
+					  class="nav-link"
+					  id="pills-2dt-tab"
+					  data-bs-toggle="pill"
+					  data-bs-target="#pills-2dt"
+					  type="button"
+					  role="tab"
+					  aria-controls="pills-2dt"
+					  aria-selected="true">2D TENGAH</button>
+				</li>
+			</ul>
+			<div class="tab-content" id="nav-tabContent">
+				<div class="tab-pane fade show active"
+					id="pills-form432d"
+					role="tabpanel"
+					aria-labelledby="pills-form432d-tab">
 					<div style="margin:5px;">
 						<table
 							class="table"
@@ -2931,8 +3026,11 @@
 							</tr>
 						</table>
 					</div>
-				</TabPane>
-				<TabPane tabId="form_432set" tab="4D/3D/2D SET">
+				</div>
+				<div class="tab-pane fade "
+					id="pills-form432dset"
+					role="tabpanel"
+					aria-labelledby="pills-form432dset-tab">
 					<div style="margin:5px;">
 						<table
 							class="table"
@@ -3091,8 +3189,11 @@
 							</tr>
 						</table>
 					</div>
-				</TabPane>
-				<TabPane tabId="form_bbfs" tab="BOLAK BALIK">
+				</div>
+				<div class="tab-pane fade "
+					id="pills-bolakbalik"
+					role="tabpanel"
+					aria-labelledby="pills-bolakbalik-tab">
 					<div style="margin:5px;">
 						<table
 							class="table"
@@ -3248,15 +3349,17 @@
 											id="btn2"
 											on:click={() => {
 												handleTambah("BBFS");
-											}}>TAMBAH</Button
-										>
+											}}>TAMBAH</Button>
 									</div>
 								</td>
 							</tr>
 						</table>
 					</div>
-				</TabPane>
-				<TabPane tabId="form_WAP" tab="WAP">
+				</div>
+				<div class="tab-pane fade "
+					id="pills-wap"
+					role="tabpanel"
+					aria-labelledby="pills-wap-tab">
 					<div style="margin:5px;">
 						<textarea
 							bind:this={nomorwap_input}
@@ -3270,36 +3373,33 @@
 								id="btn2"
 								on:click={() => {
 									handleTambah("wap");
-								}}>TAMBAH</Button
-							>
+								}}>TAMBAH</Button>
 						</div>
 						<p class="p-3" style="font-size:12px;color:#8a8a8a;">
 							<b>Contoh (WAP) :</b><br />
 							1234*234*34#1000,34*235*35#5000<br />
 						</p>
 					</div>
-				</TabPane>
-				<TabPane tabId="form_quick2d" tab="QUICK 2D">
+				</div>
+				<div class="tab-pane fade "
+					id="pills-quick2d"
+					role="tabpanel"
+					aria-labelledby="pills-quick2d-tab">
 					<div style="margin:5px;">
 						<table
 							class="table"
-							style="background:none;width:100%;"
-						>
+							style="background:none;width:100%;">
 							<tr>
 								<td
 									width="15%"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;"
-								>
-									<span style="color:#8a8a8a;"
-										>Besar/Kecil/Genap/Ganjil</span
-									>
+									style="padding-right:10px;vertical-align: center;">
+									<span style="color:#8a8a8a;">Besar/Kecil/Genap/Ganjil</span>
 									<select
 										bind:value={quick_pilihan1}
 										bind:this={quick_pilihan1_input}
 										style="border:none;background:#303030;color:white;"
-										class="form-control"
-									>
+										class="form-control">
 										<option value="BESAR">BESAR</option>
 										<option value="KECIL">KECIL</option>
 										<option value="GENAP">GENAP</option>
@@ -3307,40 +3407,31 @@
 									</select>
 									<span
 										class="help-block"
-										style="text-align:right;font-size:12px;"
-									/>
+										style="text-align:right;font-size:12px;"/>
 								</td>
 								<td
 									width="15%"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;"
-								>
-									<span style="color:#8a8a8a;"
-										>Besar/Kecil/Genap/Ganjil</span
-									>
+									style="padding-right:10px;vertical-align: center;">
+									<span style="color:#8a8a8a;">Besar/Kecil/Genap/Ganjil</span>
 									<select
 										bind:value={quick_pilihan2}
 										bind:this={quick_pilihan2_input}
 										style="border:none;background:#303030;color:white;"
-										class="form-control"
-									>
+										class="form-control">
 										<option value="2D">2D</option>
 										<option value="2DD">2D DEPAN</option>
 										<option value="2DT">2D TENGAH</option>
 									</select>
 									<span
 										class="help-block"
-										style="text-align:right;font-size:12px;"
-									/>
+										style="text-align:right;font-size:12px;"/>
 								</td>
 								<td
 									width="*"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;text-align:right;"
-								>
-									<span style="color:#8a8a8a;"
-										>Bet (min : {minimal_bet})</span
-									>
+									style="padding-right:10px;vertical-align: center;text-align:right;">
+									<span style="color:#8a8a8a;">Bet (min : {minimal_bet})</span>
 									<input
 										bind:value={quick_bet}
 										bind:this={quick_bet_input}
@@ -3352,32 +3443,31 @@
 										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
 										minlength="3"
 										maxlength="7"
-										tab_index="0"
-									/>
+										tab_index="0"/>
 									<span
 										style="text-align:right;font-size:12px;color:#8a8a8a;"
 										>{new Intl.NumberFormat().format(
 											quick_bet
-										)}</span
-									>
+										)}</span>
 								</td>
 								<td
 									width="20%"
 									NOWRAP
-									style="vertical-align: center;"
-								>
+									style="vertical-align: center;">
 									<Button
 										id="btn2"
 										on:click={() => {
 											handleTambah("quick2D");
-										}}>TAMBAH</Button
-									>
+										}}>TAMBAH</Button>
 								</td>
 							</tr>
 						</table>
 					</div>
-				</TabPane>
-				<TabPane tabId="form_3dd" tab="3D DEPAN">
+				</div>
+				<div class="tab-pane fade "
+					id="pills-3dd"
+					role="tabpanel"
+					aria-labelledby="pills-3dd-tab">
 					<div style="margin:5px;">
 						<table
 							class="table"
@@ -3439,22 +3529,21 @@
 							</tr>
 						</table>
 					</div>
-				</TabPane>
-				<TabPane tabId="form_2dd" tab="2D DEPAN">
+				</div>
+				<div class="tab-pane fade "
+					id="pills-2dd"
+					role="tabpanel"
+					aria-labelledby="pills-2dd-tab">
 					<div style="margin:5px;">
 						<table
 							class="table"
-							style="background:none;width:100%;"
-						>
+							style="background:none;width:100%;">
 							<tr>
 								<td
 									width="25%"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;"
-								>
-									<span style="color:#8a8a8a;"
-										>Nomor (2 digit)</span
-									>
+									style="padding-right:10px;vertical-align: center;">
+									<span style="color:#8a8a8a;">Nomor (2 digit)</span>
 									<input
 										bind:this={nomor2dd_input}
 										bind:value={nomor2dd}
@@ -3467,21 +3556,16 @@
 										minlength="2"
 										maxlength="2"
 										tab_index="-1"
-										autocomplete="off"
-									/>
+										autocomplete="off"/>
 									<span
 										class="help-block"
-										style="text-align:right;font-size:12px;"
-									/>
+										style="text-align:right;font-size:12px;"/>
 								</td>
 								<td
 									width="*"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;text-align:right;"
-								>
-									<span style="color:#8a8a8a;"
-										>Bet (min : {minimal_bet})</span
-									>
+									style="padding-right:10px;vertical-align: center;text-align:right;">
+									<span style="color:#8a8a8a;">Bet (min : {minimal_bet})</span>
 									<input
 										bind:value={bet_2dd}
 										on:keyup={handleKeyboard_number}
@@ -3492,46 +3576,41 @@
 										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
 										minlength="3"
 										maxlength="7"
-										tab_index="0"
-									/>
+										tab_index="0"/>
 									<span
 										style="text-align:right;font-size:12px;color:#8a8a8a;"
 										>{new Intl.NumberFormat().format(
 											bet_2dd
-										)}</span
-									>
+										)}</span>
 								</td>
 								<td
 									width="20%"
 									NOWRAP
-									style="vertical-align: center;"
-								>
+									style="vertical-align: center;">
 									<Button
 										id="btn2"
 										on:click={() => {
 											handleTambah("2DD");
-										}}>TAMBAH</Button
-									>
+										}}>TAMBAH</Button>
 								</td>
 							</tr>
 						</table>
 					</div>
-				</TabPane>
-				<TabPane tabId="form_2dt" tab="2D TENGAH">
+				</div>
+				<div class="tab-pane fade "
+					id="pills-2dt"
+					role="tabpanel"
+					aria-labelledby="pills-2dt-tab">
 					<div style="margin:5px;">
 						<table
 							class="table"
-							style="background:none;width:100%;"
-						>
+							style="background:none;width:100%;">
 							<tr>
 								<td
 									width="25%"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;"
-								>
-									<span style="color:#8a8a8a;"
-										>Nomor (2 digit)</span
-									>
+									style="padding-right:10px;vertical-align: center;">
+									<span style="color:#8a8a8a;">Nomor (2 digit)</span>
 									<input
 										bind:this={nomor2dt_input}
 										bind:value={nomor2dt}
@@ -3544,21 +3623,16 @@
 										minlength="2"
 										maxlength="2"
 										tab_index="-1"
-										autocomplete="off"
-									/>
+										autocomplete="off"/>
 									<span
 										class="help-block"
-										style="text-align:right;font-size:12px;"
-									/>
+										style="text-align:right;font-size:12px;"/>
 								</td>
 								<td
 									width="*"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;text-align:right;"
-								>
-									<span style="color:#8a8a8a;"
-										>Bet (min : {minimal_bet})</span
-									>
+									style="padding-right:10px;vertical-align: center;text-align:right;">
+									<span style="color:#8a8a8a;">Bet (min : {minimal_bet})</span>
 									<input
 										bind:value={bet_2dt}
 										on:keyup={handleKeyboard_number}
@@ -3569,32 +3643,29 @@
 										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
 										minlength="3"
 										maxlength="7"
-										tab_index="0"
-									/>
+										tab_index="0"/>
 									<span
 										style="text-align:right;font-size:12px;color:#8a8a8a;"
 										>{new Intl.NumberFormat().format(
 											bet_2dt
-										)}</span
-									>
+										)}</span>
 								</td>
 								<td
 									width="20%"
 									NOWRAP
-									style="vertical-align: center;"
-								>
+									style="vertical-align: center;">
 									<Button
 										id="btn2"
 										on:click={() => {
 											handleTambah("2DT");
-										}}>TAMBAH</Button
-									>
+										}}>TAMBAH</Button>
 								</td>
 							</tr>
 						</table>
 					</div>
-				</TabPane>
-			</TabContent>
+				</div>
+			</div>
+			
 		</CardBody>
 	</Card>
 {:else}
