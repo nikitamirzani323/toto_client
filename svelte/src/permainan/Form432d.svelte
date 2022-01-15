@@ -465,6 +465,15 @@
 	//WAP
 	let nomorwap = "";
 	let nomorwap_input;
+	//pola tarung
+	let nomoras = "";
+	let nomoras_input;
+	let nomorkop = "";
+	let nomorkop_input;
+	let nomorkepala = "";
+	let nomorekor = "";
+	let bet_tarung = "";
+	let bet_tarung_input;
 	//3DD - INIT FORM
 	let nomor3dd = "";
 	let nomor3dd_input;
@@ -534,6 +543,14 @@
 				nomorwap = "";
 				nomorwap_input.focus();
 				break;
+			case "polatarung":
+				nomoras = "";
+				nomoras_input.focus();
+				nomorkop = "";
+				nomorkepala = "";
+				nomorekor = "";
+				bet_tarung = "";
+				break;
 			case "3DD":
 				nomor3dd = "";
 				nomor3dd_input.focus();
@@ -573,34 +590,40 @@
 			flag = false;
 		}
 		let tempbintang = 0;
+		let tempnumber = 0;
 		for (let i = 0; i <= 3; i++) {
 			if (nomor[i] == "*") {
 				tempbintang = tempbintang + 1;
 			}
+			let numbera = parseInt(nomor[i])
+			if (!isNaN(numbera)) {
+				tempnumber = tempnumber + 1;
+			}
 		}
+		
 		if (tempbintang > 2) {
 			flag = false;
 			form_clear("4-3-2");
 			nomor_input.focus();
 			msg += "Format Salah\nContoh:\n4D: 1234\n3D: 123\n3DD: 123*\n2D: 12 atau **10\n2DD: 10**\n2DT: *10*\n";
 		}
-		if (nomor[3] == "*") {
+		if (nomor[3] == "*" && parseInt(tempnumber) == 3) {
 			nomor = String(nomor[0]) + String(nomor[1])+ String(nomor[2]);
 			game = "3DD";
 		}
-		if (nomor[0] == "*") {
+		if (nomor[0] == "*" && parseInt(tempnumber) == 3) {
 			nomor = String(nomor[1]) + String(nomor[2])+ String(nomor[3]);
 			game = "3";
 		}
-		if (nomor[0] == "*" && nomor[1] == "*") {
+		if (nomor[0] == "*" && nomor[1] == "*" && parseInt(tempnumber) == 2) {
 			nomor = String(nomor[2]) + String(nomor[3]);
 			game = "2";
 		}
-		if (nomor[2] == "*" && nomor[3] == "*") {
+		if (nomor[2] == "*" && nomor[3] == "*" && parseInt(tempnumber) == 2) {
 			nomor = String(nomor[0]) + String(nomor[1]);
 			game = "2DD";
 		}
-		if (nomor[0] == "*" && nomor[3] == "*") {
+		if (nomor[0] == "*" && nomor[3] == "*" && parseInt(tempnumber) == 2) {
 			nomor = String(nomor[1]) + String(nomor[2]);
 			game = "2DT";
 		}
@@ -642,6 +665,11 @@
 				msg += "Maximal Line 3D : " + limitline_3d+"\n";
 				form_clear("4-3-2");
 			}
+			if(parseInt(tempnumber) != 3){
+				flag = false;
+				msg += "Format Nomor 3D Salah \n";
+				form_clear("4-3-2");
+			}
 		}
 		if (game.toString() == "3DD") {
 			if (parseInt(bet_432) > parseInt(max3dd_bet)) {
@@ -652,6 +680,11 @@
 			if (checkLimitLine("3DD") == false) {
 				flag = false;
 				msg += "Maximal Line 3DD : " + limitline_3dd+"\n";
+				form_clear("4-3-2");
+			}
+			if(parseInt(tempnumber) != 3){
+				flag = false;
+				msg += "Format Nomor 3D Salah \n";
 				form_clear("4-3-2");
 			}
 		}
@@ -666,6 +699,11 @@
 				msg +="Maximal Line 2D : " + limitline_2d+"\n";
 				form_clear("4-3-2");
 			}
+			if(parseInt(tempnumber) != 2){
+				flag = false;
+				msg += "Format Nomor 2D Salah \n";
+				form_clear("4-3-2");
+			}
 		}
 		if (game.toString() == "2DD") {
 			if (parseInt(bet_432) > parseInt(max2dd_bet)) {
@@ -676,6 +714,11 @@
 			if (checkLimitLine("2DD") == false) {
 				flag = false;
 				msg += "Maximal Line 2DD : " + limitline_2dd;
+				form_clear("4-3-2");
+			}
+			if(parseInt(tempnumber) != 2){
+				flag = false;
+				msg += "Format Nomor 2D Salah \n";
 				form_clear("4-3-2");
 			}
 		}
@@ -1865,6 +1908,154 @@
 			myModal.show();
 		}
 	}
+	function formpolatarung_add() {
+		let flag = true;
+		let nomoras_game = nomoras.length;
+		let nomorkop_game = nomorkop.length;
+		let nomorkepala_game = nomorkepala.length;
+		let nomorekor_game = nomorekor.length;
+		let pola = ""
+		let count = 0
+		let diskon = 0;
+		let diskonpercen = 0;
+		let win = 0;
+		let bayar = 0;
+		let msg = "";
+		if (nomoras == "") {
+			nomoras_input.focus();
+			flag = false;
+			pola += "-"
+		}else{
+			pola += "1"
+		}
+		if (nomorkop == "") {
+			nomorkop_input.focus();
+			flag = false;
+			pola += "-"
+		}else{
+			pola += "1"
+		}
+		if (nomorkepala != "") {
+			pola += "1"
+		}else{
+			pola += "-"
+		}
+		if (nomorekor != "") {
+			pola += "1"
+		}else{
+			pola += "-"
+		}
+		if(bet_tarung == ""){
+			bet_tarung_input.focus();
+			msg += "Bet Wajib diisi"
+			flag = false;
+		}
+		if (parseInt(bet_tarung) < parseInt(minimal_bet)) {
+			bet_tarung = minimal_bet;
+			flag = false;
+			msg += "Minimal Bet : " + minimal_bet;
+		}
+
+		if (flag) {
+			let nomor = ""
+			switch(pola){
+				case "11--":
+					for(let i=0;i<nomoras_game;i++){
+						for(let j=0;j<nomorkop_game;j++){
+							if (checkLimitLine("2D") == true) {
+								nomor = nomoras[i] + nomorkop[j]
+								count = count + 1
+								diskon = bet_tarung * disc2d_bet;
+								diskonpercen = disc2d_bet;
+								win = win2d_bet;
+								bayar = parseInt(bet_tarung) - parseInt(Math.ceil(diskon));
+								totalkeranjang = bayar + totalkeranjang;
+								addKeranjang(
+									nomor,
+									"2D",
+									bet_tarung,
+									diskonpercen,
+									diskon,
+									bayar,
+									win,
+									0,
+									0
+								);
+							}
+						}
+					}
+					form_clear("polatarung");
+				break;
+				case "111-":
+					for(let i=0;i<nomoras_game;i++){
+						for(let j=0;j<nomorkop_game;j++){
+							for(let x=0;x<nomorkepala_game;x++){
+								if (checkLimitLine("3D") == true) {
+									nomor = nomoras[i]+nomorkop[j]+nomorkepala[x]
+									count = count + 1
+									diskon = bet_tarung * disc3d_bet;
+									diskonpercen = disc3d_bet;
+									win = win3d_bet;
+									bayar = parseInt(bet_tarung) - parseInt(Math.ceil(diskon));
+									totalkeranjang = bayar + totalkeranjang;
+									addKeranjang(
+										nomor,
+										"3D",
+										bet_tarung,
+										diskonpercen,
+										diskon,
+										bayar,
+										win,
+										0,
+										0
+									);
+								}
+							}
+						}
+					}
+					form_clear("polatarung");
+				break;
+				case "1111":
+					for(let i=0;i<nomoras_game;i++){
+						for(let j=0;j<nomorkop_game;j++){
+							for(let x=0;x<nomorkepala_game;x++){
+								for(let y=0;y<nomorekor_game;y++){
+									if (checkLimitLine("4D") == true) {
+										nomor = nomoras[i]+nomorkop[j]+nomorkepala[x]+nomorekor[y]
+										count = count + 1
+										diskon = bet_tarung * disc4d_bet;
+										diskonpercen = disc4d_bet;
+										win = win4d_bet;
+										bayar = parseInt(bet_tarung) - parseInt(Math.ceil(diskon));
+										totalkeranjang = bayar + totalkeranjang;
+										addKeranjang(
+											nomor,
+											"4D",
+											bet_tarung,
+											diskonpercen,
+											diskon,
+											bayar,
+											win,
+											0,
+											0
+										);
+									}
+								}
+							}
+						}
+					}
+					form_clear("polatarung");
+					break;
+				default:
+					msg = "Format Pola Tarung Salah"
+				break;
+			}
+		}
+		if(msg != ""){
+			alert(msg)
+			form_clear("polatarung")
+		}
+	}
 	function formquick2d_add() {
 		let flag = true;
 		let diskon = 0;
@@ -2582,6 +2773,19 @@
 					formwap_add();
 				}
 				break;
+			case "polatarung":
+				if (nomoras == "") {
+					nomoras_input.focus();
+					flag = false
+				} 
+				if (nomorkop == "") {
+					nomorkop_input.focus();
+					flag = false
+				} 
+				if(flag){
+					formpolatarung_add();
+				}
+				break;
 			case "3DD":
 				if (nomor3dd == "" && parseInt(bet_3dd) < minimal_bet) {
 					nomor3dd_input.focus();
@@ -2808,6 +3012,36 @@
 				quick_bet = "";
 			}
 		}
+		for (let i = 0; i < nomoras.length; i++) {
+			numbera = parseInt(nomoras[i]);
+			if (isNaN(nomoras)) {
+				nomoras = "";
+			}
+		}
+		for (let i = 0; i < nomorkop.length; i++) {
+			numbera = parseInt(nomorkop[i]);
+			if (isNaN(nomorkop)) {
+				nomorkop = "";
+			}
+		}
+		for (let i = 0; i < nomorkepala.length; i++) {
+			numbera = parseInt(nomorkepala[i]);
+			if (isNaN(nomorkepala)) {
+				nomorkepala = "";
+			}
+		}
+		for (let i = 0; i < nomorekor.length; i++) {
+			numbera = parseInt(nomorekor[i]);
+			if (isNaN(nomorekor)) {
+				nomorekor = "";
+			}
+		}
+		for (let i = 0; i < bet_tarung.length; i++) {
+			numbera = parseInt(bet_tarung[i]);
+			if (isNaN(bet_tarung)) {
+				bet_tarung = "";
+			}
+		}
 	};
 	const handleKeyboard_checkenter = (e) => {
 		let keyCode = e.which || e.keyCode;
@@ -2849,6 +3083,12 @@
 		let keyCode = e.which || e.keyCode;
 		if (keyCode === 13) {
 			formquick2d_add();
+		}
+	};
+	const handleKeyboardpolatarung_checkenter = (e) => {
+		let keyCode = e.which || e.keyCode;
+		if (keyCode === 13) {
+			formpolatarung_add();
 		}
 	};
 </script>
@@ -2914,6 +3154,17 @@
 					  role="tab"
 					  aria-controls="pills-wap"
 					  aria-selected="true">WAP</button>
+				</li>
+				<li class="nav-item">
+					<button
+					  class="nav-link"
+					  id="pills-polatarung-tab"
+					  data-bs-toggle="pill"
+					  data-bs-target="#pills-polatarung"
+					  type="button"
+					  role="tab"
+					  aria-controls="pills-polatarung"
+					  aria-selected="true">POLA TARUNG</button>
 				</li>
 				<li class="nav-item">
 					<button
@@ -3378,6 +3629,133 @@
 						<p class="p-3" style="font-size:12px;color:#8a8a8a;">
 							<b>Contoh (WAP) :</b><br />
 							1234*234*34#1000,34*235*35#5000<br />
+						</p>
+					</div>
+				</div>
+				<div class="tab-pane fade "
+					id="pills-polatarung"
+					role="tabpanel"
+					aria-labelledby="pills-polatarung-tab">
+					<div style="margin:5px;">
+						<table
+							class="table"
+							style="background:none;width:100%;">
+							<tr>
+								<td
+									width="15%"
+									NOWRAP
+									style="padding-right:10px;vertical-align: center;">
+									<span style="color:#8a8a8a;">Nomor AS</span>
+									<input
+										bind:this={nomoras_input}
+										bind:value={nomoras}
+										on:keyup={handleKeyboard_number}
+										type="text"
+										class="form-control form-control-sm"
+										placeholder="Input 4D/3D/2D Digit"
+										style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
+										minlength="4"
+										maxlength="4"
+										tab_index="-1"
+										autocomplete="off"/>
+									<span class="help-block" style="text-align:right;font-size:12px;"/>
+								</td>
+								<td
+									width="15%"
+									NOWRAP
+									style="padding-right:10px;vertical-align: center;">
+									<span style="color:#8a8a8a;">Nomor KOP</span>
+									<input
+										bind:this={nomorkop_input}
+										bind:value={nomorkop}
+										on:keyup={handleKeyboard_number}
+										type="text"
+										class="form-control form-control-sm"
+										placeholder="Input 4D/3D/2D Digit"
+										style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
+										minlength="4"
+										maxlength="4"
+										tab_index="-1"
+										autocomplete="off"/>
+									<span class="help-block" style="text-align:right;font-size:12px;"/>
+								</td>
+								<td
+									width="15%"
+									NOWRAP
+									style="padding-right:10px;vertical-align: center;">
+									<span style="color:#8a8a8a;">Nomor KEPALA</span>
+									<input
+										bind:value={nomorkepala}
+										on:keyup={handleKeyboard_number}
+										type="text"
+										class="form-control form-control-sm"
+										placeholder="Input 4D/3D/2D Digit"
+										style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
+										minlength="4"
+										maxlength="4"
+										tab_index="-1"
+										autocomplete="off"/>
+									<span class="help-block" style="text-align:right;font-size:12px;"/>
+								</td>
+								<td
+									width="15%"
+									NOWRAP
+									style="padding-right:10px;vertical-align: center;">
+									<span style="color:#8a8a8a;">Nomor EKOR</span>
+									<input
+										bind:value={nomorekor}
+										on:keyup={handleKeyboard_number}
+										type="text"
+										class="form-control form-control-sm"
+										placeholder="Input 4D/3D/2D Digit"
+										style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
+										minlength="4"
+										maxlength="4"
+										tab_index="-1"
+										autocomplete="off"/>
+									<span class="help-block" style="text-align:right;font-size:12px;"/>
+								</td>
+								<td
+									width="*"
+									NOWRAP
+									style="padding-right:10px;vertical-align: center;text-align:right;">
+									<span style="color:#8a8a8a;">Bet (min : {minimal_bet})</span>
+									<input
+										bind:this={bet_tarung_input}
+										bind:value={bet_tarung}
+										on:keyup={handleKeyboard_number}
+										on:keypress={handleKeyboardpolatarung_checkenter}
+										type="text"
+										class="form-control"
+										placeholder="Bet"
+										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
+										minlength="3"
+										maxlength="7"
+										tab_index="0"/>
+									<span
+										style="text-align:right;font-size:12px;color:#8a8a8a;"
+										>{new Intl.NumberFormat().format(
+											bet_tarung
+										)}</span>
+								</td>
+								<td
+									width="20%"
+									NOWRAP
+									style="vertical-align: center;">
+									<Button
+										id="btn2"
+										on:click={() => {
+											handleTambah("polatarung");
+										}}>TAMBAH</Button>
+								</td>
+							</tr>
+						</table>
+						<p class="p-3" style="font-size:12px;color:#8a8a8a;">
+							POLA TARUNG : AS KOP KEPALA EKOR <br>
+							<b>Contoh (POLA TARUNG) :</b><br />
+							- 123 456 789 012 => 4D<br>
+							- 12 45 78 => 3D<br>
+							- 12 45  => 2D<br>
 						</p>
 					</div>
 				</div>
