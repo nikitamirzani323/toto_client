@@ -4,8 +4,6 @@
 		Card,
 		CardBody,
 		CardHeader,
-		TabContent,
-		TabPane,
 	} from "sveltestrap";
 	import Modal from "../components/Modal.svelte";
 	import Tablekeranjang from "../permainan/Tablekeranjang.svelte";
@@ -1096,10 +1094,10 @@
 					if (checkLimitLine("3DD") == true) {
 						switch(game.toString()){
 							case "4":
-								nomor = nomorset[1]+nomorset[2]+nomorset[3];
+								nomor = nomorset[0]+nomorset[1]+nomorset[2];
 								break;
 							case "3":
-								nomor = nomorset[1]+nomorset[2]+nomorset[3];
+								nomor = nomorset[0]+nomorset[1]+nomorset[2];
 								break;
 						}
 						totalkeranjang = bayar + totalkeranjang;
@@ -3652,7 +3650,7 @@
 										on:keyup={handleKeyboard_number}
 										type="text"
 										class="form-control form-control-sm"
-										placeholder="Input 4D/3D/2D Digit"
+										placeholder="AS"
 										style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
 										minlength="4"
 										maxlength="4"
@@ -3671,7 +3669,7 @@
 										on:keyup={handleKeyboard_number}
 										type="text"
 										class="form-control form-control-sm"
-										placeholder="Input 4D/3D/2D Digit"
+										placeholder="KOP"
 										style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
 										minlength="4"
 										maxlength="4"
@@ -3689,7 +3687,7 @@
 										on:keyup={handleKeyboard_number}
 										type="text"
 										class="form-control form-control-sm"
-										placeholder="Input 4D/3D/2D Digit"
+										placeholder="KEPALA"
 										style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
 										minlength="4"
 										maxlength="4"
@@ -3707,7 +3705,7 @@
 										on:keyup={handleKeyboard_number}
 										type="text"
 										class="form-control form-control-sm"
-										placeholder="Input 4D/3D/2D Digit"
+										placeholder="EKOR"
 										style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
 										minlength="4"
 										maxlength="4"
@@ -3901,8 +3899,7 @@
 										id="btn2"
 										on:click={() => {
 											handleTambah("3DD");
-										}}>TAMBAH</Button
-									>
+										}}>TAMBAH</Button>
 								</td>
 							</tr>
 						</table>
@@ -4048,13 +4045,9 @@
 	</Card>
 {:else}
 	<Card color="dark" style="border:1px solid #262424;margin:0px;padding:0px;">
-		<CardHeader
-			style="background:#323030;border-bottom:1px solid #333;border-top: 0 solid #333;"
-		>
+		<CardHeader style="background:#323030;border-bottom:1px solid #333;border-top: 0 solid #333;">
 			<div class="float-end">
-				<div
-					style="color:white;text-align:right;font-size:12px;font-weight:bold;"
-				>
+				<div style="color:white;text-align:right;font-size:12px;font-weight:bold;">
 					{pasaran_name}
 				</div>
 			</div>
@@ -4064,22 +4057,105 @@
 			</h1>
 		</CardHeader>
 		<CardBody style="background:#121212;padding:0px;margin:0px;">
-			<TabContent style="padding: 0px;margin:0px;">
-				<TabPane tabId="form_432d" tab="4D/3D/2D" active>
+			<ul class="nav nav-pills">
+				<li class="nav-item">
+				  <button
+					class="nav-link active"
+					id="pills-form432d-tab"
+					data-bs-toggle="pill"
+					data-bs-target="#pills-form432d"
+					type="button"
+					role="tab"
+					aria-controls="pills-form432d"
+					aria-selected="true">4D/3D/2D</button>
+				</li>
+				<li class="nav-item">
+					<button
+					  class="nav-link"
+					  id="pills-form432dset-tab"
+					  data-bs-toggle="pill"
+					  data-bs-target="#pills-form432dset"
+					  type="button"
+					  role="tab"
+					  aria-controls="pills-form432dset"
+					  aria-selected="true">SET</button>
+				</li>
+				<li class="nav-item">
+					<button
+					  class="nav-link"
+					  id="pills-bolakbalik-tab"
+					  data-bs-toggle="pill"
+					  data-bs-target="#pills-bolakbalik"
+					  type="button"
+					  role="tab"
+					  aria-controls="pills-bolakbalik"
+					  aria-selected="true">BB</button>
+				</li>
+				<li class="nav-item">
+					<button
+					  class="nav-link"
+					  id="pills-wap-tab"
+					  data-bs-toggle="pill"
+					  data-bs-target="#pills-wap"
+					  type="button"
+					  role="tab"
+					  aria-controls="pills-wap"
+					  aria-selected="true">WAP</button>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">OTHERS</a>
+					<ul class="dropdown-menu">
+						<li>
+							<button
+								class="dropdown-item"
+								id="pills-3dd-tab"
+								data-bs-toggle="pill"
+								data-bs-target="#pills-3dd"
+								type="button"
+								role="tab"
+								aria-controls="pills-3dd"
+								aria-selected="true">3DD</button>
+						</li>
+						<li>
+							<button
+								class="dropdown-item"
+								id="pills-2dd-tab"
+								data-bs-toggle="pill"
+								data-bs-target="#pills-2dd"
+								type="button"
+								role="tab"
+								aria-controls="pills-2dd"
+								aria-selected="true">2DD</button>
+						</li>
+						<li>
+							<button
+								class="dropdown-item"
+								id="pills-2dt-tab"
+								data-bs-toggle="pill"
+								data-bs-target="#pills-2dt"
+								type="button"
+								role="tab"
+								aria-controls="pills-2dt"
+								aria-selected="true">2D TENGAH</button>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<div class="tab-content" id="nav-tabContent">
+				<div class="tab-pane fade show active"
+					id="pills-form432d"
+					role="tabpanel"
+					aria-labelledby="pills-form432d-tab">
 					<div style="margin:5px;">
 						<table
 							class="table"
-							style="background:none;width:100%;"
-						>
+							style="background:none;width:100%;">
 							<tr>
 								<td
 									width="35%"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;"
-								>
-									<span style="color:#8a8a8a;"
-										>Nomor (2-4)</span
-									>
+									style="padding-right:10px;vertical-align: center;">
+									<span style="color:#8a8a8a;">Nomor (2-4)</span>
 									<input
 										bind:this={nomor_input}
 										bind:value={nomor}
@@ -4092,21 +4168,14 @@
 										minlength="4"
 										maxlength="4"
 										tab_index="-1"
-										autocomplete="off"
-									/>
-									<span
-										class="help-block"
-										style="text-align:right;font-size:12px;"
-									/>
+										autocomplete="off"/>
+									<span class="help-block" style="text-align:right;font-size:12px;"/>
 								</td>
 								<td
 									width="*"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;text-align:right;"
-								>
-									<span style="color:#8a8a8a;"
-										>Bet (min : {minimal_bet})</span
-									>
+									style="padding-right:10px;vertical-align: center;text-align:right;">
+									<span style="color:#8a8a8a;">Bet (min : {minimal_bet})</span>
 									<input
 										bind:value={bet_432}
 										on:keyup={handleKeyboard_number}
@@ -4117,22 +4186,19 @@
 										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
 										minlength="3"
 										maxlength="7"
-										tab_index="0"
-									/>
+										tab_index="0"/>
 									<span
 										style="text-align:right;font-size:12px;color:#8a8a8a;"
 										>{new Intl.NumberFormat().format(
 											bet_432
-										)}</span
-									>
+										)}</span>
 								</td>
 							</tr>
 							<tr>
 								<td
 									colspan="2"
 									NOWRAP
-									style="vertical-align: center;"
-								/>
+									style="vertical-align: center;"/>
 							</tr>
 						</table>
 						<Button
@@ -4140,11 +4206,13 @@
 							id="btn2"
 							on:click={() => {
 								handleTambah("4-3-2");
-							}}>TAMBAH</Button
-						>
+							}}>TAMBAH</Button>
 					</div>
-				</TabPane>
-				<TabPane tabId="form_432set" tab="SET">
+				</div>
+				<div class="tab-pane fade"
+					id="pills-form432dset"
+					role="tabpanel"
+					aria-labelledby="pills-form432dset-tab">
 					<div class="table-responsive" style="margin:5px;">
 						<table
 							class="table"
@@ -4196,6 +4264,23 @@
 										>{new Intl.NumberFormat().format(
 											betset_1
 										)}</span>
+									<br>
+									<span style="color:#8a8a8a;">2D - Bet (min : {minimal_bet})</span>
+									<input
+										bind:value={betset_3}
+										on:keyup={handleKeyboard_number}
+										on:keypress={handleKeyboard432set_checkenter}
+										type="text"
+										class="form-control"
+										placeholder="Bet"
+										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
+										minlength="3"
+										maxlength="7"
+										tab_index="0"/>
+									<span
+										style="text-align:right;font-size:12px;color:#8a8a8a;">{new Intl.NumberFormat().format(
+											betset_3
+										)}</span>
 								</td>
 								<td
 									width="22%"
@@ -4240,9 +4325,9 @@
 									width="22%"
 									NOWRAP
 									style="padding-right:10px;vertical-align: top;text-align:right;">
-									<span style="color:#8a8a8a;">2D - Bet (min : {minimal_bet})</span>
+									<span style="color:#8a8a8a;">3DD - Bet (min : {minimal_bet})</span>
 									<input
-										bind:value={betset_3}
+										bind:value={betset_6}
 										on:keyup={handleKeyboard_number}
 										on:keypress={handleKeyboard432set_checkenter}
 										type="text"
@@ -4253,8 +4338,9 @@
 										maxlength="7"
 										tab_index="0"/>
 									<span
-										style="text-align:right;font-size:12px;color:#8a8a8a;">{new Intl.NumberFormat().format(
-											betset_3
+										style="text-align:right;font-size:12px;color:#8a8a8a;"
+										>{new Intl.NumberFormat().format(
+											betset_6
 										)}</span>
 									<br>
 									<span style="color:#8a8a8a;">2DT - Bet (min : {minimal_bet})</span>
@@ -4284,8 +4370,11 @@
 								handleTambah("432SET");
 							}}>TAMBAH</Button>
 					</div>
-				</TabPane>
-				<TabPane tabId="form_bbfs" tab="BBFS">
+				</div>
+				<div class="tab-pane fade"
+					id="pills-bolakbalik"
+					role="tabpanel"
+					aria-labelledby="pills-bolakbalik-tab">
 					<div class="table-responsive" style="margin:5px;">
 						<table
 							class="table"
@@ -4337,6 +4426,23 @@
 										>{new Intl.NumberFormat().format(
 											bet_1
 										)}</span>
+									<br>
+									<span style="color:#8a8a8a;">2D - Bet (min : {minimal_bet})</span>
+									<input
+										bind:value={bet_3}
+										on:keyup={handleKeyboard_number}
+										on:keypress={handleKeyboardbbfs_checkenter}
+										type="text"
+										class="form-control"
+										placeholder="Bet"
+										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
+										minlength="3"
+										maxlength="7"
+										tab_index="0"/>
+									<span
+										style="text-align:right;font-size:12px;color:#8a8a8a;">{new Intl.NumberFormat().format(
+											bet_3
+										)}</span>
 								</td>
 								<td
 									width="22%"
@@ -4381,9 +4487,9 @@
 									width="22%"
 									NOWRAP
 									style="padding-right:10px;vertical-align: top;text-align:right;">
-									<span style="color:#8a8a8a;">2D - Bet (min : {minimal_bet})</span>
+									<span style="color:#8a8a8a;">3DD - Bet (min : {minimal_bet})</span>
 									<input
-										bind:value={bet_3}
+										bind:value={bet_6}
 										on:keyup={handleKeyboard_number}
 										on:keypress={handleKeyboardbbfs_checkenter}
 										type="text"
@@ -4394,8 +4500,9 @@
 										maxlength="7"
 										tab_index="0"/>
 									<span
-										style="text-align:right;font-size:12px;color:#8a8a8a;">{new Intl.NumberFormat().format(
-											bet_3
+										style="text-align:right;font-size:12px;color:#8a8a8a;"
+										>{new Intl.NumberFormat().format(
+											bet_6
 										)}</span>
 									<br>
 									<span style="color:#8a8a8a;">2DT - Bet (min : {minimal_bet})</span>
@@ -4425,8 +4532,11 @@
 								handleTambah("BBFS");
 							}}>TAMBAH</Button>
 					</div>
-				</TabPane>
-				<TabPane tabId="form_WAP" tab="WAP">
+				</div>
+				<div class="tab-pane fade"
+					id="pills-wap"
+					role="tabpanel"
+					aria-labelledby="pills-wap-tab">
 					<div class="d-grid gap-1">
 						<textarea
 							bind:this={nomorwap_input}
@@ -4446,22 +4556,82 @@
 							1234*234*34#1000,34*235*35#5000<br />
 						</p>
 					</div>
-				</TabPane>
-				<TabPane tabId="form_2dd" tab="2DD">
+				</div>
+				<div class="tab-pane fade"
+					id="pills-3dd"
+					role="tabpanel"
+					aria-labelledby="pills-3dd-tab">
 					<div style="margin:5px;">
 						<table
 							class="table"
-							style="background:none;width:100%;"
-						>
+							style="background:none;width:100%;">
 							<tr>
 								<td
 									width="25%"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;"
-								>
-									<span style="color:#8a8a8a;"
-										>Nomor (2 digit)</span
-									>
+									style="padding-right:10px;vertical-align: center;">
+									<span style="color:#8a8a8a;">Nomor (3 digit)</span>
+									<input
+										bind:this={nomor3dd_input}
+										bind:value={nomor3dd}
+										on:keyup={handleKeyboard_format}
+										on:keypress={handleKeyboard3dd_checkenter}
+										type="text"
+										class="form-control form-control-sm"
+										placeholder="Input 3DD Digit"
+										style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
+										minlength="3"
+										maxlength="3"
+										tab_index="-1"
+										autocomplete="off"/>
+									<span class="help-block" style="text-align:right;font-size:12px;"/>
+								</td>
+								<td
+									width="*"
+									NOWRAP
+									style="padding-right:10px;vertical-align: center;text-align:right;">
+									<span style="color:#8a8a8a;">Bet (min : {minimal_bet})</span>
+									<input
+										bind:value={bet_3dd}
+										on:keyup={handleKeyboard_number}
+										on:keypress={handleKeyboard2dd_checkenter}
+										type="text"
+										class="form-control"
+										placeholder="Bet"
+										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
+										minlength="3"
+										maxlength="7"
+										tab_index="0"/>
+									<span
+										style="text-align:right;font-size:12px;color:#8a8a8a;"
+										>{new Intl.NumberFormat().format(
+											bet_3dd
+										)}</span>
+								</td>
+							</tr>
+						</table>
+						<Button
+							block
+							id="btn2"
+							on:click={() => {
+								handleTambah("3DD");
+							}}>TAMBAH</Button>
+					</div>
+				</div>
+				<div class="tab-pane fade"
+					id="pills-2dd"
+					role="tabpanel"
+					aria-labelledby="pills-2dd-tab">
+					<div style="margin:5px;">
+						<table
+							class="table"
+							style="background:none;width:100%;">
+							<tr>
+								<td
+									width="25%"
+									NOWRAP
+									style="padding-right:10px;vertical-align: center;">
+									<span style="color:#8a8a8a;">Nomor (2 digit)</span>
 									<input
 										bind:this={nomor2dd_input}
 										bind:value={nomor2dd}
@@ -4474,21 +4644,14 @@
 										minlength="2"
 										maxlength="2"
 										tab_index="-1"
-										autocomplete="off"
-									/>
-									<span
-										class="help-block"
-										style="text-align:right;font-size:12px;"
-									/>
+										autocomplete="off"/>
+									<span class="help-block" style="text-align:right;font-size:12px;"/>
 								</td>
 								<td
 									width="*"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;text-align:right;"
-								>
-									<span style="color:#8a8a8a;"
-										>Bet (min : {minimal_bet})</span
-									>
+									style="padding-right:10px;vertical-align: center;text-align:right;">
+									<span style="color:#8a8a8a;">Bet (min : {minimal_bet})</span>
 									<input
 										bind:value={bet_2dd}
 										on:keyup={handleKeyboard_number}
@@ -4499,14 +4662,12 @@
 										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
 										minlength="3"
 										maxlength="7"
-										tab_index="0"
-									/>
+										tab_index="0"/>
 									<span
 										style="text-align:right;font-size:12px;color:#8a8a8a;"
 										>{new Intl.NumberFormat().format(
 											bet_2dd
-										)}</span
-									>
+										)}</span>
 								</td>
 							</tr>
 						</table>
@@ -4515,25 +4676,23 @@
 							id="btn2"
 							on:click={() => {
 								handleTambah("2DD");
-							}}>TAMBAH</Button
-						>
+							}}>TAMBAH</Button>
 					</div>
-				</TabPane>
-				<TabPane tabId="form_2dt" tab="2DT">
+				</div>
+				<div class="tab-pane fade"
+					id="pills-2dt"
+					role="tabpanel"
+					aria-labelledby="pills-2dt-tab">
 					<div style="margin:5px;">
 						<table
 							class="table"
-							style="background:none;width:100%;"
-						>
+							style="background:none;width:100%;">
 							<tr>
 								<td
 									width="25%"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;"
-								>
-									<span style="color:#8a8a8a;"
-										>Nomor (2 digit)</span
-									>
+									style="padding-right:10px;vertical-align: center;">
+									<span style="color:#8a8a8a;">Nomor (2 digit)</span>
 									<input
 										bind:this={nomor2dt_input}
 										bind:value={nomor2dt}
@@ -4546,21 +4705,14 @@
 										minlength="2"
 										maxlength="2"
 										tab_index="-1"
-										autocomplete="off"
-									/>
-									<span
-										class="help-block"
-										style="text-align:right;font-size:12px;"
-									/>
+										autocomplete="off"/>
+									<span class="help-block" style="text-align:right;font-size:12px;"/>
 								</td>
 								<td
 									width="*"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;text-align:right;"
-								>
-									<span style="color:#8a8a8a;"
-										>Bet (min : {minimal_bet})</span
-									>
+									style="padding-right:10px;vertical-align: center;text-align:right;">
+									<span style="color:#8a8a8a;">Bet (min : {minimal_bet})</span>
 									<input
 										bind:value={bet_2dt}
 										on:keyup={handleKeyboard_number}
@@ -4571,14 +4723,12 @@
 										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
 										minlength="3"
 										maxlength="7"
-										tab_index="0"
-									/>
+										tab_index="0"/>
 									<span
 										style="text-align:right;font-size:12px;color:#8a8a8a;"
 										>{new Intl.NumberFormat().format(
 											bet_2dt
-										)}</span
-									>
+										)}</span>
 								</td>
 							</tr>
 						</table>
@@ -4587,11 +4737,10 @@
 							id="btn2"
 							on:click={() => {
 								handleTambah("2DT");
-							}}>TAMBAH</Button
-						>
+							}}>TAMBAH</Button>
 					</div>
-				</TabPane>
-			</TabContent>
+				</div>
+			</div>
 		</CardBody>
 	</Card>
 {/if}
