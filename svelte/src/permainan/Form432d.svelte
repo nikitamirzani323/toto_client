@@ -536,6 +536,7 @@
 				bet_3 = "";
 				bet_4 = "";
 				bet_5 = "";
+				bet_6 = "";
 				break;
 			case "wap":
 				nomorwap = "";
