@@ -36,7 +36,6 @@
     {client_ipaddress}
     {client_timezone}
     {client_device}/>
-<div style="margin-top:100px;">&nbsp;</div>
     {#each listkeluaran as rec}
         {#if client_device == "WEBSITE"}
         <Col

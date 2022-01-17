@@ -474,7 +474,7 @@
             
         </div>
     </nav>
-    
+    <div style="margin-top:100px;">&nbsp;</div>
 {:else}
     <center style="margin-bottom:5px;">
         <a href="/?token={client_token}" title="SDSB4D">
@@ -482,9 +482,7 @@
                 id="imglogo"
                 alt="SDSB4D"
                 style="margin-top:10px;"
-                width="100"
-                src="SDSB4D.png"
-            />
+                src="logo.svg"/>
         </a>
     </center>
     <Col
