@@ -1203,17 +1203,9 @@
 					for (let b = 0; b < data_bbfs.length; b++) {
 						for (let c = 0; c < data_bbfs.length; c++) {
 							for (let d = 0; d < data_bbfs.length; d++) {
-								let dat =
-									data_bbfs[a] +
-									data_bbfs[b] +
-									data_bbfs[c] +
-									data_bbfs[d];
+								let dat =data_bbfs[a] +data_bbfs[b] +data_bbfs[c] +data_bbfs[d];
 								if (generate4D.length > 0) {
-									for (
-										let x = 0;
-										x < generate4D.length;
-										x++
-									) {
+									for (let x = 0;x < generate4D.length;x++) {
 										if (dat == generate4D[x]) {
 											found = true;
 										}
