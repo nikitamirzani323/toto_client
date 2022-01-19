@@ -6,6 +6,7 @@
 		CardHeader,
 	} from "sveltestrap";
 	import Modal from "../components/Modal.svelte";
+	import Modal2 from "../components/Modalpilihan.svelte";
 	import Tablekeranjang from "../permainan/Tablekeranjang.svelte";
 	import Loader from "../components/Loader.svelte";
 	import { createEventDispatcher } from "svelte";
@@ -48,6 +49,12 @@
 	let win2d_bet = 0;
 	let win2dd_bet = 0;
 	let win2dt_bet = 0;
+	let win4dnodiskon_bet = 0;
+	let win3dnodiskon_bet = 0;
+	let win3ddnodiskon_bet = 0;
+	let win2dnodiskon_bet = 0;
+	let win2ddnodiskon_bet = 0;
+	let win2dtnodiskon_bet = 0;
 	let limittotal4d_bet = 0;
 	let limittotal3d_bet = 0;
 	let limittotal3dd_bet = 0;
@@ -76,6 +83,8 @@
 	let db_form4d_2dd_count_temp = 0;
 	let db_form4d_2dt_count_temp = 0;
 
+	let flag_fulldiskon = "diskon"
+	let path_432 = ""
 	let dispatch = createEventDispatcher();
 
 	async function inittogel_432d(e) {
@@ -115,6 +124,12 @@
 			win2d_bet = parseInt(record[i]["win2d_bet"]);
 			win2dd_bet = parseInt(record[i]["win2dd_bet"]);
 			win2dt_bet = parseInt(record[i]["win2dt_bet"]);
+			win4dnodiskon_bet = parseInt(record[i]["win4dnodiskon_bet"]);
+			win3dnodiskon_bet = parseInt(record[i]["win3dnodiskon_bet"]);
+			win3ddnodiskon_bet = parseInt(record[i]["win3ddnodiskon_bet"]);
+			win2dnodiskon_bet = parseInt(record[i]["win2dnodiskon_bet"]);
+			win2ddnodiskon_bet = parseInt(record[i]["win2ddnodiskon_bet"]);
+			win2dtnodiskon_bet = parseInt(record[i]["win2dtnodiskon_bet"]);
 			limittotal4d_bet = parseInt(record[i]["limittotal4d_bet"]);
 			limittotal3d_bet = parseInt(record[i]["limittotal3d_bet"]);
 			limittotal3dd_bet = parseInt(record[i]["limittotal3dd_bet"]);
@@ -318,14 +333,8 @@
 								}
 							}
 						}
-						if (
-							parseInt(limittotal2dd_bet) <
-							parseInt(maxtotal_bayar2dd)
-						) {
-							temp_bulk_error +=
-								"Nomor ini : " +
-								nomor +
-								" sudah melebihi LIMIT TOTAL 2DD<br />";
+						if (parseInt(limittotal2dd_bet) < parseInt(maxtotal_bayar2dd)) {
+							temp_bulk_error += "Nomor ini : " +nomor + " sudah melebihi LIMIT TOTAL 2DD<br />";
 							flag_data = true;
 						}
 					}
@@ -335,25 +344,13 @@
 						let maxtotal_bayar2dt = 0;
 						for (var j = 0; j < keranjang.length; j++) {
 							if ("2DT" == keranjang[j].game) {
-								if (
-									parseInt(nomor) ==
-									parseInt(keranjang[j].nomor)
-								) {
-									maxtotal_bayar2dt =
-										parseInt(maxtotal_bayar2dt) +
-										(parseInt(keranjang[j].bet) +
-											parseInt(bet));
+								if (parseInt(nomor) == parseInt(keranjang[j].nomor)) {
+									maxtotal_bayar2dt =parseInt(maxtotal_bayar2dt) + (parseInt(keranjang[j].bet) + parseInt(bet));
 								}
 							}
 						}
-						if (
-							parseInt(limittotal2dt_bet) <
-							parseInt(maxtotal_bayar2dt)
-						) {
-							temp_bulk_error +=
-								"Nomor ini : " +
-								nomor +
-								" sudah melebihi LIMIT TOTAL 2DT<br />";
+						if (parseInt(limittotal2dt_bet) <parseInt(maxtotal_bayar2dt)) {
+							temp_bulk_error += "Nomor ini : " + nomor +" sudah melebihi LIMIT TOTAL 2DT<br />";
 							flag_data = true;
 						}
 					}
@@ -737,39 +734,75 @@
 			switch (game.toString()) {
 				case "4":
 					nmgame = "4D";
-					diskon = bet_432 * disc4d_bet;
-					diskonpercen = disc4d_bet;
-					win = win4d_bet;
+					if(flag_fulldiskon =="nondiskon"){
+						diskon = 0
+						diskonpercen = 0
+						win = win4dnodiskon_bet;
+					}else{
+						diskon = bet_432 * disc4d_bet;
+						diskonpercen = disc4d_bet;
+						win = win4d_bet;
+					}
 					break;
 				case "3":
 					nmgame = "3D";
-					diskon = bet_432 * disc3d_bet;
-					diskonpercen = disc3d_bet;
-					win = win3d_bet;
+					if(flag_fulldiskon =="nondiskon"){
+						diskon = 0
+						diskonpercen = 0
+						win = win3dnodiskon_bet;
+					}else{
+						diskon = bet_432 * disc3d_bet;
+						diskonpercen = disc3d_bet;
+						win = win3d_bet;
+					}
 					break;
 				case "3DD":
 					nmgame = "3DD";
-					diskon = bet_432 * disc3d_bet;
-					diskonpercen = disc3d_bet;
-					win = win3d_bet;
+					if(flag_fulldiskon =="nondiskon"){
+						diskon = 0
+						diskonpercen = 0
+						win = win3ddnodiskon_bet;
+					}else{
+						diskon = bet_432 * disc3dd_bet;
+						diskonpercen = disc3dd_bet;
+						win = win3dd_bet;
+					}
 					break;
 				case "2":
 					nmgame = "2D";
-					diskon = bet_432 * disc2d_bet;
-					diskonpercen = disc2d_bet;
-					win = win2d_bet;
+					if(flag_fulldiskon =="nondiskon"){
+						diskon = 0
+						diskonpercen = 0
+						win = win2dnodiskon_bet;
+					}else{
+						diskon = bet_432 * disc2d_bet;
+						diskonpercen = disc2d_bet;
+						win = win2d_bet;
+					}
 					break;
 				case "2DD":
 					nmgame = "2DD";
-					diskon = bet_432 * disc2dd_bet;
-					diskonpercen = disc2dd_bet;
-					win = win2dd_bet;
+					if(flag_fulldiskon =="nondiskon"){
+						diskon = 0
+						diskonpercen = 0
+						win = win2ddnodiskon_bet;
+					}else{
+						diskon = bet_432 * disc2dd_bet;
+						diskonpercen = disc2dd_bet;
+						win = win2dd_bet;
+					}
 					break;
 				case "2DT":
 					nmgame = "2DT";
-					diskon = bet_432 * disc2dt_bet;
-					diskonpercen = disc2dt_bet;
-					win = win2dt_bet;
+					if(flag_fulldiskon =="nondiskon"){
+						diskon = 0
+						diskonpercen = 0
+						win = win2dtnodiskon_bet;
+					}else{
+						diskon = bet_432 * disc2dt_bet;
+						diskonpercen = disc2dt_bet;
+						win = win2dt_bet;
+					}
 					break;
 			}
 			bayar = parseInt(bet_432) - parseInt(Math.ceil(diskon));
@@ -827,9 +860,15 @@
 			}
 			if (flag == true) {
 				if (game.toString() == "4") {
-					diskon = Math.ceil(betset_1 * disc4d_bet);
-					diskonpercen = disc4d_bet;
-					win = win4d_bet;
+					if(flag_fulldiskon =="diskon"){
+						diskon = Math.ceil(betset_1 * disc4d_bet);
+						diskonpercen = disc4d_bet;
+						win = win4d_bet;
+					}else{
+						diskon = 0;
+						diskonpercen = 0;
+						win = win4dnodiskon_bet;
+					}
 					bayar = parseInt(betset_1) - parseInt(Math.ceil(diskon));
 					if (checkLimitLine("4D") == true) {
 						nomor = nomorset;
@@ -871,9 +910,16 @@
 			}
 			if (flag == true) {
 				if (game.toString() == "4" || game.toString() == "3") {
-					diskon = Math.ceil(betset_2 * disc3d_bet);
-					diskonpercen = disc3d_bet;
-					win = win3d_bet;
+					if(flag_fulldiskon =="diskon"){
+						diskon = Math.ceil(betset_2 * disc3d_bet);
+						diskonpercen = disc3d_bet;
+						win = win3d_bet;
+					}else{
+						diskon = 0;
+						diskonpercen = 0;
+						win = win3dnodiskon_bet;
+					}
+					
 					bayar = parseInt(betset_2) - parseInt(Math.ceil(diskon));
 					if (checkLimitLine("3D") == true) {
 						switch(game.toString()){
@@ -923,9 +969,16 @@
 			}
 			if (flag == true) {
 				if (game.toString() == "4" || game.toString() == "3" || game.toString() == "2") {
-					diskon = Math.ceil(betset_3 * disc2d_bet);
-					diskonpercen = disc2d_bet;
-					win = win2d_bet;
+					if(flag_fulldiskon =="diskon"){
+						diskon = Math.ceil(betset_3 * disc2d_bet);
+						diskonpercen = disc2d_bet;
+						win = win2d_bet;
+					}else{
+						diskon = 0;
+						diskonpercen = 0;
+						win = win2dnodiskon_bet;
+					}
+					
 					bayar = parseInt(betset_3) - parseInt(Math.ceil(diskon));
 					if (checkLimitLine("2D") == true) {
 						switch(game.toString()){
@@ -978,9 +1031,16 @@
 			}
 			if (flag == true) {
 				if (game.toString() == "4" || game.toString() == "3" || game.toString() == "2") {
-					diskon = Math.ceil(betset_4 * disc2dd_bet);
-					diskonpercen = disc2dd_bet;
-					win = win2dd_bet;
+					if(flag_fulldiskon =="diskon"){
+						diskon = Math.ceil(betset_4 * disc2dd_bet);
+						diskonpercen = disc2dd_bet;
+						win = win2dd_bet;
+					}else{
+						diskon = 0;
+						diskonpercen = 0;
+						win = win2ddnodiskon_bet;
+					}
+					
 					bayar = parseInt(betset_4) - parseInt(Math.ceil(diskon));
 					if (checkLimitLine("2DD") == true) {
 						switch(game.toString()){
@@ -1033,9 +1093,16 @@
 			}
 			if (flag == true) {
 				if (game.toString() == "4" || game.toString() == "3" || game.toString() == "2") {
-					diskon = Math.ceil(betset_5 * disc2dt_bet);
-					diskonpercen = disc2dt_bet;
-					win = win2dt_bet;
+					if(flag_fulldiskon =="diskon"){
+						diskon = Math.ceil(betset_5 * disc2dt_bet);
+						diskonpercen = disc2dt_bet;
+						win = win2dt_bet;
+					}else{
+						diskon = 0;
+						diskonpercen = 0;
+						win = win2dtnodiskon_bet;
+					}
+					
 					bayar = parseInt(betset_5) - parseInt(Math.ceil(diskon));
 					if (checkLimitLine("2DT") == true) {
 						switch(game.toString()){
@@ -1088,9 +1155,15 @@
 			}
 			if (flag == true) {
 				if (game.toString() == "4" || game.toString() == "3") {
-					diskon = Math.ceil(betset_6 * disc3d_bet);
-					diskonpercen = disc3d_bet;
-					win = win3d_bet;
+					if(flag_fulldiskon =="diskon"){
+						diskon = Math.ceil(betset_6 * disc3d_bet);
+						diskonpercen = disc3dd_bet;
+						win = win3dd_bet;
+					}else{
+						diskon = 0;
+						diskonpercen = 0;
+						win = win3ddnodiskon_bet;
+					}
 					bayar = parseInt(betset_6) - parseInt(Math.ceil(diskon));
 					if (checkLimitLine("3DD") == true) {
 						switch(game.toString()){
@@ -1195,9 +1268,15 @@
 				);
 			}
 			if (flag == true) {
-				diskon = Math.ceil(bet_1 * disc4d_bet);
-				diskonpercen = disc4d_bet;
-				win = win4d_bet;
+				if(flag_fulldiskon =="diskon"){
+					diskon = Math.ceil(bet_1 * disc4d_bet);
+					diskonpercen = disc4d_bet;
+					win = win4d_bet;
+				}else{
+					diskon = 0;
+					diskonpercen = 0;
+					win = win4dnodiskon_bet;
+				}
 				bayar = parseInt(bet_1) - parseInt(Math.ceil(diskon));
 				for (let a = 0; a < data_bbfs.length; a++) {
 					for (let b = 0; b < data_bbfs.length; b++) {
@@ -1268,9 +1347,15 @@
 				);
 			}
 			if (flag == true) {
-				diskon = Math.ceil(bet_2 * disc3d_bet);
-				diskonpercen = disc3d_bet;
-				win = win3d_bet;
+				if(flag_fulldiskon =="diskon"){
+					diskon = Math.ceil(bet_2 * disc3d_bet);
+					diskonpercen = disc3d_bet;
+					win = win3d_bet;
+				}else{
+					diskon = 0;
+					diskonpercen = 0;
+					win = win3dnodiskon_bet;
+				}
 				bayar = parseInt(bet_2) - parseInt(Math.ceil(diskon));
 				for (let a = 0; a < data_bbfs.length; a++) {
 					for (let b = 0; b < data_bbfs.length; b++) {
@@ -1340,9 +1425,15 @@
 				);
 			}
 			if (flag == true) {
-				diskon = Math.ceil(bet_3 * disc2d_bet);
-				diskonpercen = disc2d_bet;
-				win = win2d_bet;
+				if(flag_fulldiskon =="diskon"){
+					diskon = Math.ceil(bet_3 * disc2d_bet);
+					diskonpercen = disc2d_bet;
+					win = win2d_bet;
+				}else{
+					diskon = 0;
+					diskonpercen = 0;
+					win = win2dnodiskon_bet;
+				}
 				bayar = parseInt(bet_3) - parseInt(Math.ceil(diskon));
 				for (let a = 0; a < data_bbfs.length; a++) {
 					for (let b = 0; b < data_bbfs.length; b++) {
@@ -1414,9 +1505,16 @@
 				);
 			}
 			if (flag == true) {
-				diskon = Math.ceil(bet_4 * disc2dd_bet);
-				diskonpercen = disc2dd_bet;
-				win = win2dd_bet;
+				if(flag_fulldiskon =="diskon"){
+					diskon = Math.ceil(bet_4 * disc2dd_bet);
+					diskonpercen = disc2dd_bet;
+					win = win2dd_bet;
+				}else{
+					diskon = 0;
+					diskonpercen = 0;
+					win = win2ddnodiskon_bet;
+				}
+				
 				bayar = parseInt(bet_4) - parseInt(Math.ceil(diskon));
 				for (let a = 0; a < data_bbfs.length; a++) {
 					for (let b = 0; b < data_bbfs.length; b++) {
@@ -1488,9 +1586,15 @@
 				);
 			}
 			if (flag == true) {
-				diskon = Math.ceil(bet_5 * disc2dt_bet);
-				diskonpercen = disc2dt_bet;
-				win = win2dd_bet;
+				if(flag_fulldiskon =="diskon"){
+					diskon = Math.ceil(bet_5 * disc2dt_bet);
+					diskonpercen = disc2dt_bet;
+					win = win2dd_bet;
+				}else{
+					diskon = 0;
+					diskonpercen = 0;
+					win = win2ddnodiskon_bet;
+				}
 				bayar = parseInt(bet_5) - parseInt(Math.ceil(diskon));
 				for (let a = 0; a < data_bbfs.length; a++) {
 					for (let b = 0; b < data_bbfs.length; b++) {
@@ -1559,9 +1663,16 @@
 				alert("Maximal Bet 3DD : " +new Intl.NumberFormat().format(max3dd_bet));
 			}
 			if (flag == true) {
-				diskon = Math.ceil(bet_6 * disc3dd_bet);
-				diskonpercen = disc3dd_bet;
-				win = win3dd_bet;
+				if(flag_fulldiskon =="diskon"){
+					diskon = Math.ceil(bet_6 * disc3dd_bet);
+					diskonpercen = disc3dd_bet;
+					win = win3dd_bet;
+				}else{
+					diskon = 0;
+					diskonpercen = 0;
+					win = win3ddnodiskon_bet;
+				}
+				
 				bayar = parseInt(bet_6) - parseInt(Math.ceil(diskon));
 				for (let a = 0; a < data_bbfs.length; a++) {
 					for (let b = 0; b < data_bbfs.length; b++) {
@@ -1624,38 +1735,37 @@
 		let diskon = 0;
 		let diskonpercen = 0;
 		let win = 0;
-		let kei = 0;
-		let kei_percen = 0;
 		let bayar = 0;
 		let nmgame = "";
+		let msg_error = ""
 		if (nomor3dd == "") {
 			nomor3dd_input.focus();
 			flag = false;
 		}
 		if (bet_3dd == "") {
 			flag = false;
-			alert("Bet tidak boleh kosong");
+			msg_error += "Bet tidak boleh kosong";
 		}
 		if (parseInt(bet_3dd) < parseInt(minimal_bet)) {
 			bet_3dd = minimal_bet;
 			flag = false;
-			alert("Minimal Bet : " + minimal_bet);
+			msg_error += "Minimal Bet : " + minimal_bet;
 		}
 
 		if (game.toString() == "3") {
 			if (parseInt(bet_3dd) > parseInt(max3dd_bet)) {
 				bet_3dd = minimal_bet;
 				flag = false;
-				alert("Maximal Bet 3D Depan : " + max3dd_bet);
+				msg_error += "Maximal Bet 3D Depan : " + max3dd_bet;
 			}
 			if (checkLimitLine("3DD") == false) {
 				flag = false;
-				alert("Maximal Line 3D Depan : " + limitline_3dd);
+				msg_error += "Maximal Line 3D Depan : " + limitline_3dd;
 				form_clear("3DD");
 			}
 		}else{
 			flag = false;
-			alert("Minimal 3 Digit");
+			msg_error += "Minimal 3 Digit";
 			form_clear("3DD");
 		}
 
@@ -1663,16 +1773,23 @@
 			let numbera = parseInt(nomor3dd[i]);
 			if (isNaN(numbera)) {
 				flag = false;
-				alert("Error");
+				msg_error +="Nomor harus angka";
 				form_clear("3DD");
 			}
 		}
 		
 		if (flag == true) {
 			nmgame = "3DD";
-			diskon = bet_3dd * disc3dd_bet;
-			diskonpercen = disc3dd_bet;
-			win = win3dd_bet;
+			if(flag_fulldiskon =="diskon"){
+				diskon = bet_3dd * disc3dd_bet;
+				diskonpercen = disc3dd_bet;
+				win = win3dd_bet;
+			}else{
+				diskon = 0;
+				diskonpercen = 0;
+				win = win3ddnodiskon_bet;
+			}
+			
 			nomor = nomor3dd;
 			bet = bet_3dd;
 			bayar = parseInt(bet_3dd) - parseInt(Math.ceil(diskon));
@@ -1690,11 +1807,8 @@
 			);
 			form_clear("3DD");
 		}
-		if (temp_bulk_error != "") {
-			let myModal = new bootstrap.Modal(
-				document.getElementById("modalError")
-			);
-			myModal.show();
+		if(msg_error != ""){
+			alert(msg_error)
 		}
 	}
 	function form2dd_add() {
@@ -1750,9 +1864,16 @@
 		}
 		if (flag == true) {
 			nmgame = "2DD";
-			diskon = bet_2dd * disc2dd_bet;
-			diskonpercen = disc2dd_bet;
-			win = win2dd_bet;
+			if(flag_fulldiskon =="diskon"){
+				diskon = bet_2dd * disc2dd_bet;
+				diskonpercen = disc2dd_bet;
+				win = win2dd_bet;
+			}else{
+				diskon = 0;
+				diskonpercen = 0;
+				win = win2ddnodiskon_bet;
+			}
+			
 			nomor = nomor2dd;
 			bet = bet_2dd;
 			bayar = parseInt(bet_2dd) - parseInt(Math.ceil(diskon));
@@ -1830,9 +1951,16 @@
 		}
 		if (flag == true) {
 			nmgame = "2DT";
-			diskon = bet_2dt * disc2dt_bet;
-			diskonpercen = disc2dt_bet;
-			win = win2dt_bet;
+			if(flag_fulldiskon =="diskon"){
+				diskon = bet_2dt * disc2dt_bet;
+				diskonpercen = disc2dt_bet;
+				win = win2dt_bet;
+			}else{
+				diskon = 0;
+				diskonpercen = 0;
+				win = win2dtnodiskon_bet;
+			}
+			
 			nomor = nomor2dt;
 			bet = bet_2dt;
 			bayar = parseInt(bet_2dt) - parseInt(Math.ceil(diskon));
@@ -1866,11 +1994,7 @@
 		for (let i = 0; i < nomorwap.length; i++) {
 			let numbera = parseInt(nomorwap[i]);
 			if (isNaN(numbera)) {
-				if (
-					nomorwap[i] != "*" &&
-					nomorwap[i] != "#" &&
-					nomorwap[i] != ","
-				) {
+				if (nomorwap[i] != "*" && nomorwap[i] != "#" && nomorwap[i] != ",") {
 					form_clear("wap");
 					flag_checkdata = false;
 				}
@@ -1956,9 +2080,16 @@
 							if (checkLimitLine("2D") == true) {
 								nomor = nomoras[i] + nomorkop[j]
 								count = count + 1
-								diskon = bet_tarung * disc2d_bet;
-								diskonpercen = disc2d_bet;
-								win = win2d_bet;
+								if(flag_fulldiskon =="diskon"){
+									diskon = bet_tarung * disc2d_bet;
+									diskonpercen = disc2d_bet;
+									win = win2d_bet;
+								}else{
+									diskon = 0;
+									diskonpercen = 0;
+									win = win2dnodiskon_bet;
+								}
+								
 								bayar = parseInt(bet_tarung) - parseInt(Math.ceil(diskon));
 								totalkeranjang = bayar + totalkeranjang;
 								addKeranjang(
@@ -1984,9 +2115,16 @@
 								if (checkLimitLine("3D") == true) {
 									nomor = nomoras[i]+nomorkop[j]+nomorkepala[x]
 									count = count + 1
-									diskon = bet_tarung * disc3d_bet;
-									diskonpercen = disc3d_bet;
-									win = win3d_bet;
+									if(flag_fulldiskon =="diskon"){
+										diskon = bet_tarung * disc3d_bet;
+										diskonpercen = disc3d_bet;
+										win = win3d_bet;
+									}else{
+										diskon = 0;
+										diskonpercen = 0;
+										win = win3dnodiskon_bet;
+									}
+									
 									bayar = parseInt(bet_tarung) - parseInt(Math.ceil(diskon));
 									totalkeranjang = bayar + totalkeranjang;
 									addKeranjang(
@@ -2014,9 +2152,16 @@
 									if (checkLimitLine("4D") == true) {
 										nomor = nomoras[i]+nomorkop[j]+nomorkepala[x]+nomorekor[y]
 										count = count + 1
-										diskon = bet_tarung * disc4d_bet;
-										diskonpercen = disc4d_bet;
-										win = win4d_bet;
+										if(flag_fulldiskon =="diskon"){
+											diskon = bet_tarung * disc4d_bet;
+											diskonpercen = disc4d_bet;
+											win = win4d_bet;
+										}else{
+											diskon = 0;
+											diskonpercen = 0;
+											win = win4dnodiskon_bet;
+										}
+										
 										bayar = parseInt(bet_tarung) - parseInt(Math.ceil(diskon));
 										totalkeranjang = bayar + totalkeranjang;
 										addKeranjang(
@@ -2150,11 +2295,17 @@
 					case "2D":
 						bet = quick_bet;
 						nmgame = "2D";
-						diskon = quick_bet * disc2d_bet;
-						diskonpercen = disc2d_bet;
-						win = win2d_bet;
-						bayar =
-							parseInt(quick_bet) - parseInt(Math.ceil(diskon));
+						if(flag_fulldiskon =="diskon"){
+							diskon = quick_bet * disc2d_bet;
+							diskonpercen = disc2d_bet;
+							win = win2d_bet;
+						}else{
+							diskon = 0;
+							diskonpercen = 0;
+							win = win2dnodiskon_bet;
+						}
+						
+						bayar = parseInt(quick_bet) - parseInt(Math.ceil(diskon));
 						for (let i = 0; i < data_quick.length; i++) {
 							if (checkLimitLine("2D") == false) {
 								code_alert = 1;
@@ -2190,9 +2341,16 @@
 					case "2DD":
 						bet = quick_bet;
 						nmgame = "2DD";
-						diskon = quick_bet * disc2dd_bet;
-						diskonpercen = disc2dd_bet;
-						win = win2d_bet;
+						if(flag_fulldiskon =="diskon"){
+							diskon = quick_bet * disc2dd_bet;
+							diskonpercen = disc2dd_bet;
+							win = win2dd_bet;
+						}else{
+							diskon = 0;
+							diskonpercen = 0;
+							win = win2ddnodiskon_bet;
+						}
+						
 						bayar =
 							parseInt(quick_bet) - parseInt(Math.ceil(diskon));
 						for (let i = 0; i < data_quick.length; i++) {
@@ -2242,9 +2400,16 @@
 					case "2DT":
 						bet = quick_bet;
 						nmgame = "2DT";
-						diskon = quick_bet * disc2dt_bet;
-						diskonpercen = disc2dt_bet;
-						win = win2d_bet;
+						if(flag_fulldiskon =="diskon"){
+							diskon = quick_bet * disc2dt_bet;
+							diskonpercen = disc2dt_bet;
+							win = win2dt_bet;
+						}else{
+							diskon = 0;
+							diskonpercen = 0;
+							win = win2dtnodiskon_bet;
+						}
+						
 						bayar =
 							parseInt(quick_bet) - parseInt(Math.ceil(diskon));
 						for (let i = 0; i < data_quick.length; i++) {
@@ -2321,27 +2486,48 @@
 					case "4":
 						if (checkLimitLine("4D") == true) {
 							nmgame = "4D";
-							diskon = money * disc4d_bet;
-							diskonpercen = disc4d_bet;
-							win = win4d_bet;
+							if(flag_fulldiskon =="diskon"){
+								diskon = money * disc4d_bet;
+								diskonpercen = disc4d_bet;
+								win = win4d_bet;
+							}else{
+								diskon = 0;
+								diskonpercen = 0;
+								win = win4dnodiskon_bet;
+							}
+							
 							flag_push = true;
 						}
 						break;
 					case "3":
 						if (checkLimitLine("3D") == true) {
 							nmgame = "3D";
-							diskon = money * disc3d_bet;
-							diskonpercen = disc3d_bet;
-							win = win3d_bet;
+							if(flag_fulldiskon =="diskon"){
+								diskon = money * disc3d_bet;
+								diskonpercen = disc3d_bet;
+								win = win3d_bet;
+							}else{
+								diskon = 0;
+								diskonpercen = 0;
+								win = win3dnodiskon_bet;
+							}
+							
 							flag_push = true;
 						}
 						break;
 					case "2":
 						if (checkLimitLine("2D") == true) {
 							nmgame = "2D";
-							diskon = money * disc2d_bet;
-							diskonpercen = disc2d_bet;
-							win = win2d_bet;
+							if(flag_fulldiskon =="diskon"){
+								diskon = money * disc2d_bet;
+								diskonpercen = disc2d_bet;
+								win = win2d_bet;
+							}else{
+								diskon = 0;
+								diskonpercen = 0;
+								win = win2dnodiskon_bet;
+							}
+							
 							flag_push = true;
 						}
 						break;
@@ -2377,27 +2563,47 @@
 						case "4":
 							if (checkLimitLine("4D") == true) {
 								nmgame = "4D";
-								diskon = money * disc4d_bet;
-								diskonpercen = disc4d_bet;
-								win = win4d_bet;
+								if(flag_fulldiskon =="diskon"){
+									diskon = money * disc4d_bet;
+									diskonpercen = disc4d_bet;
+									win = win4d_bet;
+								}else{
+									diskon = 0;
+									diskonpercen = 0;
+									win = win4dnodiskon_bet;
+								}
 								flag_push = true;
 							}
 							break;
 						case "3":
 							if (checkLimitLine("3D") == true) {
 								nmgame = "3D";
-								diskon = money * disc3d_bet;
-								diskonpercen = disc3d_bet;
-								win = win3d_bet;
+								if(flag_fulldiskon =="diskon"){
+									diskon = money * disc3d_bet;
+									diskonpercen = disc3d_bet;
+									win = win3d_bet;
+								}else{
+									diskon = 0;
+									diskonpercen = 0;
+									win = win3dnodiskon_bet;
+								}
+								
 								flag_push = true;
 							}
 							break;
 						case "2":
 							if (checkLimitLine("2D") == true) {
 								nmgame = "2D";
-								diskon = money * disc2d_bet;
-								diskonpercen = disc2d_bet;
-								win = win2d_bet;
+								if(flag_fulldiskon =="diskon"){
+									diskon = money * disc2d_bet;
+									diskonpercen = disc2d_bet;
+									win = win2d_bet;
+								}else{
+									diskon = 0;
+									diskonpercen = 0;
+									win = win2dnodiskon_bet;
+								}
+								
 								flag_push = true;
 							}
 							break;
@@ -2681,7 +2887,9 @@
 		}
 		return flag;
 	}
-	const handleTambah = (e) => {
+	let idmodal = "";
+	let myModal
+	const handleTambah = (e,path) => {
 		let flag = true;
 		switch (e) {
 			case "4-3-2":
@@ -2856,7 +3064,48 @@
 					}
 				}
 				break;
+			case "pilihan":
+				path_432 = path
+				idmodal = "modalpilihan432"
+				myModal = new bootstrap.Modal(document.getElementById(idmodal));
+				myModal.show();
+				break;
+
 		}
+	};
+	const handlePilihan = (e) => {
+		flag_fulldiskon = e
+		switch (path_432) {
+			case "4-3-2":
+				handleTambah('4-3-2')
+				break;
+			case "432SET":
+				handleTambah('432SET');
+				break;
+			case "BBFS":
+				handleTambah('BBFS');
+				break;
+			case "wap":
+				handleTambah('wap');
+				break;
+			case "polatarung":
+				handleTambah('polatarung');
+				break;
+			case "3DD":
+				handleTambah('3DD');
+				break;
+			case "2DD":
+				handleTambah('2DD');
+				break;
+			case "2DT":
+				handleTambah('2DT');
+				break;
+			case "quick2D":
+				handleTambah('quick2D');
+				break;
+
+		}
+		myModal.hide();
 	};
 	const handleKeyboard_format = (e) => {
 		let numbera;
@@ -3037,49 +3286,49 @@
 	const handleKeyboard_checkenter = (e) => {
 		let keyCode = e.which || e.keyCode;
 		if (keyCode === 13) {
-			form4d_add();
+			handleTambah("pilihan","4-3-2")
 		}
 	};
 	const handleKeyboard432set_checkenter = (e) => {
 		let keyCode = e.which || e.keyCode;
 		if (keyCode === 13) {
-			form4dset_add();
+			handleTambah("pilihan","432SET")
 		}
 	};
 	const handleKeyboardbbfs_checkenter = (e) => {
 		let keyCode = e.which || e.keyCode;
 		if (keyCode === 13) {
-			formbbfs_add();
+			handleTambah("pilihan","BBFS")
 		}
 	};
 	const handleKeyboard3dd_checkenter = (e) => {
 		let keyCode = e.which || e.keyCode;
 		if (keyCode === 13) {
-			form3dd_add();
+			handleTambah("pilihan","3DD")
 		}
 	};
 	const handleKeyboard2dd_checkenter = (e) => {
 		let keyCode = e.which || e.keyCode;
 		if (keyCode === 13) {
-			form2dd_add();
+			handleTambah("pilihan","2DD")
 		}
 	};
 	const handleKeyboard2dt_checkenter = (e) => {
 		let keyCode = e.which || e.keyCode;
 		if (keyCode === 13) {
-			form2dt_add();
+			handleTambah("pilihan","2DT")
 		}
 	};
 	const handleKeyboardquick2d_checkenter = (e) => {
 		let keyCode = e.which || e.keyCode;
 		if (keyCode === 13) {
-			formquick2d_add();
+			handleTambah("pilihan","quick2D")
 		}
 	};
 	const handleKeyboardpolatarung_checkenter = (e) => {
 		let keyCode = e.which || e.keyCode;
 		if (keyCode === 13) {
-			formpolatarung_add();
+			handleTambah("pilihan","polatarung")
 		}
 	};
 </script>
@@ -3262,7 +3511,7 @@
 									<Button
 										id="btn2"
 										on:click={() => {
-											handleTambah("4-3-2");
+											handleTambah("pilihan","4-3-2");
 										}}>TAMBAH</Button>
 								</td>
 							</tr>
@@ -3424,7 +3673,7 @@
 										<Button
 											id="btn2"
 											on:click={() => {
-												handleTambah("432SET");
+												handleTambah("pilihan","432SET");
 											}}>TAMBAH</Button>
 									</div>
 								</td>
@@ -3590,7 +3839,7 @@
 										<Button
 											id="btn2"
 											on:click={() => {
-												handleTambah("BBFS");
+												handleTambah("pilihan","BBFS");
 											}}>TAMBAH</Button>
 									</div>
 								</td>
@@ -3614,7 +3863,7 @@
 							<Button
 								id="btn2"
 								on:click={() => {
-									handleTambah("wap");
+									handleTambah("pilihan","wap");
 								}}>TAMBAH</Button>
 						</div>
 						<p class="p-3" style="font-size:12px;color:#8a8a8a;">
@@ -3736,7 +3985,7 @@
 									<Button
 										id="btn2"
 										on:click={() => {
-											handleTambah("polatarung");
+											handleTambah("pilihan","polatarung");
 										}}>TAMBAH</Button>
 								</td>
 							</tr>
@@ -3826,7 +4075,7 @@
 									<Button
 										id="btn2"
 										on:click={() => {
-											handleTambah("quick2D");
+											handleTambah("pilihan","quick2D");
 										}}>TAMBAH</Button>
 								</td>
 							</tr>
@@ -3891,7 +4140,7 @@
 									<Button
 										id="btn2"
 										on:click={() => {
-											handleTambah("3DD");
+											handleTambah("pilihan","3DD");
 										}}>TAMBAH</Button>
 								</td>
 							</tr>
@@ -3958,7 +4207,7 @@
 									<Button
 										id="btn2"
 										on:click={() => {
-											handleTambah("2DD");
+											handleTambah("pilihan","2DD");
 										}}>TAMBAH</Button>
 								</td>
 							</tr>
@@ -4025,7 +4274,7 @@
 									<Button
 										id="btn2"
 										on:click={() => {
-											handleTambah("2DT");
+											handleTambah("pilihan","2DT");
 										}}>TAMBAH</Button>
 								</td>
 							</tr>
@@ -4738,6 +4987,26 @@
 	</Card>
 {/if}
 
+<Modal2
+    modal_id={"modalpilihan432"}
+    modal_footer_flag={false}
+    modal_size={"modal-dialog-centered modal-sm"}>
+    <slot:template slot="body">
+       <center style="margin-top:20px;margin-bottom:20px;">
+		<button
+			on:click={() => {
+				handlePilihan("diskon");
+			}} 
+			class="btn btn-info btn-lg">DISKON</button>
+		<button
+			on:click={() => {
+				handlePilihan("nondiskon");
+			}} 
+			class="btn btn-info btn-lg">NON DISKON / FULL</button>
+	   </center>
+    </slot:template>
+</Modal2>
+
 <Modal modal_id={"modalError"} modal_size={"modal-dialog-centered"}>
 	<slot:template slot="header">
 		<div class="float-end">
@@ -4791,6 +5060,12 @@
 	{win2d_bet}
 	{win2dd_bet}
 	{win2dt_bet}
+	{win4dnodiskon_bet}
+	{win3dnodiskon_bet}
+	{win3ddnodiskon_bet}
+	{win2dnodiskon_bet}
+	{win2ddnodiskon_bet}
+	{win2dtnodiskon_bet}
 	{limitline_4d}
 	{limitline_3d}
 	{limitline_3dd}

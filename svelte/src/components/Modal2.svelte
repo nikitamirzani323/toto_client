@@ -21,8 +21,7 @@
                 id="stream"
                 data-simplebar
                 class="modal-body"
-                style="font-size:12px;padding:0px;margin:0px;color:black;background:#121212;border:1px solid #0e0c13;{modal_body_height}"
-            >
+                style="font-size:12px;padding:0px;margin:0px;color:black;background:#121212;border:1px solid #0e0c13;{modal_body_height}">
                 <slot name="body" />
             </div>
             {#if modal_footer_flag}

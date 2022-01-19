@@ -33,6 +33,12 @@
     export let win2d_bet = 0;
     export let win2dd_bet = 0;
     export let win2dt_bet = 0;
+    export let win4dnodiskon_bet = 0;
+	export let win3dnodiskon_bet = 0;
+	export let win3ddnodiskon_bet = 0;
+	export let win2dnodiskon_bet = 0;
+	export let win2ddnodiskon_bet = 0;
+	export let win2dtnodiskon_bet = 0;
     export let limitline_4d = 0;
     export let limitline_3d = 0;
     export let limitline_3dd = 0;
@@ -308,20 +314,13 @@
         <table class="table table-dark">
             <thead>
                 <tr>
-                    <th
-                        style="background:#303030;border:1px solid #282828;border-bottom:none;">&nbsp;</th>
-                    <th
-                        style="background:#303030;border:1px solid #282828;text-align:right;border-bottom:none;">4D</th>
-                    <th
-                        style="background:#303030;border:1px solid #282828;text-align:right;border-bottom:none;">3D</th>
-                    <th
-                        style="background:#303030;border:1px solid #282828;text-align:right;border-bottom:none;">3DD</th>
-                    <th
-                        style="background:#303030;border:1px solid #282828;text-align:right;border-bottom:none;">2D</th>
-                    <th
-                        style="background:#303030;border:1px solid #282828;text-align:right;border-bottom:none;">2DD</th>
-                    <th
-                        style="background:#303030;border:1px solid #282828;text-align:right;border-bottom:none;">2DT</th>
+                    <th style="background:#303030;border:1px solid #282828;border-bottom:none;">&nbsp;</th>
+                    <th style="background:#303030;border:1px solid #282828;text-align:right;border-bottom:none;">4D</th>
+                    <th style="background:#303030;border:1px solid #282828;text-align:right;border-bottom:none;">3D</th>
+                    <th style="background:#303030;border:1px solid #282828;text-align:right;border-bottom:none;">3DD</th>
+                    <th style="background:#303030;border:1px solid #282828;text-align:right;border-bottom:none;">2D</th>
+                    <th style="background:#303030;border:1px solid #282828;text-align:right;border-bottom:none;">2DD</th>
+                    <th style="background:#303030;border:1px solid #282828;text-align:right;border-bottom:none;">2DT</th>
                 </tr>
             </thead>
             <tbody>
@@ -382,10 +381,8 @@
                     <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{Math.ceil(disc2dt_bet * 100)}%</td>
                 </tr>
                 <tr>
-                    <td
-                        style="background:#303030;border:1px solid #282828;font-size:11px;">HADIAH</td>
-                    <td
-                        style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{win4d_bet}x</td>
+                    <td style="background:#303030;border:1px solid #282828;font-size:11px;">HADIAH</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{win4d_bet}x</td>
                     <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win3d_bet}x</td>
                     <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win3dd_bet}x</td>
                     <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2d_bet}x</td>
@@ -393,8 +390,16 @@
                     <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2dt_bet}x</td>
                 </tr>
                 <tr>
-                    <td
-                        style="background:#303030;border:1px solid #282828;font-size:11px;">LIMIT LINE</td>
+                    <td style="background:#303030;border:1px solid #282828;font-size:11px;">HADIAH FULL</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{win4dnodiskon_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win3dnodiskon_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win3ddnodiskon_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2dnodiskon_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2ddnodiskon_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2dtnodiskon_bet}x</td>
+                </tr>
+                <tr>
+                    <td style="background:#303030;border:1px solid #282828;font-size:11px;">LIMIT LINE</td>
                     <td
                         style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">
                         {new Intl.NumberFormat().format(
