@@ -4447,7 +4447,7 @@
 							block
 							id="btn2"
 							on:click={() => {
-								handleTambah("4-3-2");
+								handleTambah("pilihan","4-3-2");
 							}}>TAMBAH</Button>
 					</div>
 				</div>
@@ -4609,7 +4609,7 @@
 							block
 							id="btn2"
 							on:click={() => {
-								handleTambah("432SET");
+								handleTambah("pilihan","432SET");
 							}}>TAMBAH</Button>
 					</div>
 				</div>
@@ -4771,7 +4771,7 @@
 							block
 							id="btn2"
 							on:click={() => {
-								handleTambah("BBFS");
+								handleTambah("pilihan","BBFS");
 							}}>TAMBAH</Button>
 					</div>
 				</div>
@@ -4917,7 +4917,7 @@
 							block
 							id="btn2"
 							on:click={() => {
-								handleTambah("2DD");
+								handleTambah("pilihan","2DD");
 							}}>TAMBAH</Button>
 					</div>
 				</div>
@@ -4978,7 +4978,7 @@
 							block
 							id="btn2"
 							on:click={() => {
-								handleTambah("2DT");
+								handleTambah("pilihan","2DT");
 							}}>TAMBAH</Button>
 					</div>
 				</div>
@@ -4993,6 +4993,8 @@
     modal_size={"modal-dialog-centered modal-sm"}>
     <slot:template slot="body">
        <center style="margin-top:20px;margin-bottom:20px;">
+		<span style="color: white;font-weight:12px;">Pilih Permainan dibawah ini : </span>
+		<br />
 		<button
 			on:click={() => {
 				handlePilihan("diskon");
