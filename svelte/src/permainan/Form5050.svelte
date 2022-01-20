@@ -1087,7 +1087,7 @@
 									bind:value={select_5050special_1}
 									bind:this={select_5050special_1_input}
 									style="border:none;background:#303030;color:white;"
-									class="form-control"
+									class="form-control">
 									<option value="">--Pilih--</option>
 									<option value="AS">AS</option>
 									<option value="KOP">KOP</option>

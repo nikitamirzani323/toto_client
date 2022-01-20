@@ -24,7 +24,7 @@
 	let group_btn_beli = false;
 	let record = "";
 	let temp_bulk_error = "";
-
+	let flag_fulldiskon = "DISC"
 	let min_bet = 0;
 	let max_bet = 0;
 	let win_bet = 0;
