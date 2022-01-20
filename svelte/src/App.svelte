@@ -32,7 +32,6 @@
   } else {
     client_device = "WEBSITE";
   }
-
   let listkeluaran = [];
   let pasaran_name = "";
   let pasaran_code = "";
@@ -55,6 +54,17 @@
   let record = "";
   let message_err = "";
   let css_err = "display:none;";
+  let daylight = false;
+  // $: callday = daylights();
+  function daylights() {
+    const time = new Date().getHours();
+    console.log(time);
+    if (time >= 6 && time <= 18) {
+      return true;
+    }
+    return false;
+  }
+
   async function initTimezone() {
     const res = await fetch("/api/healthz");
     if (!res.ok) {
@@ -64,6 +74,11 @@
       const json = await res.json();
       client_ipaddress = json.real_ip;
       client_timezone = "Asia/Jakarta";
+    }
+    let callday = daylights();
+    if (callday) {
+      daylight = true;
+      console.log(daylight);
     }
     initapp(token_browser, agentCode);
   }
@@ -167,12 +182,12 @@
 </svelte:head>
 <Notification duration="3000" />
 {#if client_device == "WEBSITE"}
-  <div class="content">
+  <div class="content" class:dark={daylight === false}>
     <Container>
       {#if token_browser != ""}
-        <Row align-items-start>
-          {#if pasaran_code != ""}
-            {#if client_token != ""}
+        {#if pasaran_code != ""}
+          {#if client_token != ""}
+            <Row align-items-start>
               <Permainan
                 {client_token}
                 {client_company}
@@ -185,29 +200,31 @@
                 {pasaran_name}
                 {pasaran_periode}
                 {permainan}
+                {daylight}
               />
-            {/if}
-          {:else if client_token != ""}
-            <Home
-              {client_token}
-              {client_company}
-              {client_username}
-              {client_credit}
-              {client_ipaddress}
-              {client_timezone}
-              {client_device}
-              {listkeluaran}
-              on:pasaran={pasaran}
-            />
-          {:else}
-            <Notif message={message_err} css_init={css_err} />
-            <div style="height: 100%;margin:100px 0px 100px 0px;">
-              <center>
-                <Loader cssstyle={"height: 100%;margin:100px 0px 100px 0px;"} />
-              </center>
-            </div>
+            </Row>
           {/if}
-        </Row>
+        {:else if client_token != ""}
+          <Home
+            {client_token}
+            {client_company}
+            {client_username}
+            {client_credit}
+            {client_ipaddress}
+            {client_timezone}
+            {client_device}
+            {listkeluaran}
+            {daylight}
+            on:pasaran={pasaran}
+          />
+        {:else}
+          <Notif message={message_err} css_init={css_err} />
+          <div style="height: 100%;margin:100px 0px 100px 0px;">
+            <center>
+              <Loader cssstyle={"height: 100%;margin:100px 0px 100px 0px;"} />
+            </center>
+          </div>
+        {/if}
       {/if}
     </Container>
   </div>
@@ -259,17 +276,14 @@
 
 <style>
   .content {
-    margin-bottom: 50px;
-    background-image: linear-gradient(
-        180deg,
-        rgba(51, 0, 5, 0) 17.78%,
-        #330500 52.74%
-      ),
-      url("/bg-cover.svg");
+    background-image: url("/bg-light.svg");
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
   }
 
+  .content.dark {
+    background-image: url("/bg-dark.svg");
+  }
   .content.mobile {
     background-image: linear-gradient(
         180deg,

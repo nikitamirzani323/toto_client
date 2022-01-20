@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
 html,
 body {
     font-size: 81.25%;
@@ -6,7 +8,7 @@ body {
     ;
     color: #acacac;
     line-height: 1.5;
-    background: #330500;
+    background: #003E27;
 }
 
 #btn1 {
@@ -34,7 +36,7 @@ body {
 }
 
 #style_text {
-    color: #ffd292;
+    color: #ff9900;
 }
 
 .panel {
@@ -76,7 +78,7 @@ a:focus {
 
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
-    background-color: #F9A407;
+    background-color: #007741;
     border-color: #F9A407 #F9A407 #F9A407;
     border-radius: 0px;
     color: black;
@@ -92,15 +94,22 @@ a:focus {
 .nav-link:focus,
 .nav-link:hover {
     color: white;
+    background-color: #007741;
 }
 
-.nav-link {
+.nav-link,
+.nav-link.custom.custom-dark {
     display: block;
     padding: .5rem 1rem;
-    color: white;
+    color: #fff;
     text-decoration: none;
     font-size: 13px;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+}
+
+
+.nav-link.custom {
+    color: #171717;
 }
 
 .nav-tabs {
@@ -281,7 +290,7 @@ hr {
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: black;
-    background-color: #F9A407;
+    background-color: #007741;
     border-color: #F9A407 #F9A407 #F9A407;
     border-radius: 4px;
     font-weight: bold;
@@ -305,9 +314,27 @@ input:-moz-placeholder { /* Firefox 18- */
 .head-fonts {
     font-family: 'Poppins' !important;
     font-weight: 600;
+    color: #171717;
+}
+
+.head-fonts.custom-dark {
     color: #fff;
 }
 
+.custom-icon {
+    color: #330005;
+    padding-top: 10px;
+}
+
+
+.custom-icon.dark {
+    color: #fff;
+}
+
+.custom-icon:hover,
+.custom-icon.dark:hover {
+    color: #00a86b;
+}
 .periode-menu .nav-tabs {
     border-bottom: 1px solid rgb(139, 139, 139);
 }

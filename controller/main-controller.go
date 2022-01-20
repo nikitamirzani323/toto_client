@@ -819,7 +819,6 @@ func Savetransaksi(c *fiber.Ctx) error {
 	}
 	fmt.Println("Response Info client: ", client.Company, resp.ReceivedAt(), resp)
 	result := resp.Result().(*response)
-
 	if result.Status == 200 {
 		return c.JSON(fiber.Map{
 			"status": http.StatusOK,
@@ -827,6 +826,7 @@ func Savetransaksi(c *fiber.Ctx) error {
 			"time":   time.Since(render_page).String(),
 		})
 	} else {
+		log.Println("error", result.Message)
 		return c.JSON(fiber.Map{
 			"status":  result.Status,
 			"record":  nil,

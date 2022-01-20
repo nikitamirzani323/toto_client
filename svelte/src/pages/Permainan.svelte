@@ -3,7 +3,7 @@
   import dayjs from "dayjs";
   import Loader2 from "../components/Loader.svelte";
   import Notif from "../components/Notif.svelte";
-  import Headerback from "../components/Headerback.svelte";
+  import Headerback from "../components/Header.svelte";
   import Panel from "../components/Panel.svelte";
   import PanelFull from "../components/Panelfull.svelte";
   import Form432d from "../permainan/Form432d.svelte";
@@ -24,6 +24,7 @@
   export let pasaran_name = "";
   export let pasaran_periode = 0;
   export let permainan = "";
+  export let daylight = false;
   let css_loader = "display:none;";
 
   let resultinvoice = [];
@@ -302,6 +303,7 @@
     {client_ipaddress}
     {client_timezone}
     {client_device}
+    {daylight}
   />
   {#if client_device == "WEBSITE"}
     <Col xs="12" style="padding:0;">

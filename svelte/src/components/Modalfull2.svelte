@@ -4,19 +4,18 @@
   export let modal_body_height = "height:350px;overflow:scroll;";
   export let modal_headerbootom_flag = false;
   export let modal_footer_flag = true;
+  export let daylight = false;
 </script>
 
 <div class="modal fade" id={modal_id} tabindex="-1" data-bs-backdrop="false">
   <div class="modal-dialog {modal_size}">
-    <div class="modal-content" style="background: #580009;padding: 20px;">
-      <div
-        class="modal-header"
-        style="background: transparent;border-bottom: none;color: #fff;"
-      >
+    <div class="modal-content custom" class:dark={daylight === false}>
+      <div class="modal-header custom" class:dark={daylight === false}>
         <slot name="header" />
         <button
           type="button"
-          class="btn-close btn-close-white"
+          class="btn-close"
+          class:btn-close-white={daylight === false}
           data-bs-dismiss="modal"
           aria-label="Close"
         />
@@ -47,6 +46,31 @@
 </div>
 
 <style>
+  .modal-content.custom {
+    background: #fff;
+    border-color: #171717;
+    color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .modal-content.custom.dark {
+    background: #171717;
+    border-color: #fff;
+    color: #171717;
+  }
+
+  .modal-header.custom {
+    background: transparent;
+    border-bottom: none;
+    color: #171717;
+  }
+  .modal-header.custom.dark {
+    color: #fff;
+  }
+  .modal-title.dark {
+    color: #171717;
+  }
   #streaminvoice::-webkit-scrollbar {
     width: 0.3em;
   }

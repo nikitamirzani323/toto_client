@@ -32,7 +32,12 @@
         href="/?token={client_token}&agent={client_company}"
         title="isbtoto"
       >
-        <img style="margin-top: 0px;" width="135" src="logo.svg" alt="close" />
+        <img
+          style="margin-top: 0px;"
+          width="185"
+          src="logo-green.svg"
+          alt="close"
+        />
       </a>
     </div>
     <div class="col">

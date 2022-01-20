@@ -1,11 +1,13 @@
 <script>
-  import { Col, Card, CardBody, Row } from "sveltestrap";
+  import { Container, Col, Card, CardBody, Row } from "sveltestrap";
   import dayjs from "dayjs";
   import utc from "dayjs/plugin/utc";
   import timezone from "dayjs/plugin/timezone";
   import Modal from "../components/Modalfull2.svelte";
   import PanelFull from "../components/Panelfull.svelte";
   import { notifications } from "../components/Noti.svelte";
+  import Fa from "svelte-fa";
+  import { faBell } from "@fortawesome/free-regular-svg-icons";
 
   dayjs.extend(utc);
   dayjs.extend(timezone);
@@ -17,7 +19,7 @@
   export let client_ipaddress = "";
   export let client_timezone = "";
   export let client_device = "";
-
+  export let daylight = false;
   let modal_table_fontsize_header = "13px";
   let modal_table_fontsize_body = "12px";
   let modal_table_fontsize_bukumimpi_header = "14px";
@@ -141,7 +143,7 @@
             },
           ];
         }
-        console.log(listhasilkeluaran);
+        // console.log(listhasilkeluaran);
       } else {
         notifications.push("Error");
       }
@@ -418,64 +420,113 @@
 </script>
 
 {#if client_device == "WEBSITE"}
-  <nav class="navbar">
-    <div class="col">
-      <a href="/?token={client_token}&agent={client_company}" title="totoapp">
-        <img
-          id="imglogo"
-          alt="SDSB4D"
-          style="margin-top:0px;"
-          width="135"
-          src="logo.svg"
-        />
-      </a>
-    </div>
-    <div class="col">
-      <form class="d-flex">
-        <button
-          on:click={() => {
-            handleClickButtonTop("result");
-          }}
-          class="btn btn-play"
-          type="button">RESULT</button
-        >
-        &nbsp;
-        <button
-          on:click={() => {
-            handleClickButtonTop("invoice");
-          }}
-          class="btn btn-play"
-          type="button">INVOICE</button
-        >
-        &nbsp;
-        <button
-          on:click={() => {
-            handleClickButtonTop("bukumimpi");
-          }}
-          class="btn btn-play"
-          type="button">BUKU MIMPI</button
-        >
-      </form>
-    </div>
-    <div class="col">
-      <Card style="border:none;background-color:transparent;text-align:right;">
-        <CardBody>
-          <span style="font-size:13px;"
-            >Timezone : <span id="style_text"
-              >{client_timezone}, {clockmachine} WIB</span
-            ></span
-          ><br />
-
-          <span style="font-size:15px;color:#fff;"
-            >{client_username} ({client_ipaddress})</span
-          ><br />
-          <span style="font-size:15px;color:#fff;"
-            >Saldo : IDR <span id="style_text">{display_credit}</span></span
-          ><br />
-        </CardBody>
-      </Card>
-    </div>
-  </nav>
+  <Row>
+    <Col>
+      <Container style="padding:0;">
+        <Row class="mt-4 mb-2">
+          <Col md="8" />
+          <div class="col">
+            <span style="font-size:13px;float:right"
+              >Timezone : <span id="style_text"
+                >{client_timezone}, {clockmachine} WIB</span
+              ></span
+            >
+          </div>
+        </Row>
+        <Row>
+          <div class="col">
+            <a
+              href="/?token={client_token}&agent={client_company}"
+              title="totoapp"
+            >
+              <img
+                id="imglogo"
+                alt="SDSB4D"
+                style="margin-top:0px;"
+                width="185"
+                src="logo-green.svg"
+              />
+            </a>
+          </div>
+          <div class="col">
+            <form class="d-flex">
+              <button
+                on:click={() => {
+                  handleClickButtonTop("result");
+                }}
+                class="btn btn-play"
+                class:dark={daylight === false}
+                type="button">RESULT</button
+              >
+              &nbsp;
+              <button
+                on:click={() => {
+                  handleClickButtonTop("invoice");
+                }}
+                class="btn btn-play"
+                class:dark={daylight === false}
+                type="button">INVOICE</button
+              >
+              &nbsp;
+              <button
+                on:click={() => {
+                  handleClickButtonTop("invoice");
+                }}
+                class="btn btn-play"
+                class:dark={daylight === false}
+                type="button">INFO PASARAN</button
+              >
+              &nbsp;
+              <button
+                on:click={() => {
+                  handleClickButtonTop("bukumimpi");
+                }}
+                class="btn btn-play"
+                class:dark={daylight === false}
+                type="button">BUKU MIMPI</button
+              >
+            </form>
+          </div>
+          <div class="col">
+            <Card
+              style="border:none;background-color:transparent;text-align:right;"
+            >
+              <CardBody style="padding:0px;">
+                <div class="container">
+                  <div class="row">
+                    <div class="col">
+                      <span class="user-detail" class:dark={daylight === false}
+                        >{client_username} ({client_ipaddress})</span
+                      ><br />
+                      <span class="user-detail" class:dark={daylight === false}
+                        >Saldo : IDR <span id="style_text"
+                          >{display_credit}</span
+                        ></span
+                      ><br />
+                    </div>
+                    <div class="col-1">
+                      <div style="padding-top:10px;">
+                        <a
+                          href="#"
+                          class="custom-icon"
+                          class:dark={daylight === false}
+                          title="notif"><Fa icon={faBell} size="2x" /></a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardBody>
+            </Card>
+          </div>
+        </Row>
+      </Container>
+      <nav
+        class="navbar"
+        style="padding-top: 18px;padding-left:0; padding-right:0;"
+      />
+    </Col>
+  </Row>
 {:else}
   <Row>
     <Col style="padding:5px;margin:0px;">
@@ -542,9 +593,10 @@
   modal_footer_flag={false}
   modal_body_height={"height:350px;"}
   modal_size={"modal-dialog-centered"}
+  {daylight}
 >
   <slot:template slot="header">
-    <h5 class="modal-title">RESULT</h5>
+    <h5 class="modal-title" class:dark={daylight === false}>RESULT</h5>
   </slot:template>
   <slot:template slot="body">
     <table class="table table-dark table-striped">
@@ -622,9 +674,12 @@
   modal_footer_flag={false}
   modal_body_height={"height:350px;"}
   modal_size={"modal-dialog-centered"}
+  {daylight}
 >
   <slot:template slot="header">
-    <h5 class="modal-title">PASARAN : {nmpasaran}</h5>
+    <h5 class="modal-title" class:dark={daylight === false}>
+      PASARAN : {nmpasaran}
+    </h5>
   </slot:template>
   <slot:template slot="body">
     <table class="table table-dark table-striped">
@@ -687,9 +742,10 @@
   modal_footer_flag={false}
   modal_body_height={"height:350px;"}
   modal_size={"modal-dialog-centered"}
+  {daylight}
 >
   <slot:template slot="header">
-    <h5 class="modal-title">INVOICE</h5>
+    <h5 class="modal-title" class:dark={daylight === false}>INVOICE</h5>
   </slot:template>
   <slot:template slot="body">
     <table class="table table-dark">
@@ -769,9 +825,10 @@
   modal_footer_flag={false}
   modal_body_height={"height:500px;"}
   modal_size={"modal-dialog-centered"}
+  {daylight}
 >
   <slot:template slot="header">
-    <h5 class="modal-title">BUKU MIMPI</h5>
+    <h5 class="modal-title" class:dark={daylight === false}>BUKU MIMPI</h5>
   </slot:template>
   <slot:template slot="headerbottom">
     <div class="navbar mb-3">
@@ -789,7 +846,8 @@
           role="presentation"
         >
           <button
-            class="nav-link active"
+            class="nav-link custom active"
+            class:custom-dark={daylight === false}
             id="pills-home-tab"
             data-bs-toggle="pill"
             data-bs-target="#pills-bukumimpiall"
@@ -807,7 +865,8 @@
           role="presentation"
         >
           <button
-            class="nav-link"
+            class="nav-link custom"
+            class:custom-dark={daylight === false}
             id="pills-profile-tab"
             data-bs-toggle="pill"
             data-bs-target="#pills-bukumimpi4d"
@@ -825,7 +884,8 @@
           role="presentation"
         >
           <button
-            class="nav-link"
+            class="nav-link custom"
+            class:custom-dark={daylight === false}
             id="pills-contact-tab"
             data-bs-toggle="pill"
             data-bs-target="#pills-bukumimpi3d"
@@ -843,7 +903,8 @@
           role="presentation"
         >
           <button
-            class="nav-link"
+            class="nav-link custom"
+            class:custom-dark={daylight === false}
             id="pills-contact-tab"
             data-bs-toggle="pill"
             data-bs-target="#pills-bukumimpi2d"
@@ -985,9 +1046,10 @@
   modal_footer_flag={true}
   modal_body_height={"height:350px;"}
   modal_size={"modal-dialog-centered"}
+  {daylight}
 >
   <slot:template slot="header">
-    <h5 class="modal-title">
+    <h5 class="modal-title" class:dark={daylight === false}>
       PASARAN : {detailslipheader}
     </h5>
   </slot:template>
@@ -1427,9 +1489,10 @@
   modal_footer_flag={true}
   modal_body_height={"height:450px;"}
   modal_size={"modal-lg modal-dialog-centered"}
+  {daylight}
 >
   <slot:template slot="header">
-    <h5 class="modal-title">
+    <h5 class="modal-title" class:dark={daylight === false}>
       PERMAINAN : {detailslipheaderpermainan}
     </h5>
   </slot:template>
@@ -1546,14 +1609,22 @@
 
 <style scoped>
   .btn.btn-play {
+    color: #171717;
+    border-color: #171717;
+    border-radius: 15px;
+    margin: 0 0.5rem 0;
+    width: 122.19px;
+  }
+
+  .btn.btn-play.dark {
     color: #fff;
     border-color: #fff;
-    border-radius: 15px;
-    margin: 1rem 0.5rem 0;
-    width: 11em;
   }
+
   .btn.btn-play:hover {
-    background: linear-gradient(100.05deg, #ff9900 24.87%, #e56b00 85.21%);
+    color: #fff;
+    background: #00a86b;
+    border-color: #00a86b;
   }
   .mobile .btn.btn-play {
     width: 100% !important;
@@ -1562,5 +1633,14 @@
   button.nav-link {
     border: 1px solid #8d8d8d;
     margin: 0 5px;
+  }
+
+  .user-detail {
+    font-size: 15px;
+    color: #171717;
+  }
+
+  .user-detail.dark {
+    color: #fff;
   }
 </style>
