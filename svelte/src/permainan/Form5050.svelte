@@ -123,7 +123,7 @@
 	let db_form5050_umum_count_temp = 0;
 	let db_form5050_special_count_temp = 0;
 	let db_form5050_kombinasi_count_temp = 0;
-
+	let flag_fulldiskon = "DISC"
 	let dispatch = createEventDispatcher();
 
 	async function inittogel_432d(e) {
@@ -441,17 +441,9 @@
 		count_line_5050kombinasi = 0;
 	}
 	inittogel_432d("5050");
-	function addKeranjang(
-		nomor,
-		game,
-		bet,
-		diskon_percen,
-		diskon,
-		bayar,
-		win,
-		kei_percen,
-		kei
-	) {
+	function addKeranjang(nomor,game,bet,
+		diskon_percen,diskon,bayar,win,
+		kei_percen,kei,tipetoto) {
 		let total_data = keranjang.length;
 		let flag_data = false;
 		for (var i = 0; i < total_data; i++) {
@@ -461,25 +453,13 @@
 						let maxtotal_bayar5050umum = 0;
 						for (var j = 0; j < keranjang.length; j++) {
 							if ("50_50_UMUM" == keranjang[j].permainan) {
-								if (
-									parseInt(nomor) ==
-									parseInt(keranjang[j].nomor)
-								) {
-									maxtotal_bayar5050umum =
-										parseInt(maxtotal_bayar5050umum) +
-										(parseInt(keranjang[j].bet) +
-											parseInt(bet));
+								if (parseInt(nomor) == parseInt(keranjang[j].nomor)) {
+									maxtotal_bayar5050umum = parseInt(maxtotal_bayar5050umum) + (parseInt(keranjang[j].bet) + parseInt(bet));
 								}
 							}
 						}
-						if (
-							parseInt(limittotal_bet_5050umum) <
-							parseInt(maxtotal_bayar5050umum)
-						) {
-							temp_bulk_error +=
-								"Nomor ini : " +
-								nomor +
-								" sudah melebihi LIMIT TOTAL 50-50 UMUM<br />";
+						if (parseInt(limittotal_bet_5050umum) < parseInt(maxtotal_bayar5050umum)) {
+							temp_bulk_error +="Nomor ini : " +nomor +" sudah melebihi LIMIT TOTAL 50-50 UMUM<br />";
 							flag_data = true;
 						}
 					}
@@ -489,25 +469,13 @@
 						let maxtotal_bayar5050special = 0;
 						for (var j = 0; j < keranjang.length; j++) {
 							if ("50_50_UMUM" == keranjang[j].permainan) {
-								if (
-									parseInt(nomor) ==
-									parseInt(keranjang[j].nomor)
-								) {
-									maxtotal_bayar5050special =
-										parseInt(maxtotal_bayar5050special) +
-										(parseInt(keranjang[j].bet) +
-											parseInt(bet));
+								if (parseInt(nomor) == parseInt(keranjang[j].nomor)) {
+									maxtotal_bayar5050special = parseInt(maxtotal_bayar5050special) + (parseInt(keranjang[j].bet) + parseInt(bet));
 								}
 							}
 						}
-						if (
-							parseInt(limittotal_bet_5050special) <
-							parseInt(maxtotal_bayar5050special)
-						) {
-							temp_bulk_error +=
-								"Nomor ini : " +
-								nomor +
-								" sudah melebihi LIMIT TOTAL 50-50 SPECIAL<br />";
+						if (parseInt(limittotal_bet_5050special) < parseInt(maxtotal_bayar5050special)) {
+							temp_bulk_error += "Nomor ini : " + nomor + " sudah melebihi LIMIT TOTAL 50-50 SPECIAL<br />";
 							flag_data = true;
 						}
 					}
@@ -517,25 +485,13 @@
 						let maxtotal_bayar5050kombinasi = 0;
 						for (var j = 0; j < keranjang.length; j++) {
 							if ("50_50_UMUM" == keranjang[j].permainan) {
-								if (
-									parseInt(nomor) ==
-									parseInt(keranjang[j].nomor)
-								) {
-									maxtotal_bayar5050kombinasi =
-										parseInt(maxtotal_bayar5050kombinasi) +
-										(parseInt(keranjang[j].bet) +
-											parseInt(bet));
+								if (parseInt(nomor) == parseInt(keranjang[j].nomor)) {
+									maxtotal_bayar5050kombinasi =parseInt(maxtotal_bayar5050kombinasi) +(parseInt(keranjang[j].bet) +parseInt(bet));
 								}
 							}
 						}
-						if (
-							parseInt(limittotal_bet_5050kombinasi) <
-							parseInt(maxtotal_bayar5050kombinasi)
-						) {
-							temp_bulk_error +=
-								"Nomor ini : " +
-								nomor +
-								" sudah melebihi LIMIT TOTAL 50-50 KOMBINASI<br />";
+						if (parseInt(limittotal_bet_5050kombinasi) < parseInt(maxtotal_bayar5050kombinasi)) {
+							temp_bulk_error += "Nomor ini : " +nomor +" sudah melebihi LIMIT TOTAL 50-50 KOMBINASI<br />";
 							flag_data = true;
 						}
 					}
@@ -555,7 +511,7 @@
 				bayar,
 				win,
 				kei,
-				kei_percen,
+				kei_percen,tipetoto
 			};
 			keranjang = [data, ...keranjang];
 			count_keranjang();
@@ -602,8 +558,7 @@
 		}
 		count_line_5050umum = count_umum + db_form5050_umum_count_temp;
 		count_line_5050special = count_special + db_form5050_special_count_temp;
-		count_line_5050kombinasi =
-			count_kombinasi + db_form5050_kombinasi_count_temp;
+		count_line_5050kombinasi = count_kombinasi + db_form5050_kombinasi_count_temp;
 	}
 
 	//5050 UMUM - INIT FORM
@@ -673,12 +628,7 @@
 		) {
 			bet_5050umum = min_bet_5050umum;
 			flag = false;
-			alert(
-				"Minimal Bet : " +
-					min_bet_5050umum +
-					" Maximal Bet : " +
-					max_bet_5050umum
-			);
+			alert("Minimal Bet : " + min_bet_5050umum + " Maximal Bet : " + max_bet_5050umum);
 		}
 
 		if (flag == true) {
@@ -724,7 +674,7 @@
 				bayar,
 				win,
 				keipersen,
-				kei
+				kei,flag_fulldiskon
 			);
 			form_clear("5050umum");
 		}
@@ -847,7 +797,7 @@
 				bayar,
 				win,
 				keipersen,
-				kei
+				kei,flag_fulldiskon
 			);
 			form_clear("5050special");
 		}
@@ -967,7 +917,7 @@
 				bayar,
 				win,
 				keipersen,
-				kei
+				kei,flag_fulldiskon
 			);
 			form_clear("5050kombinasi");
 		}
@@ -976,32 +926,21 @@
 	const handleTambah = (e) => {
 		switch (e) {
 			case "5050umum":
-				if (
-					select_5050umum == "" &&
-					parseInt(bet_5050umum) < min_bet_5050umum
-				) {
+				if (select_5050umum == "" &&parseInt(bet_5050umum) < min_bet_5050umum) {
 					select_5050special_1_input.focus();
 				} else {
 					form5050_add();
 				}
 				break;
 			case "5050special":
-				if (
-					select_5050special_1 == "" &&
-					select_5050special_2 == "" &&
-					parseInt(bet_5050umum) < min_bet_5050special
-				) {
+				if (select_5050special_1 == "" && select_5050special_2 == "" &&parseInt(bet_5050umum) < min_bet_5050special) {
 					select_5050special_1_input.focus();
 				} else {
 					form5050special_add();
 				}
 				break;
 			case "5050kombinasi":
-				if (
-					select_5050kombinasi_1 == "" &&
-					select_5050kombinasi_2 == "" &&
-					parseInt(bet_5050kombinasi) < min_bet_5050kombinasi
-				) {
+				if (select_5050kombinasi_1 == "" && select_5050kombinasi_2 == "" && parseInt(bet_5050kombinasi) < min_bet_5050kombinasi) {
 					select_5050kombinasi_1_input.focus();
 				} else {
 					form5050kombinasi_add();
@@ -1054,13 +993,9 @@
 <Loader cssstyle={css_loader} />
 {#if client_device == "WEBSITE"}
 	<Card color="dark" style="border:1px solid #262424;">
-		<CardHeader
-			style="background:#323030;border-bottom:1px solid #333;border-top: 0 solid #333;"
-		>
+		<CardHeader style="background:#323030;border-bottom:1px solid #333;border-top: 0 solid #333;">
 			<div class="float-end">
-				<div
-					style="color:white;text-align:right;font-size:13px;font-weight:bold;"
-				>
+				<div style="color:white;text-align:right;font-size:13px;font-weight:bold;">
 					{pasaran_name}
 				</div>
 			</div>
@@ -1075,22 +1010,19 @@
 					tabId="form_5050umum"
 					tab="UMUM"
 					active
-					style="padding:5px;"
-				>
+					style="padding:5px;">
 					<table class="table" style="background:none;width:100%;">
 						<tr>
 							<td
 								width="25%"
 								NOWRAP
-								style="padding-right:10px;vertical-align: center;"
-							>
+								style="padding-right:10px;vertical-align: center;">
 								<span style="color:#8a8a8a;">TEBAK</span>
 								<select
 									bind:value={select_5050umum}
 									bind:this={select_5050umum_input}
 									style="border:none;background:#303030;color:white;"
-									class="form-control"
-								>
+									class="form-control">
 									<option value="">--Pilih--</option>
 									<option value="BESAR">BESAR</option>
 									<option value="KECIL">KECIL</option>
@@ -1099,23 +1031,19 @@
 									<option value="TENGAH">TENGAH</option>
 									<option value="TEPI">TEPI</option>
 								</select>
-								<span
-									class="help-block"
-									style="text-align:right;font-size:12px;"
-								/>
+								<span class="help-block" style="text-align:right;font-size:12px;" />
 							</td>
 							<td
 								width="*"
 								NOWRAP
-								style="padding-right:10px;vertical-align: center;text-align:right;"
-							>
-								<span style="color:#8a8a8a;"
-									>Bet (min : {new Intl.NumberFormat().format(
+								style="padding-right:10px;vertical-align: center;text-align:right;">
+								<span style="color:#8a8a8a;">
+									Bet (min : {new Intl.NumberFormat().format(
 										min_bet_5050umum
 									)} dan max : {new Intl.NumberFormat().format(
 										max_bet_5050umum
-									)})</span
-								>
+									)})
+								</span>
 								<input
 									bind:value={bet_5050umum}
 									on:keyup={handleKeyboard_number}
@@ -1126,26 +1054,23 @@
 									style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
 									minlength="3"
 									maxlength="7"
-									tab_index="0"
-								/>
+									tab_index="0"/>
 								<span
-									style="text-align:right;font-size:12px;color:#8a8a8a;"
-									>{new Intl.NumberFormat().format(
+									style="text-align:right;font-size:12px;color:#8a8a8a;">
+									{new Intl.NumberFormat().format(
 										bet_5050umum
-									)}</span
-								>
+									)}
+								</span>
 							</td>
 							<td
 								width="20%"
 								NOWRAP
-								style="vertical-align: center;"
-							>
+								style="vertical-align: center;">
 								<Button
 									id="btn2"
 									on:click={() => {
 										handleTambah("5050umum");
-									}}>TAMBAH</Button
-								>
+									}}>TAMBAH</Button>
 							</td>
 						</tr>
 					</table>
@@ -1156,61 +1081,50 @@
 							<td
 								width="25%"
 								NOWRAP
-								style="padding-right:10px;vertical-align: center;"
-							>
+								style="padding-right:10px;vertical-align: center;">
 								<span style="color:#8a8a8a;">TEBAK</span>
 								<select
 									bind:value={select_5050special_1}
 									bind:this={select_5050special_1_input}
 									style="border:none;background:#303030;color:white;"
 									class="form-control"
-								>
 									<option value="">--Pilih--</option>
 									<option value="AS">AS</option>
 									<option value="KOP">KOP</option>
 									<option value="KEPALA">KEPALA</option>
 									<option value="EKOR">EKOR</option>
 								</select>
-								<span
-									class="help-block"
-									style="text-align:right;font-size:12px;"
-								/>
+								<span class="help-block" style="text-align:right;font-size:12px;"/>
 							</td>
 							<td
 								width="25%"
 								NOWRAP
-								style="padding-right:10px;vertical-align: center;"
-							>
+								style="padding-right:10px;vertical-align: center;">
 								<span style="color:#8a8a8a;">TEBAK</span>
 								<select
 									bind:value={select_5050special_2}
 									bind:this={select_5050special_2_input}
 									style="border:none;background:#303030;color:white;"
-									class="form-control"
-								>
+									class="form-control">
 									<option value="">--Pilih--</option>
 									<option value="GENAP">GENAP</option>
 									<option value="GANJIL">GANJIL</option>
 									<option value="BESAR">BESAR</option>
 									<option value="KECIL">KECIL</option>
 								</select>
-								<span
-									class="help-block"
-									style="text-align:right;font-size:12px;"
-								/>
+								<span class="help-block" style="text-align:right;font-size:12px;" />
 							</td>
 							<td
 								width="*"
 								NOWRAP
-								style="padding-right:10px;vertical-align: center;text-align:right;"
-							>
-								<span style="color:#8a8a8a;"
-									>Bet (min : {new Intl.NumberFormat().format(
+								style="padding-right:10px;vertical-align: center;text-align:right;">
+								<span style="color:#8a8a8a;">
+									Bet (min : {new Intl.NumberFormat().format(
 										min_bet_5050special
 									)} dan max : {new Intl.NumberFormat().format(
 										max_bet_5050special
-									)})</span
-								>
+									)})
+								</span>
 								<input
 									bind:value={bet_5050special}
 									on:keyup={handleKeyboard_number}
@@ -1221,26 +1135,22 @@
 									style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
 									minlength="3"
 									maxlength="7"
-									tab_index="0"
-								/>
-								<span
-									style="text-align:right;font-size:12px;color:#8a8a8a;"
-									>{new Intl.NumberFormat().format(
+									tab_index="0"/>
+								<span style="text-align:right;font-size:12px;color:#8a8a8a;">
+									{new Intl.NumberFormat().format(
 										bet_5050special
-									)}</span
-								>
+									)}
+								</span>
 							</td>
 							<td
 								width="20%"
 								NOWRAP
-								style="vertical-align: center;"
-							>
+								style="vertical-align: center;">
 								<Button
 									id="btn2"
 									on:click={() => {
 										handleTambah("5050special");
-									}}>TAMBAH</Button
-								>
+									}}>TAMBAH</Button>
 							</td>
 						</tr>
 					</table>
@@ -1251,37 +1161,30 @@
 							<td
 								width="25%"
 								NOWRAP
-								style="padding-right:10px;vertical-align: center;"
-							>
+								style="padding-right:10px;vertical-align: center;">
 								<span style="color:#8a8a8a;">TEBAK</span>
 								<select
 									bind:value={select_5050kombinasi_1}
 									bind:this={select_5050kombinasi_1_input}
 									style="border:none;background:#303030;color:white;"
-									class="form-control"
-								>
+									class="form-control">
 									<option value="">--Pilih--</option>
 									<option value="BELAKANG">BELAKANG</option>
 									<option value="TENGAH">TENGAH</option>
 									<option value="DEPAN">DEPAN</option>
 								</select>
-								<span
-									class="help-block"
-									style="text-align:right;font-size:12px;"
-								/>
+								<span class="help-block" style="text-align:right;font-size:12px;"/>
 							</td>
 							<td
 								width="25%"
 								NOWRAP
-								style="padding-right:10px;vertical-align: center;"
-							>
+								style="padding-right:10px;vertical-align: center;">
 								<span style="color:#8a8a8a;">TEBAK</span>
 								<select
 									bind:value={select_5050kombinasi_2}
 									bind:this={select_5050kombinasi_2_input}
 									style="border:none;background:#303030;color:white;"
-									class="form-control"
-								>
+									class="form-control">
 									<option value="">--Pilih--</option>
 									<option value="MONO">MONO</option>
 									<option value="STEREO">STEREO</option>
@@ -1291,21 +1194,19 @@
 								</select>
 								<span
 									class="help-block"
-									style="text-align:right;font-size:12px;"
-								/>
+									style="text-align:right;font-size:12px;"/>
 							</td>
 							<td
 								width="*"
 								NOWRAP
-								style="padding-right:10px;vertical-align: center;text-align:right;"
-							>
-								<span style="color:#8a8a8a;"
-									>Bet (min : {new Intl.NumberFormat().format(
+								style="padding-right:10px;vertical-align: center;text-align:right;">
+								<span style="color:#8a8a8a;">
+									Bet (min : {new Intl.NumberFormat().format(
 										min_bet_5050special
 									)} dan max : {new Intl.NumberFormat().format(
 										max_bet_5050special
-									)})</span
-								>
+									)})
+								</span>
 								<input
 									bind:value={bet_5050kombinasi}
 									on:keyup={handleKeyboard_number}
@@ -1316,26 +1217,23 @@
 									style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
 									minlength="3"
 									maxlength="7"
-									tab_index="0"
-								/>
+									tab_index="0"/>
 								<span
-									style="text-align:right;font-size:12px;color:#8a8a8a;"
-									>{new Intl.NumberFormat().format(
+									style="text-align:right;font-size:12px;color:#8a8a8a;">
+									{new Intl.NumberFormat().format(
 										bet_5050kombinasi
-									)}</span
-								>
+									)}
+								</span>
 							</td>
 							<td
 								width="20%"
 								NOWRAP
-								style="vertical-align: center;"
-							>
+								style="vertical-align: center;">
 								<Button
 									id="btn2"
 									on:click={() => {
 										handleTambah("5050kombinasi");
-									}}>TAMBAH</Button
-								>
+									}}>TAMBAH</Button>
 							</td>
 						</tr>
 					</table>
@@ -1345,13 +1243,9 @@
 	</Card>
 {:else}
 	<Card color="dark" style="border:1px solid #262424;margin:0px;padding:0px;">
-		<CardHeader
-			style="background:#323030;border-bottom:1px solid #333;border-top: 0 solid #333;"
-		>
+		<CardHeader style="background:#323030;border-bottom:1px solid #333;border-top: 0 solid #333;">
 			<div class="float-end">
-				<div
-					style="color:white;text-align:right;font-size:12px;font-weight:bold;"
-				>
+				<div style="color:white;text-align:right;font-size:12px;font-weight:bold;">
 					{pasaran_name}
 				</div>
 			</div>
@@ -1366,26 +1260,22 @@
 					tabId="form_5050umum"
 					tab="UMUM"
 					active
-					style="padding:5px;"
-				>
+					style="padding:5px;">
 					<div style="margin:5px;">
 						<table
 							class="table"
-							style="background:none;width:100%;"
-						>
+							style="background:none;width:100%;">
 							<tr>
 								<td
 									width="35%"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;"
-								>
+									style="padding-right:10px;vertical-align: center;">
 									<span style="color:#8a8a8a;">TEBAK</span>
 									<select
 										bind:value={select_5050umum}
 										bind:this={select_5050umum_input}
 										style="border:none;background:#303030;color:white;"
-										class="form-control"
-									>
+										class="form-control">
 										<option value="">--Pilih--</option>
 										<option value="BESAR">BESAR</option>
 										<option value="KECIL">KECIL</option>
@@ -1402,15 +1292,13 @@
 								<td
 									width="*"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;text-align:right;"
-								>
+									style="padding-right:10px;vertical-align: center;text-align:right;">
 									<span style="color:#8a8a8a;"
 										>Bet (min : {new Intl.NumberFormat().format(
 											min_bet_5050umum
 										)} dan max : {new Intl.NumberFormat().format(
 											max_bet_5050umum
-										)})</span
-									>
+										)})</span>
 									<input
 										bind:value={bet_5050umum}
 										on:keyup={handleKeyboard_number}
@@ -1421,14 +1309,12 @@
 										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
 										minlength="3"
 										maxlength="7"
-										tab_index="0"
-									/>
+										tab_index="0"/>
 									<span
 										style="text-align:right;font-size:12px;color:#8a8a8a;"
 										>{new Intl.NumberFormat().format(
 											bet_5050umum
-										)}</span
-									>
+										)}</span>
 								</td>
 							</tr>
 						</table>
@@ -1437,29 +1323,25 @@
 							id="btn2"
 							on:click={() => {
 								handleTambah("5050umum");
-							}}>TAMBAH</Button
-						>
+							}}>TAMBAH</Button>
 					</div>
 				</TabPane>
 				<TabPane tabId="form_5050special" tab="SPECIAL">
 					<div style="margin:5px;">
 						<table
 							class="table"
-							style="background:none;width:100%;"
-						>
+							style="background:none;width:100%;">
 							<tr>
 								<td
 									width="50%"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;"
-								>
+									style="padding-right:10px;vertical-align: center;">
 									<span style="color:#8a8a8a;">TEBAK</span>
 									<select
 										bind:value={select_5050special_1}
 										bind:this={select_5050special_1_input}
 										style="border:none;background:#303030;color:white;"
-										class="form-control"
-									>
+										class="form-control">
 										<option value="">--Pilih--</option>
 										<option value="AS">AS</option>
 										<option value="KOP">KOP</option>
@@ -1468,21 +1350,18 @@
 									</select>
 									<span
 										class="help-block"
-										style="text-align:right;font-size:12px;"
-									/>
+										style="text-align:right;font-size:12px;"/>
 								</td>
 								<td
 									width="50%"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;"
-								>
+									style="padding-right:10px;vertical-align: center;">
 									<span style="color:#8a8a8a;">TEBAK</span>
 									<select
 										bind:value={select_5050special_2}
 										bind:this={select_5050special_2_input}
 										style="border:none;background:#303030;color:white;"
-										class="form-control"
-									>
+										class="form-control">
 										<option value="">--Pilih--</option>
 										<option value="GENAP">GENAP</option>
 										<option value="GANJIL">GANJIL</option>
@@ -1491,23 +1370,20 @@
 									</select>
 									<span
 										class="help-block"
-										style="text-align:right;font-size:12px;"
-									/>
+										style="text-align:right;font-size:12px;"/>
 								</td>
 							</tr>
 							<tr>
 								<td
 									colspan="2"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;text-align:right;"
-								>
-									<span style="color:#8a8a8a;"
-										>Bet (min : {new Intl.NumberFormat().format(
+									style="padding-right:10px;vertical-align: center;text-align:right;">
+									<span style="color:#8a8a8a;">
+										Bet (min : {new Intl.NumberFormat().format(
 											min_bet_5050special
 										)} dan max : {new Intl.NumberFormat().format(
 											max_bet_5050special
-										)})</span
-									>
+										)})</span>
 									<input
 										bind:value={bet_5050special}
 										on:keyup={handleKeyboard_number}
@@ -1521,11 +1397,10 @@
 										tab_index="0"
 									/>
 									<span
-										style="text-align:right;font-size:12px;color:#8a8a8a;"
-										>{new Intl.NumberFormat().format(
+										style="text-align:right;font-size:12px;color:#8a8a8a;">
+										{new Intl.NumberFormat().format(
 											bet_5050special
-										)}</span
-									>
+										)}</span>
 								</td>
 							</tr>
 						</table>
@@ -1534,53 +1409,44 @@
 							id="btn2"
 							on:click={() => {
 								handleTambah("5050umum");
-							}}>TAMBAH</Button
-						>
+							}}>TAMBAH</Button>
 					</div>
 				</TabPane>
 				<TabPane tabId="form_5050kombinasi" tab="KOMBINASI">
 					<div style="margin:5px;">
 						<table
 							class="table"
-							style="background:none;width:100%;"
-						>
+							style="background:none;width:100%;">
 							<tr>
 								<td
 									width="50%"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;"
-								>
+									style="padding-right:10px;vertical-align: center;">
 									<span style="color:#8a8a8a;">TEBAK</span>
 									<select
 										bind:value={select_5050kombinasi_1}
 										bind:this={select_5050kombinasi_1_input}
 										style="border:none;background:#303030;color:white;"
-										class="form-control"
-									>
+										class="form-control">
 										<option value="">--Pilih--</option>
-										<option value="BELAKANG"
-											>BELAKANG</option
-										>
+										<option value="BELAKANG">BELAKANG</option>
 										<option value="TENGAH">TENGAH</option>
 										<option value="DEPAN">DEPAN</option>
 									</select>
 									<span
 										class="help-block"
-										style="text-align:right;font-size:12px;"
-									/>
+										style="text-align:right;font-size:12px;"/>
 								</td>
 								<td
 									width="50%"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;"
-								>
+									style="padding-right:10px;vertical-align: center;">
 									<span style="color:#8a8a8a;">TEBAK</span>
 									<select
 										bind:value={select_5050kombinasi_2}
 										bind:this={select_5050kombinasi_2_input}
 										style="border:none;background:#303030;color:white;"
-										class="form-control"
-									>
+										class="form-control">
 										<option value="">--Pilih--</option>
 										<option value="MONO">MONO</option>
 										<option value="STEREO">STEREO</option>
@@ -1590,23 +1456,20 @@
 									</select>
 									<span
 										class="help-block"
-										style="text-align:right;font-size:12px;"
-									/>
+										style="text-align:right;font-size:12px;"/>
 								</td>
 							</tr>
 							<tr>
 								<td
 									colspan="2"
 									NOWRAP
-									style="padding-right:10px;vertical-align: center;text-align:right;"
-								>
-									<span style="color:#8a8a8a;"
-										>Bet (min : {new Intl.NumberFormat().format(
+									style="padding-right:10px;vertical-align: center;text-align:right;">
+									<span style="color:#8a8a8a;">
+										Bet (min : {new Intl.NumberFormat().format(
 											min_bet_5050special
 										)} dan max : {new Intl.NumberFormat().format(
 											max_bet_5050special
-										)})</span
-									>
+										)})</span>
 									<input
 										bind:value={bet_5050kombinasi}
 										on:keyup={handleKeyboard_number}
@@ -1617,14 +1480,13 @@
 										style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
 										minlength="3"
 										maxlength="7"
-										tab_index="0"
-									/>
+										tab_index="0"/>
 									<span
-										style="text-align:right;font-size:12px;color:#8a8a8a;"
-										>{new Intl.NumberFormat().format(
+										style="text-align:right;font-size:12px;color:#8a8a8a;">
+										{new Intl.NumberFormat().format(
 											bet_5050kombinasi
-										)}</span
-									>
+										)}
+									</span>
 								</td>
 							</tr>
 						</table>
@@ -1633,8 +1495,7 @@
 							id="btn2"
 							on:click={() => {
 								handleTambah("5050umum");
-							}}>TAMBAH</Button
-						>
+							}}>TAMBAH</Button>
 					</div>
 				</TabPane>
 			</TabContent>

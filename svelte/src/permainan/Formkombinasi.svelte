@@ -31,7 +31,7 @@
 	let group_btn_beli = false;
 	let record = "";
 	let temp_bulk_error = "";
-
+	let flag_fulldiskon = "DISC"
 	let min_bet = 0;
 	let max_bet = 0;
 	let win_bet = 0;
@@ -129,13 +129,8 @@
 		nomor,
 		game,
 		bet,
-		diskon_percen,
-		diskon,
-		bayar,
-		win,
-		kei_percen,
-		kei
-	) {
+		diskon_percen,diskon,bayar,win,
+		kei_percen,kei,tipetoto) {
 		let total_data = keranjang.length;
 		let flag_data = false;
 		for (var i = 0; i < total_data; i++) {
@@ -183,7 +178,7 @@
 				bayar,
 				win,
 				kei,
-				kei_percen,
+				kei_percen,tipetoto
 			};
 			keranjang = [data, ...keranjang];
 			count_keranjang();
@@ -305,7 +300,7 @@
 				bayar,
 				win,
 				keipersen,
-				kei
+				kei,flag_fulldiskon
 			);
 			form_clear("macaukombinasi");
 		}
@@ -313,12 +308,7 @@
 	const handleTambah = (e) => {
 		switch (e) {
 			case "macaukombinasi":
-				if (
-					select_kombinasi_1 == "" &&
-					select_kombinasi_2 == "" &&
-					select_kombinasi_3 == "" &&
-					parseInt(bet_kombinasi) < min_bet
-				) {
+				if (elect_kombinasi_1 == "" && select_kombinasi_2 == "" && select_kombinasi_3 == "" && parseInt(bet_kombinasi) < min_bet) {
 					select_kombinasi_1_input.focus();
 				} else {
 					formkombinasi_add();
@@ -347,13 +337,9 @@
 <Loader cssstyle={css_loader} />
 {#if client_device == "WEBSITE"}
 	<Card color="dark" style="border:1px solid #262424;">
-		<CardHeader
-			style="background:#323030;border-bottom:1px solid #333;border-top: 0 solid #333;"
-		>
+		<CardHeader tyle="background:#323030;border-bottom:1px solid #333;border-top: 0 solid #333;">
 			<div class="float-end">
-				<div
-					style="color:white;text-align:right;font-size:13px;font-weight:bold;"
-				>
+				<div style="color:white;text-align:right;font-size:13px;font-weight:bold;">
 					{pasaran_name}
 				</div>
 			</div>

@@ -31,7 +31,7 @@
 	let group_btn_beli = false;
 	let record = "";
 	let temp_bulk_error = "";
-
+	let flag_fulldiskon = "DISC"
 	let min_bet = 0;
 	let max_bet = 0;
 	let kei_besar_bet = 0;
@@ -146,8 +146,7 @@
 		bayar,
 		win,
 		kei_percen,
-		kei
-	) {
+		kei,tipetoto) {
 		let total_data = keranjang.length;
 		let flag_data = false;
 		for (var i = 0; i < total_data; i++) {
@@ -157,25 +156,13 @@
 						let maxtotal_bayarmacaukombinasi = 0;
 						for (var j = 0; j < keranjang.length; j++) {
 							if ("50_50_UMUM" == keranjang[j].permainan) {
-								if (
-									parseInt(nomor) ==
-									parseInt(keranjang[j].nomor)
-								) {
-									maxtotal_bayarmacaukombinasi =
-										parseInt(maxtotal_bayarmacaukombinasi) +
-										(parseInt(keranjang[j].bet) +
-											parseInt(bet));
+								if (parseInt(nomor) == parseInt(keranjang[j].nomor)) {
+									maxtotal_bayarmacaukombinasi =parseInt(maxtotal_bayarmacaukombinasi) + (parseInt(keranjang[j].bet) +parseInt(bet));
 								}
 							}
 						}
-						if (
-							parseInt(limittotal_bet_macaukombinasi) <
-							parseInt(maxtotal_bayarmacaukombinasi)
-						) {
-							temp_bulk_error +=
-								"Nomor ini : " +
-								nomor +
-								" sudah melebihi LIMIT TOTAL MACAU KOMBINASI<br />";
+						if (parseInt(limittotal_bet_macaukombinasi) < parseInt(maxtotal_bayarmacaukombinasi)) {
+							temp_bulk_error +="Nomor ini : " +nomor +" sudah melebihi LIMIT TOTAL MACAU KOMBINASI<br />";
 							flag_data = true;
 						}
 					}
@@ -195,7 +182,7 @@
 				bayar,
 				win,
 				kei,
-				kei_percen,
+				kei_percen,tipetoto
 			};
 			keranjang = [data, ...keranjang];
 			count_keranjang();
@@ -316,7 +303,7 @@
 				bayar,
 				win,
 				keipersen,
-				kei
+				kei,flag_fulldiskon
 			);
 			form_clear("dasar");
 		}

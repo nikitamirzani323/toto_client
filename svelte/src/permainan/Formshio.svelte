@@ -122,13 +122,8 @@
 		nomor,
 		game,
 		bet,
-		diskon_percen,
-		diskon,
-		bayar,
-		win,
-		kei_percen,
-		kei
-	) {
+		diskon_percen,diskon,bayar,win,
+		kei_percen,kei,tipetoto) {
 		let total_data = keranjang.length;
 		let flag_data = false;
 		for (var i = 0; i < total_data; i++) {
@@ -175,7 +170,7 @@
 				bayar,
 				win,
 				kei,
-				kei_percen,
+				kei_percen,tipetoto
 			};
 			keranjang = [data, ...keranjang];
 			count_keranjang();
@@ -279,7 +274,7 @@
 				bayar,
 				win,
 				0,
-				0
+				0,flag_fulldiskon
 			);
 			form_clear("shio");
 		}

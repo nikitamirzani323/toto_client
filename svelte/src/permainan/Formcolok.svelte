@@ -92,42 +92,28 @@
 			max_bet_colokbebas = parseInt(record[i]["max_bet_colokbebas"]);
 			disc_bet_colokbebas = parseFloat(record[i]["disc_bet_colokbebas"]);
 			win_bet_colokbebas = parseFloat(record[i]["win_bet_colokbebas"]);
-			limittotal_bet_colokbebas = parseInt(
-				record[i]["limittotal_bet_colokbebas"]
-			);
+			limittotal_bet_colokbebas = parseInt(record[i]["limittotal_bet_colokbebas"]);
 			min_bet_colokmacau = parseInt(record[i]["min_bet_colokmacau"]);
 			max_bet_colokmacau = parseFloat(record[i]["max_bet_colokmacau"]);
 			disc_bet_colokmacau = parseFloat(record[i]["disc_bet_colokmacau"]);
 			win_bet_colokmacau = parseFloat(record[i]["win_bet_colokmacau"]);
 			win3_bet_colokmacau = parseFloat(record[i]["win3_bet_colokmacau"]);
 			win4_bet_colokmacau = parseFloat(record[i]["win4_bet_colokmacau"]);
-			limittotal_bet_colokmacau = parseInt(
-				record[i]["limittotal_bet_colokmacau"]
-			);
+			limittotal_bet_colokmacau = parseInt(record[i]["limittotal_bet_colokmacau"]);
 			min_bet_coloknaga = parseInt(record[i]["min_bet_coloknaga"]);
 			max_bet_coloknaga = parseInt(record[i]["max_bet_coloknaga"]);
 			disc_bet_coloknaga = parseFloat(record[i]["disc_bet_coloknaga"]);
 			win_bet_coloknaga = parseFloat(record[i]["win_bet_coloknaga"]);
 			win4_bet_coloknaga = parseFloat(record[i]["win4_bet_coloknaga"]);
-			limittotal_bet_coloknaga = parseInt(
-				record[i]["limittotal_bet_coloknaga"]
-			);
+			limittotal_bet_coloknaga = parseInt(record[i]["limittotal_bet_coloknaga"]);
 			min_bet_colokjitu = parseInt(record[i]["min_bet_colokjitu"]);
 			max_bet_colokjitu = parseInt(record[i]["max_bet_colokjitu"]);
 			disc_bet_colokjitu = parseFloat(record[i]["disc_bet_colokjitu"]);
 			winas_bet_colokjitu = parseFloat(record[i]["winas_bet_colokjitu"]);
-			winkop_bet_colokjitu = parseFloat(
-				record[i]["winkop_bet_colokjitu"]
-			);
-			winkepala_bet_colokjitu = parseFloat(
-				record[i]["winkepala_bet_colokjitu"]
-			);
-			winekor_bet_colokjitu = parseFloat(
-				record[i]["winekor_bet_colokjitu"]
-			);
-			limittotal_bet_colokjitu = parseInt(
-				record[i]["limittotal_bet_colokjitu"]
-			);
+			winkop_bet_colokjitu = parseFloat(record[i]["winkop_bet_colokjitu"]);
+			winkepala_bet_colokjitu = parseFloat(record[i]["winkepala_bet_colokjitu"]);
+			winekor_bet_colokjitu = parseFloat(record[i]["winekor_bet_colokjitu"]);
+			limittotal_bet_colokjitu = parseInt(record[i]["limittotal_bet_colokjitu"]);
 		}
 	}
 	async function savetransaksi() {
@@ -190,7 +176,7 @@
 		nomor,game,
 		bet,
 		diskon_percen,diskon,
-		bayar,win,kei,kei_percen) {
+		bayar,win,kei,kei_percen,tipetoto) {
 		let total_data = keranjang.length;
 		let flag_data = false;
 		for (var i = 0; i < total_data; i++) {
@@ -200,25 +186,13 @@
 						let maxtotal_bayarcolokbebas = 0;
 						for (var j = 0; j < keranjang.length; j++) {
 							if ("COLOK_BEBAS" == keranjang[j].permainan) {
-								if (
-									parseInt(nomor) ==
-									parseInt(keranjang[j].nomor)
-								) {
-									maxtotal_bayarcolokbebas =
-										parseInt(maxtotal_bayarcolokbebas) +
-										(parseInt(keranjang[j].bet) +
-											parseInt(bet));
+								if (parseInt(nomor) == parseInt(keranjang[j].nomor)) {
+									maxtotal_bayarcolokbebas = parseInt(maxtotal_bayarcolokbebas) + (parseInt(keranjang[j].bet) + parseInt(bet));
 								}
 							}
 						}
-						if (
-							parseInt(limittotal_bet_colokbebas) <
-							parseInt(maxtotal_bayarcolokbebas)
-						) {
-							temp_bulk_error +=
-								"Nomor ini : " +
-								nomor +
-								" sudah melebihi LIMIT TOTAL COLOK BEBAS<br />";
+						if (parseInt(limittotal_bet_colokbebas) <parseInt(maxtotal_bayarcolokbebas)) {
+							temp_bulk_error +="Nomor ini : " + nomor +" sudah melebihi LIMIT TOTAL COLOK BEBAS<br />";
 							flag_data = true;
 						}
 					}
@@ -238,7 +212,7 @@
 				bayar,
 				win,
 				kei,
-				kei_percen,
+				kei_percen,tipetoto
 			};
 			keranjang = [data, ...keranjang];
 			count_keranjang();
@@ -332,6 +306,7 @@
 	let bet_polacolokmacau = "";
 	let bet_polacoloknaga = "";
 
+	let flag_fulldiskon = "DISC"
 	function form_clear(e) {
 		switch (e) {
 			case "colokbebas":
@@ -410,7 +385,7 @@
 				bayar,
 				win,
 				0,
-				0
+				0,flag_fulldiskon
 			);
 			form_clear("colokbebas");
 			if (temp_bulk_error != "") {
@@ -473,7 +448,7 @@
 				bayar,
 				win,
 				0,
-				0
+				0,flag_fulldiskon
 			);
 			form_clear("colokmacau");
 		}
@@ -547,7 +522,7 @@
 				bayar,
 				win,
 				0,
-				0
+				0,flag_fulldiskon
 			);
 			form_clear("coloknaga");
 		}
@@ -617,7 +592,7 @@
 				bayar,
 				win,
 				0,
-				0
+				0,flag_fulldiskon
 			);
 			form_clear("colokjitu");
 		}
@@ -667,7 +642,7 @@
 						bayar,
 						win,
 						0,
-						0
+						0,flag_fulldiskon
 					);
 				}
 			}
@@ -716,7 +691,7 @@
 						bayar,
 						win,
 						0,
-						0
+						0,flag_fulldiskon
 					);
 				}
 			}
@@ -781,7 +756,7 @@
 						bayar,
 						win,
 						0,
-						0
+						0,flag_fulldiskon
 					);
 				}
 			}
