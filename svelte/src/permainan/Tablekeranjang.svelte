@@ -39,6 +39,18 @@
 	export let win2dnodiskon_bet = 0;
 	export let win2ddnodiskon_bet = 0;
 	export let win2dtnodiskon_bet = 0;
+    export let win4dbb_kena_bet = 0;
+    export let win3dbb_kena_bet = 0;
+    export let win3ddbb_kena_bet = 0;
+    export let win2dbb_kena_bet = 0;
+    export let win2ddbb_kena_bet = 0;
+    export let win2dtbb_kena_bet = 0;
+    export let win4dbb_bet = 0;
+    export let win3dbb_bet = 0;
+    export let win3ddbb_bet = 0;
+    export let win2dbb_bet = 0;
+    export let win2ddbb_bet = 0;
+    export let win2dtbb_bet = 0;
     export let limitline_4d = 0;
     export let limitline_3d = 0;
     export let limitline_3dd = 0;
@@ -152,6 +164,10 @@
                         <th
                             width="20%"
                             style="text-align:center;vertical-align:top;background:#303030;font-size:13px;border-bottom:none;"
+                            NOWRAP>TIPE</th>
+                        <th
+                            width="20%"
+                            style="text-align:center;vertical-align:top;background:#303030;font-size:13px;border-bottom:none;"
                             NOWRAP>PERMAINAN</th>
                         <th
                             width="20%"
@@ -177,6 +193,7 @@
                                 <Icon name="trash" style="cursor:pointer;" />
                             </td>
                             <td style="text-align:center;vertical-align:top;font-size:12px;color:#fc0;">{rec.nomor}</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;color:#fc0;">{rec.tipetoto}</td>
                             <td style="text-align:center;vertical-align:top;font-size:12px;color:#fc0;">{rec.permainan}</td>
                             <td style="text-align:right;vertical-align:top;font-size:12px;color:#fc0;">
                                 {new Intl.NumberFormat().format(rec.bet)}
@@ -397,6 +414,24 @@
                     <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2dnodiskon_bet}x</td>
                     <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2ddnodiskon_bet}x</td>
                     <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2dtnodiskon_bet}x</td>
+                </tr>
+                <tr>
+                    <td style="background:#303030;border:1px solid #282828;font-size:11px;">HADIAH BB KENA</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{win4dbb_kena_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win3dbb_kena_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win3ddbb_kena_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2dbb_kena_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2ddbb_kena_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2dtbb_kena_bet}x</td>
+                </tr>
+                <tr>
+                    <td style="background:#303030;border:1px solid #282828;font-size:11px;">HADIAH BB</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;">{win4dbb_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win3dbb_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win3ddbb_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2dbb_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2ddbb_bet}x</td>
+                    <td style="border:1px solid #282828;text-align:right;font-size:11px;color:#ffd292;">{win2dtbb_bet}x</td>
                 </tr>
                 <tr>
                     <td style="background:#303030;border:1px solid #282828;font-size:11px;">LIMIT LINE</td>
