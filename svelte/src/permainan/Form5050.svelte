@@ -125,7 +125,7 @@
   let db_form5050_umum_count_temp = 0;
   let db_form5050_special_count_temp = 0;
   let db_form5050_kombinasi_count_temp = 0;
-
+  let flag_fulldiskon = "DISC";
   let dispatch = createEventDispatcher();
 
   async function inittogel_432d(e) {
@@ -450,7 +450,8 @@
     bayar,
     win,
     kei_percen,
-    kei
+    kei,
+    tipetoto
   ) {
     let total_data = keranjang.length;
     let flag_data = false;
@@ -544,6 +545,7 @@
         win,
         kei,
         kei_percen,
+        tipetoto,
       };
       keranjang = [data, ...keranjang];
       count_keranjang();
@@ -712,7 +714,8 @@
         bayar,
         win,
         keipersen,
-        kei
+        kei,
+        flag_fulldiskon
       );
       form_clear("5050umum");
     }
@@ -835,7 +838,8 @@
         bayar,
         win,
         keipersen,
-        kei
+        kei,
+        flag_fulldiskon
       );
       form_clear("5050special");
     }
@@ -955,7 +959,8 @@
         bayar,
         win,
         keipersen,
-        kei
+        kei,
+        flag_fulldiskon
       );
       form_clear("5050kombinasi");
     }

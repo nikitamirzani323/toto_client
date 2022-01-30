@@ -33,7 +33,7 @@
   let group_btn_beli = false;
   let record = "";
   let temp_bulk_error = "";
-
+  let flag_fulldiskon = "DISC";
   let min_bet = 0;
   let max_bet = 0;
   let kei_besar_bet = 0;
@@ -133,18 +133,9 @@
       reset();
     } else {
       css_loader = "display:none;";
-      switch (json.status) {
-        case "500":
-          group_btn_beli = true;
-          notifications.push(json.message);
-          break;
-        case "400":
-          group_btn_beli = true;
-          notifications.push(json.message);
-          break;
-        default:
-          notifications.push(json.message);
-          break;
+      if (json.status == "500" || json.status == "404") {
+        group_btn_beli = true;
+        notifications.push(json.message);
       }
     }
   }
@@ -170,7 +161,8 @@
     bayar,
     win,
     kei_percen,
-    kei
+    kei,
+    tipetoto
   ) {
     let total_data = keranjang.length;
     let flag_data = false;
@@ -216,6 +208,7 @@
         win,
         kei,
         kei_percen,
+        tipetoto,
       };
       keranjang = [data, ...keranjang];
       count_keranjang();
@@ -336,7 +329,8 @@
         bayar,
         win,
         keipersen,
-        kei
+        kei,
+        flag_fulldiskon
       );
       form_clear("dasar");
     }

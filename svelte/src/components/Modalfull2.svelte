@@ -76,12 +76,12 @@
   }
 
   #streaminvoice::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(66, 66, 66, 0.3);
   }
 
   #streaminvoice::-webkit-scrollbar-thumb {
-    background-color: #505768;
-    outline: 1px solid slategrey;
+    background-color: #424242;
+    outline: 1px solid #424242;
   }
 
   .table-dark {

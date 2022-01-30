@@ -6,6 +6,7 @@
   import Headerback from "../components/Header.svelte";
   import Panel from "../components/Panel.svelte";
   import PanelFull from "../components/Panelfull.svelte";
+  import Placeholder from "../components/Placeholder.svelte";
   import Form432d from "../permainan/Form432d.svelte";
   import Formcolok from "../permainan/Formcolok.svelte";
   import Form5050 from "../permainan/Form5050.svelte";
@@ -785,29 +786,36 @@
                 body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:620px;"
               >
                 <slot:template slot="body">
-                  <table>
-                    <tbody>
-                      {#each filterBukuMimpi as rec}
-                        <tr>
-                          <td
-                            NOWRAP
-                            width="30px"
-                            style="text-align:center;vertical-align:top;font-size:14px;color:#fc0;"
-                            >{rec.bukumimpi_tipe}</td
-                          >
-                          <td
-                            width="*"
-                            style="text-align:left;vertical-align:top;font-size:15px;color:#8b8989;"
-                            >{rec.bukumimpi_nama}
-                            <br />
-                            <span style="color:#fc0;font-size:14px;"
-                              >{rec.bukumimpi_nomor}</span
+                  {#if filterBukuMimpi !== ""}
+                    <table>
+                      <tbody>
+                        {#each filterBukuMimpi as rec}
+                          <tr>
+                            <td
+                              NOWRAP
+                              width="30px"
+                              style="text-align:center;vertical-align:top;font-size:14px;color:#fc0;"
+                              >{rec.bukumimpi_tipe}</td
                             >
-                          </td>
-                        </tr>
-                      {/each}
-                    </tbody>
-                  </table>
+                            <td
+                              width="*"
+                              style="text-align:left;vertical-align:top;font-size:15px;color:#8b8989;"
+                              >{rec.bukumimpi_nama}
+                              <br />
+                              <span style="color:#fc0;font-size:14px;"
+                                >{rec.bukumimpi_nomor}</span
+                              >
+                            </td>
+                          </tr>
+                        {/each}
+                      </tbody>
+                    </table>
+                  {:else}
+                    <Placeholder
+                      total_placeholder="20"
+                      card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+                    />
+                  {/if}
                 </slot:template>
               </PanelFull>
             </div>
@@ -823,29 +831,36 @@
                 body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:620px;"
               >
                 <slot:template slot="body">
-                  <table>
-                    <tbody>
-                      {#each filterBukuMimpi as rec}
-                        <tr>
-                          <td
-                            NOWRAP
-                            width="30px"
-                            style="text-align:center;vertical-align:top;font-size:14px;color:#fc0;"
-                            >{rec.bukumimpi_tipe}</td
-                          >
-                          <td
-                            width="*"
-                            style="text-align:left;vertical-align:top;font-size:15px;color:#8b8989;"
-                            >{rec.bukumimpi_nama}
-                            <br />
-                            <span style="color:#fc0;font-size:14px;"
-                              >{rec.bukumimpi_nomor}</span
+                  {#if filterBukuMimpi !== ""}
+                    <table>
+                      <tbody>
+                        {#each filterBukuMimpi as rec}
+                          <tr>
+                            <td
+                              NOWRAP
+                              width="30px"
+                              style="text-align:center;vertical-align:top;font-size:14px;color:#fc0;"
+                              >{rec.bukumimpi_tipe}</td
                             >
-                          </td>
-                        </tr>
-                      {/each}
-                    </tbody>
-                  </table>
+                            <td
+                              width="*"
+                              style="text-align:left;vertical-align:top;font-size:15px;color:#8b8989;"
+                              >{rec.bukumimpi_nama}
+                              <br />
+                              <span style="color:#fc0;font-size:14px;"
+                                >{rec.bukumimpi_nomor}</span
+                              >
+                            </td>
+                          </tr>
+                        {/each}
+                      </tbody>
+                    </table>
+                  {:else}
+                    <Placeholder
+                      total_placeholder="20"
+                      card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+                    />
+                  {/if}
                 </slot:template>
               </PanelFull>
             </div>
@@ -861,29 +876,36 @@
                 body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:620px;"
               >
                 <slot:template slot="body">
-                  <table>
-                    <tbody>
-                      {#each filterBukuMimpi as rec}
-                        <tr>
-                          <td
-                            NOWRAP
-                            width="30px"
-                            style="text-align:center;vertical-align:top;font-size:14px;color:#fc0;"
-                            >{rec.bukumimpi_tipe}</td
-                          >
-                          <td
-                            width="*"
-                            style="text-align:left;vertical-align:top;font-size:15px;color:#8b8989;"
-                            >{rec.bukumimpi_nama}
-                            <br />
-                            <span style="color:#fc0;font-size:14px;"
-                              >{rec.bukumimpi_nomor}</span
+                  {#if filterBukuMimpi != ""}
+                    <table>
+                      <tbody>
+                        {#each filterBukuMimpi as rec}
+                          <tr>
+                            <td
+                              NOWRAP
+                              width="30px"
+                              style="text-align:center;vertical-align:top;font-size:14px;color:#fc0;"
+                              >{rec.bukumimpi_tipe}</td
                             >
-                          </td>
-                        </tr>
-                      {/each}
-                    </tbody>
-                  </table>
+                            <td
+                              width="*"
+                              style="text-align:left;vertical-align:top;font-size:15px;color:#8b8989;"
+                              >{rec.bukumimpi_nama}
+                              <br />
+                              <span style="color:#fc0;font-size:14px;"
+                                >{rec.bukumimpi_nomor}</span
+                              >
+                            </td>
+                          </tr>
+                        {/each}
+                      </tbody>
+                    </table>
+                  {:else}
+                    <Placeholder
+                      total_placeholder="20"
+                      card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+                    />
+                  {/if}
                 </slot:template>
               </PanelFull>
             </div>
@@ -899,29 +921,36 @@
                 body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:620px;"
               >
                 <slot:template slot="body">
-                  <table>
-                    <tbody>
-                      {#each filterBukuMimpi as rec}
-                        <tr>
-                          <td
-                            NOWRAP
-                            width="30px"
-                            style="text-align:center;vertical-align:top;font-size:14px;color:#fc0;"
-                            >{rec.bukumimpi_tipe}</td
-                          >
-                          <td
-                            width="*"
-                            style="text-align:left;vertical-align:top;font-size:15px;color:#8b8989;"
-                            >{rec.bukumimpi_nama}
-                            <br />
-                            <span style="color:#fc0;font-size:14px;"
-                              >{rec.bukumimpi_nomor}</span
+                  {#if filterBukuMimpi !== ""}
+                    <table>
+                      <tbody>
+                        {#each filterBukuMimpi as rec}
+                          <tr>
+                            <td
+                              NOWRAP
+                              width="30px"
+                              style="text-align:center;vertical-align:top;font-size:14px;color:#fc0;"
+                              >{rec.bukumimpi_tipe}</td
                             >
-                          </td>
-                        </tr>
-                      {/each}
-                    </tbody>
-                  </table>
+                            <td
+                              width="*"
+                              style="text-align:left;vertical-align:top;font-size:15px;color:#8b8989;"
+                              >{rec.bukumimpi_nama}
+                              <br />
+                              <span style="color:#fc0;font-size:14px;"
+                                >{rec.bukumimpi_nomor}</span
+                              >
+                            </td>
+                          </tr>
+                        {/each}
+                      </tbody>
+                    </table>
+                  {:else}
+                    <Placeholder
+                      total_placeholder="20"
+                      card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+                    />
+                  {/if}
                 </slot:template>
               </PanelFull>
             </div>
@@ -1221,6 +1250,9 @@
       --bs-table-hover-color: #fff;
       color: #fff;
       border-color: #373b3e;
+    }
+    .table > :not(:first-child) {
+      border-top: none;
     }
   </style>
 {:else if statuspasaran == "OFFLINE"}

@@ -8,6 +8,7 @@
   import { notifications } from "../components/Noti.svelte";
   import Fa from "svelte-fa";
   import { faBell } from "@fortawesome/free-regular-svg-icons";
+  import Placeholder from "../components/Placeholder.svelte";
 
   dayjs.extend(utc);
   dayjs.extend(timezone);
@@ -531,7 +532,7 @@
   <Row>
     <Col style="padding:5px;margin:0px;">
       <div style="margin:20px 10px;">
-        <a href="/?token={client_token}" title="SDSB4D">
+        <a href="/?token={client_token}&agent={client_company}" title="SDSB4D">
           <img
             id="imglogo"
             alt="SDSB4D"
@@ -587,7 +588,7 @@
   </div>
 {/if}
 
-<div class="clearfix mb-10" />
+<div class="clearfix " />
 <Modal
   modal_id={"modalhasilkeluaran"}
   modal_footer_flag={false}
@@ -599,74 +600,81 @@
     <h5 class="modal-title" class:dark={daylight === false}>RESULT</h5>
   </slot:template>
   <slot:template slot="body">
-    <table class="table table-dark table-striped">
-      <thead>
-        <tr>
-          <th
-            width="1%"
-            style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-            >NO</th
-          >
-          <th
-            width="15%"
-            style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-            >TANGGAL</th
-          >
-          <th
-            width="*"
-            style="text-align:left;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-            >PASARAN</th
-          >
-          <th
-            width="15%"
-            style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-            >PERIODE</th
-          >
-          <th
-            width="25%"
-            style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-            >HASIL</th
-          >
-        </tr>
-      </thead>
-      <tbody>
-        {#each listhasilkeluaran as rec}
+    {#if listhasilkeluaran != ""}
+      <table class="table table-dark table-striped">
+        <thead>
           <tr>
-            <td
-              NOWRAP
-              style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
-              >{rec.keluaran_no}</td
+            <th
+              width="1%"
+              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              >NO</th
             >
-            <td
-              NOWRAP
-              style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
-              >{rec.keluaran_date}</td
+            <th
+              width="15%"
+              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              >TANGGAL</th
             >
-            <td
-              on:click={() => {
-                fetch_resultbypasaran(
-                  rec.keluaran_pasarancode,
-                  rec.keluaran_pasaran
-                );
-              }}
-              NOWRAP
-              style="text-decoration:underline;cursor:pointer;text-align: left;vertical-align: top;font-size:{modal_table_fontsize_body};"
-              >{rec.keluaran_pasaran}</td
+            <th
+              width="*"
+              style="text-align:left;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              >PASARAN</th
             >
-            <td
-              NOWRAP
-              style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
-              >{rec.keluaran_periode}</td
+            <th
+              width="15%"
+              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              >PERIODE</th
             >
-            <td
-              NOWRAP
-              style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};color:rgb(255, 204, 0);"
-              >{rec.keluaran_result}</td
+            <th
+              width="25%"
+              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              >HASIL</th
             >
           </tr>
-        {/each}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {#each listhasilkeluaran as rec}
+            <tr>
+              <td
+                NOWRAP
+                style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
+                >{rec.keluaran_no}</td
+              >
+              <td
+                NOWRAP
+                style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
+                >{rec.keluaran_date}</td
+              >
+              <td
+                on:click={() => {
+                  fetch_resultbypasaran(
+                    rec.keluaran_pasarancode,
+                    rec.keluaran_pasaran
+                  );
+                }}
+                NOWRAP
+                style="text-decoration:underline;cursor:pointer;text-align: left;vertical-align: top;font-size:{modal_table_fontsize_body};"
+                >{rec.keluaran_pasaran}</td
+              >
+              <td
+                NOWRAP
+                style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
+                >{rec.keluaran_periode}</td
+              >
+              <td
+                NOWRAP
+                style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};color:rgb(255, 204, 0);"
+                >{rec.keluaran_result}</td
+              >
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    {:else}
+      <Placeholder
+        total_placeholder="3"
+        card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+      />
+    {/if}
   </slot:template>
 </Modal>
 <Modal
@@ -682,59 +690,66 @@
     </h5>
   </slot:template>
   <slot:template slot="body">
-    <table class="table table-dark table-striped">
-      <thead>
-        <tr>
-          <th
-            width="1%"
-            style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-            >NO</th
-          >
-          <th
-            width="15%"
-            style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-            >TANGGAL</th
-          >
-          <th
-            width="15%"
-            style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-            >PERIODE</th
-          >
-          <th
-            width="25%"
-            style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-            >HASIL</th
-          >
-        </tr>
-      </thead>
-      <tbody>
-        {#each resulttogel as rec}
+    {#if resulttogel != ""}
+      <table class="table table-dark table-striped">
+        <thead>
           <tr>
-            <td
-              NOWRAP
-              style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
-              >{rec.no}</td
+            <th
+              width="1%"
+              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              >NO</th
             >
-            <td
-              NOWRAP
-              style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
-              >{rec.date}</td
+            <th
+              width="15%"
+              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              >TANGGAL</th
             >
-
-            <td
-              NOWRAP
-              style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
-              >{rec.periode}</td
+            <th
+              width="15%"
+              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              >PERIODE</th
             >
-            <td
-              NOWRAP
-              style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};color:rgb(255, 204, 0);"
-              >{rec.result}</td
+            <th
+              width="25%"
+              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              >HASIL</th
             >
           </tr>
-        {/each}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {#each resulttogel as rec}
+            <tr>
+              <td
+                NOWRAP
+                style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
+                >{rec.no}</td
+              >
+              <td
+                NOWRAP
+                style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
+                >{rec.date}</td
+              >
+
+              <td
+                NOWRAP
+                style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
+                >{rec.periode}</td
+              >
+              <td
+                NOWRAP
+                style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};color:rgb(255, 204, 0);"
+                >{rec.result}</td
+              >
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    {:else}
+      <Placeholder
+        total_placeholder="3"
+        card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+      />
+    {/if}
   </slot:template>
 </Modal>
 <Modal
@@ -748,75 +763,82 @@
     <h5 class="modal-title" class:dark={daylight === false}>INVOICE</h5>
   </slot:template>
   <slot:template slot="body">
-    <table class="table table-dark">
-      <thead>
-        <tr>
-          <th
-            width="1%"
-            style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-            >STATUS</th
-          >
-          <th
-            width="15%"
-            style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-            >TANGGAL</th
-          >
-          <th
-            width="*"
-            style="text-align:left;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-            >PASARAN</th
-          >
-          <th
-            width="15%"
-            style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-            >PERIODE</th
-          >
-          <th
-            width="25%"
-            style="text-align:right;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
-            >WINLOSE</th
-          >
-        </tr>
-      </thead>
-      <tbody>
-        {#each listhasilinvoice as rec}
+    {#if listhasilinvoice != ""}
+      <table class="table table-dark">
+        <thead>
           <tr>
-            <td
-              NOWRAP
-              style="text-align: center;vertical-align: top;{rec.invoice_background};"
-              >{rec.invoice_status}</td
+            <th
+              width="1%"
+              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              >STATUS</th
             >
-            <td
-              NOWRAP
-              style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
-              >{rec.invoice_tglkeluaran}
-            </td>
-            <td
-              NOWRAP
-              style="text-align: left;vertical-align: top;font-size:{modal_table_fontsize_body};"
-              >{rec.invoice_pasaran}</td
+            <th
+              width="15%"
+              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              >TANGGAL</th
             >
-            <td
-              on:click={() => {
-                fetch_invoicelldetail(
-                  rec.invoice_idinvoice,
-                  rec.invoice_periode
-                );
-              }}
-              NOWRAP
-              style="text-decoration:underline;cursor:pointer;text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
-              >{rec.invoice_periode}</td
+            <th
+              width="*"
+              style="text-align:left;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              >PASARAN</th
             >
-            <td
-              NOWRAP
-              style="text-align: right;vertical-align: top;font-size:{modal_table_fontsize_body};color:rgb(255, 204, 0);"
+            <th
+              width="15%"
+              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              >PERIODE</th
             >
-              {new Intl.NumberFormat().format(rec.invoice_totallose)}
-            </td>
+            <th
+              width="25%"
+              style="text-align:right;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              >WINLOSE</th
+            >
           </tr>
-        {/each}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {#each listhasilinvoice as rec}
+            <tr>
+              <td
+                NOWRAP
+                style="text-align: center;vertical-align: top;{rec.invoice_background};"
+                >{rec.invoice_status}</td
+              >
+              <td
+                NOWRAP
+                style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
+                >{rec.invoice_tglkeluaran}
+              </td>
+              <td
+                NOWRAP
+                style="text-align: left;vertical-align: top;font-size:{modal_table_fontsize_body};"
+                >{rec.invoice_pasaran}</td
+              >
+              <td
+                on:click={() => {
+                  fetch_invoicelldetail(
+                    rec.invoice_idinvoice,
+                    rec.invoice_periode
+                  );
+                }}
+                NOWRAP
+                style="text-decoration:underline;cursor:pointer;text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
+                >{rec.invoice_periode}</td
+              >
+              <td
+                NOWRAP
+                style="text-align: right;vertical-align: top;font-size:{modal_table_fontsize_body};color:rgb(255, 204, 0);"
+              >
+                {new Intl.NumberFormat().format(rec.invoice_totallose)}
+              </td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    {:else}
+      <Placeholder
+        total_placeholder="5"
+        card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+      />
+    {/if}
   </slot:template>
 </Modal>
 <Modal
@@ -936,24 +958,31 @@
         aria-labelledby="pills-bukumimpiall-tab"
       >
         <div class="container-fluid">
-          {#each filterBukuMimpi as rec}
-            <div class="row">
-              <div class="col-2">
-                <span
-                  style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
-                  >{rec.bukumimpi_tipe}</span
-                >
+          {#if filterBukuMimpi != ""}
+            {#each filterBukuMimpi as rec}
+              <div class="row">
+                <div class="col-2">
+                  <span
+                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                    >{rec.bukumimpi_tipe}</span
+                  >
+                </div>
+                <div class="col-10" style="border-left: 1px solid #E9E9E9;">
+                  {rec.bukumimpi_nama}
+                  <br />
+                  <span
+                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                    >{rec.bukumimpi_nomor}</span
+                  >
+                </div>
               </div>
-              <div class="col-10" style="border-left: 1px solid #E9E9E9;">
-                {rec.bukumimpi_nama}
-                <br />
-                <span
-                  style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
-                  >{rec.bukumimpi_nomor}</span
-                >
-              </div>
-            </div>
-          {/each}
+            {/each}
+          {:else}
+            <Placeholder
+              total_placeholder="10"
+              card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+            />
+          {/if}
         </div>
       </div>
       <div
@@ -963,24 +992,31 @@
         aria-labelledby="pills-bukumimpi4d-tab"
       >
         <div class="container-fluid">
-          {#each filterBukuMimpi as rec}
-            <div class="row">
-              <div class="col-2">
-                <span
-                  style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
-                  >{rec.bukumimpi_tipe}</span
-                >
+          {#if filterBukuMimpi != ""}
+            {#each filterBukuMimpi as rec}
+              <div class="row">
+                <div class="col-2">
+                  <span
+                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                    >{rec.bukumimpi_tipe}</span
+                  >
+                </div>
+                <div class="col-10" style="border-left: 1px solid #E9E9E9;">
+                  {rec.bukumimpi_nama}
+                  <br />
+                  <span
+                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                    >{rec.bukumimpi_nomor}</span
+                  >
+                </div>
               </div>
-              <div class="col-10" style="border-left: 1px solid #E9E9E9;">
-                {rec.bukumimpi_nama}
-                <br />
-                <span
-                  style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
-                  >{rec.bukumimpi_nomor}</span
-                >
-              </div>
-            </div>
-          {/each}
+            {/each}
+          {:else}
+            <Placeholder
+              total_placeholder="1-"
+              card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+            />
+          {/if}
         </div>
       </div>
       <div
@@ -990,24 +1026,31 @@
         aria-labelledby="pills-bukumimpi3d-tab"
       >
         <div class="container-fluid">
-          {#each filterBukuMimpi as rec}
-            <div class="row">
-              <div class="col-2">
-                <span
-                  style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
-                  >{rec.bukumimpi_tipe}</span
-                >
+          {#if filterBukuMimpi != ""}
+            {#each filterBukuMimpi as rec}
+              <div class="row">
+                <div class="col-2">
+                  <span
+                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                    >{rec.bukumimpi_tipe}</span
+                  >
+                </div>
+                <div class="col-10" style="border-left: 1px solid #E9E9E9;">
+                  {rec.bukumimpi_nama}
+                  <br />
+                  <span
+                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                    >{rec.bukumimpi_nomor}</span
+                  >
+                </div>
               </div>
-              <div class="col-10" style="border-left: 1px solid #E9E9E9;">
-                {rec.bukumimpi_nama}
-                <br />
-                <span
-                  style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
-                  >{rec.bukumimpi_nomor}</span
-                >
-              </div>
-            </div>
-          {/each}
+            {/each}
+          {:else}
+            <Placeholder
+              total_placeholder="1-"
+              card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+            />
+          {/if}
         </div>
       </div>
       <div
@@ -1017,25 +1060,32 @@
         aria-labelledby="pills-bukumimpi2d-tab"
       >
         <div class="container-fluid">
-          {#each filterBukuMimpi as rec}
-            <div class="row">
-              <div class="col-2">
-                <span
-                  class="text-center"
-                  style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
-                  >{rec.bukumimpi_tipe}</span
-                >
+          {#if filterBukuMimpi != ""}
+            {#each filterBukuMimpi as rec}
+              <div class="row">
+                <div class="col-2">
+                  <span
+                    class="text-center"
+                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                    >{rec.bukumimpi_tipe}</span
+                  >
+                </div>
+                <div class="col-10" style="border-left: 1px solid #E9E9E9;">
+                  {rec.bukumimpi_nama}
+                  <br />
+                  <span
+                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                    >{rec.bukumimpi_nomor}</span
+                  >
+                </div>
               </div>
-              <div class="col-10" style="border-left: 1px solid #E9E9E9;">
-                {rec.bukumimpi_nama}
-                <br />
-                <span
-                  style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
-                  >{rec.bukumimpi_nomor}</span
-                >
-              </div>
-            </div>
-          {/each}
+            {/each}
+          {:else}
+            <Placeholder
+              total_placeholder="1-"
+              card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+            />
+          {/if}
         </div>
       </div>
     </div>

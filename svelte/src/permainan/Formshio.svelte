@@ -26,7 +26,7 @@
   let group_btn_beli = false;
   let record = "";
   let temp_bulk_error = "";
-
+  let flag_fulldiskon = "DISC";
   let min_bet = 0;
   let max_bet = 0;
   let win_bet = 0;
@@ -114,18 +114,9 @@
       reset();
     } else {
       css_loader = "display:none;";
-      switch (json.status) {
-        case "500":
-          group_btn_beli = true;
-          notifications.push(json.message);
-          break;
-        case "400":
-          group_btn_beli = true;
-          notifications.push(json.message);
-          break;
-        default:
-          notifications.push(json.message);
-          break;
+      if (json.status == "500" || json.status == "404") {
+        group_btn_beli = true;
+        notifications.push(json.message);
       }
     }
   }
@@ -151,7 +142,8 @@
     bayar,
     win,
     kei_percen,
-    kei
+    kei,
+    tipetoto
   ) {
     let total_data = keranjang.length;
     let flag_data = false;
@@ -194,6 +186,7 @@
         win,
         kei,
         kei_percen,
+        tipetoto,
       };
       keranjang = [data, ...keranjang];
       count_keranjang();
@@ -211,14 +204,14 @@
       reset();
       count_keranjang();
     } else {
-      notifications.push("Tidak ada list transaksi", "", "middle");
+      alert("Tidak ada list transaksi");
     }
   };
   const handleSave = (e) => {
     if (keranjang.length > 0) {
       savetransaksi();
     } else {
-      notifications.push("Tidak ada list transaksi", "", "middle");
+      alert("Tidak ada list transaksi");
     }
   };
   function count_keranjang() {
@@ -262,11 +255,6 @@
     let bayar = 0;
     let nmgame = "SHIO";
 
-    if (nomor == "") {
-      select_shio_input.focus();
-      flag = false;
-    }
-
     if (bet == "") {
       flag = false;
       notifications.push("Amount tidak boleh kosong");
@@ -297,7 +285,8 @@
         bayar,
         win,
         0,
-        0
+        0,
+        flag_fulldiskon
       );
       form_clear("shio");
     }

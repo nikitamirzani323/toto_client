@@ -33,7 +33,7 @@
   let group_btn_beli = false;
   let record = "";
   let temp_bulk_error = "";
-
+  let flag_fulldiskon = "DISC";
   let min_bet = 0;
   let max_bet = 0;
   let win_bet = 0;
@@ -121,18 +121,9 @@
       reset();
     } else {
       css_loader = "display:none;";
-      switch (json.status) {
-        case "500":
-          group_btn_beli = true;
-          notifications.push(json.message);
-          break;
-        case "400":
-          group_btn_beli = true;
-          notifications.push(json.message);
-          break;
-        default:
-          notifications.push(json.message);
-          break;
+      if (json.status == "500" || json.status == "404") {
+        group_btn_beli = true;
+        notifications.push(json.message);
       }
     }
   }
@@ -158,7 +149,8 @@
     bayar,
     win,
     kei_percen,
-    kei
+    kei,
+    tipetoto
   ) {
     let total_data = keranjang.length;
     let flag_data = false;
@@ -204,6 +196,7 @@
         win,
         kei,
         kei_percen,
+        tipetoto,
       };
       keranjang = [data, ...keranjang];
       count_keranjang();
@@ -221,14 +214,14 @@
       reset();
       count_keranjang();
     } else {
-      notifications.push("Tidak ada list transaksi", "", "middle");
+      alert("Tidak ada list transaksi");
     }
   };
   const handleSave = (e) => {
     if (keranjang.length > 0) {
       savetransaksi();
     } else {
-      notifications.push("Tidak ada list transaksi", "", "middle");
+      alert("Tidak ada list transaksi");
     }
   };
   function count_keranjang() {
@@ -325,7 +318,8 @@
         bayar,
         win,
         keipersen,
-        kei
+        kei,
+        flag_fulldiskon
       );
       form_clear("macaukombinasi");
     }
@@ -334,7 +328,7 @@
     switch (e) {
       case "macaukombinasi":
         if (
-          select_kombinasi_1 == "" &&
+          elect_kombinasi_1 == "" &&
           select_kombinasi_2 == "" &&
           select_kombinasi_3 == "" &&
           parseInt(bet_kombinasi) < min_bet
