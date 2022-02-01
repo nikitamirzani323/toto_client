@@ -26,6 +26,8 @@
   export let pasaran_name = "";
   export let pasaran_periode = 0;
   export let permainan_title = "COLOK";
+  export let daylight = false;
+
   let keranjang = [];
   let css_loader = "display:none;";
   let nomor_global = 0;
@@ -1046,265 +1048,254 @@
 
 <Loader cssstyle={css_loader} />
 {#if client_device == "WEBSITE"}
-  <Card color="dark" style="border:1px solid #262424;">
+  <Card class={daylight ? "" : "bg-dark"} style="margin:0px;padding:0px;">
     <PeriodePanel
       {pasaran_name}
       {permainan_title}
       {pasaran_periode}
       {pasaran_code}
+      {daylight}
     />
-    <CardBody style="background:#171717">
-      <TabContent class="periode-menu">
+    <CardBody class={daylight ? "" : "dark"}>
+      <TabContent class="periode-menu {daylight ? '' : 'dark'}">
+        <!-- Umum -->
         <TabPane tabId="form_5050umum" tab="UMUM" active>
-          <table
-            class="table"
-            style="background:none;width:100%; margin-top:10px;"
-          >
-            <tr>
-              <td
-                width="25%"
-                NOWRAP
-                style="padding-right:10px;vertical-align: center;"
-              >
-                <span style="color:#8a8a8a;">TEBAK</span>
-                <select
-                  bind:value={select_5050umum}
-                  bind:this={select_5050umum_input}
-                  style="border:none;background:#303030;color:white;"
-                  class="form-control"
-                >
-                  <option value="">--Pilih--</option>
-                  <option value="BESAR">BESAR</option>
-                  <option value="KECIL">KECIL</option>
-                  <option value="GENAP">GENAP</option>
-                  <option value="GANJIL">GANJIL</option>
-                  <option value="TENGAH">TENGAH</option>
-                  <option value="TEPI">TEPI</option>
-                </select>
-                <span
-                  class="help-block"
-                  style="text-align:right;font-size:12px;"
-                />
-              </td>
-              <td
-                width="*"
-                NOWRAP
-                style="padding-right:10px;vertical-align: center;text-align:right;"
-              >
-                <span style="color:#8a8a8a;"
-                  >Bet (min : {new Intl.NumberFormat().format(min_bet_5050umum)}
-                  dan max : {new Intl.NumberFormat().format(
-                    max_bet_5050umum
-                  )})</span
-                >
-                <input
-                  bind:value={bet_5050umum}
-                  on:keyup={handleKeyboard_number}
-                  on:keypress={handleKeyboard_checkenter}
-                  type="text"
-                  class="form-control"
-                  placeholder="Bet"
-                  style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
-                  minlength="3"
-                  maxlength="7"
-                  tab_index="0"
-                />
-                <span style="text-align:right;font-size:12px;color:#8a8a8a;"
-                  >{new Intl.NumberFormat().format(bet_5050umum)}</span
-                >
-              </td>
-              <td width="20%" NOWRAP style="vertical-align: center;">
+          <div style="margin:10px 0;">
+            <div class="row gap-3">
+              <div class="col-md">
+                <div class="form-floating">
+                  <select
+                    class="form-select button-bet-default"
+                    class:dark={daylight === false}
+                    bind:value={select_5050umum}
+                    bind:this={select_5050umum_input}
+                    id="selectOpt1"
+                    aria-label="Floating label select"
+                  >
+                    <option selected>--Pilih--</option>
+                    <option value="BESAR">BESAR</option>
+                    <option value="KECIL">KECIL</option>
+                    <option value="GENAP">GENAP</option>
+                    <option value="GANJIL">GANJIL</option>
+                    <option value="TENGAH">TENGAH</option>
+                    <option value="TEPI">TEPI</option>
+                  </select>
+                  <label for="selectOpt1">Pilih</label>
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="form-floating">
+                  <input
+                    bind:value={bet_5050umum}
+                    on:keyup={handleKeyboard_number}
+                    on:keypress={handleKeyboard_checkenter}
+                    type="text"
+                    id="betQuick2D"
+                    class="form-control fs-5 text-end button-bet-default"
+                    class:dark={daylight === false}
+                    placeholder="Bet"
+                    minlength="3"
+                    maxlength="7"
+                    tab_index="0"
+                    autocomplete="off"
+                  />
+                  <span style="float:right;font-size:12px;color:#8a8a8a;"
+                    >{new Intl.NumberFormat().format(bet_5050umum)}</span
+                  >
+                  <label for="betQuick2D" class="form-label"
+                    >Bet (min : {new Intl.NumberFormat().format(
+                      min_bet_5050umum
+                    )}
+                    dan max : {new Intl.NumberFormat().format(
+                      max_bet_5050umum
+                    )})</label
+                  >
+                </div>
+              </div>
+              <div class="col-md">
                 <Button
                   id="btn2"
+                  class="form-control mt-2"
+                  style="border-radius:5px"
                   on:click={() => {
                     handleTambah("5050umum");
                   }}>TAMBAH</Button
                 >
-              </td>
-            </tr>
-          </table>
+              </div>
+            </div>
+          </div>
         </TabPane>
+
+        <!-- Special -->
         <TabPane tabId="form_5050special" tab="SPECIAL">
-          <table
-            class="table"
-            style="background:none;width:100%; margin-top:10px;"
-          >
-            <tr>
-              <td
-                width="25%"
-                NOWRAP
-                style="padding-right:10px;vertical-align: center;"
-              >
-                <span style="color:#8a8a8a;">TEBAK</span>
-                <select
-                  bind:value={select_5050special_1}
-                  bind:this={select_5050special_1_input}
-                  style="border:none;background:#303030;color:white;"
-                  class="form-control"
-                >
-                  <option value="">--Pilih--</option>
-                  <option value="AS">AS</option>
-                  <option value="KOP">KOP</option>
-                  <option value="KEPALA">KEPALA</option>
-                  <option value="EKOR">EKOR</option>
-                </select>
-                <span
-                  class="help-block"
-                  style="text-align:right;font-size:12px;"
-                />
-              </td>
-              <td
-                width="25%"
-                NOWRAP
-                style="padding-right:10px;vertical-align: center;"
-              >
-                <span style="color:#8a8a8a;">TEBAK</span>
-                <select
-                  bind:value={select_5050special_2}
-                  bind:this={select_5050special_2_input}
-                  style="border:none;background:#303030;color:white;"
-                  class="form-control"
-                >
-                  <option value="">--Pilih--</option>
-                  <option value="GENAP">GENAP</option>
-                  <option value="GANJIL">GANJIL</option>
-                  <option value="BESAR">BESAR</option>
-                  <option value="KECIL">KECIL</option>
-                </select>
-                <span
-                  class="help-block"
-                  style="text-align:right;font-size:12px;"
-                />
-              </td>
-              <td
-                width="*"
-                NOWRAP
-                style="padding-right:10px;vertical-align: center;text-align:right;"
-              >
-                <span style="color:#8a8a8a;"
-                  >Bet (min : {new Intl.NumberFormat().format(
-                    min_bet_5050special
-                  )} dan max : {new Intl.NumberFormat().format(
-                    max_bet_5050special
-                  )})</span
-                >
-                <input
-                  bind:value={bet_5050special}
-                  on:keyup={handleKeyboard_number}
-                  on:keypress={handleKeyboardspecial_checkenter}
-                  type="text"
-                  class="form-control"
-                  placeholder="Bet"
-                  style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
-                  minlength="3"
-                  maxlength="7"
-                  tab_index="0"
-                />
-                <span style="text-align:right;font-size:12px;color:#8a8a8a;"
-                  >{new Intl.NumberFormat().format(bet_5050special)}</span
-                >
-              </td>
-              <td width="20%" NOWRAP style="vertical-align: center;">
+          <div style="margin:10px 0;">
+            <div class="row gap-3">
+              <div class="col-md">
+                <div class="form-floating">
+                  <select
+                    class="form-select button-bet-default"
+                    class:dark={daylight === false}
+                    bind:value={select_5050special_1}
+                    bind:this={select_5050special_1_input}
+                    id="selectSpc1"
+                    aria-label="Floating label select"
+                  >
+                    <option value="">--Pilih--</option>
+                    <option value="AS">AS</option>
+                    <option value="KOP">KOP</option>
+                    <option value="KEPALA">KEPALA</option>
+                    <option value="EKOR">EKOR</option>
+                  </select>
+                  <label for="selectSpc1">Pilih</label>
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="form-floating">
+                  <select
+                    class="form-select button-bet-default"
+                    class:dark={daylight === false}
+                    bind:value={select_5050special_2}
+                    bind:this={select_5050special_2_input}
+                    id="selectSpc2"
+                    aria-label="Floating label select"
+                  >
+                    <option value="">--Pilih--</option>
+                    <option value="GENAP">GENAP</option>
+                    <option value="GANJIL">GANJIL</option>
+                    <option value="BESAR">BESAR</option>
+                    <option value="KECIL">KECIL</option>
+                  </select>
+                  <label for="selectSpc2">Pilih</label>
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="form-floating">
+                  <input
+                    bind:value={bet_5050special}
+                    on:keyup={handleKeyboard_number}
+                    on:keypress={handleKeyboardspecial_checkenter}
+                    type="text"
+                    id="inptSpc"
+                    class="form-control fs-5 text-end button-bet-default"
+                    class:dark={daylight === false}
+                    placeholder="Bet"
+                    minlength="3"
+                    maxlength="7"
+                    tab_index="0"
+                    autocomplete="off"
+                  />
+                  <span style="text-align:right;font-size:12px;color:#8a8a8a;"
+                    >{new Intl.NumberFormat().format(bet_5050special)}</span
+                  >
+                  <label for="inptSpc" class="form-label"
+                    >Bet (min : {new Intl.NumberFormat().format(
+                      min_bet_5050special
+                    )} dan max : {new Intl.NumberFormat().format(
+                      max_bet_5050special
+                    )})</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
                 <Button
                   id="btn2"
+                  class="form-control mt-2"
+                  style="border-radius:5px"
                   on:click={() => {
                     handleTambah("5050special");
                   }}>TAMBAH</Button
                 >
-              </td>
-            </tr>
-          </table>
+              </div>
+            </div>
+          </div>
         </TabPane>
+
+        <!-- Kombinasi -->
         <TabPane tabId="form_5050kombinasi" tab="KOMBINASI">
-          <table
-            class="table"
-            style="background:none;width:100%;margin-top:10px;"
-          >
-            <tr>
-              <td
-                width="25%"
-                NOWRAP
-                style="padding-right:10px;vertical-align: center;"
-              >
-                <span style="color:#8a8a8a;">TEBAK</span>
-                <select
-                  bind:value={select_5050kombinasi_1}
-                  bind:this={select_5050kombinasi_1_input}
-                  style="border:none;background:#303030;color:white;"
-                  class="form-control"
-                >
-                  <option value="">--Pilih--</option>
-                  <option value="BELAKANG">BELAKANG</option>
-                  <option value="TENGAH">TENGAH</option>
-                  <option value="DEPAN">DEPAN</option>
-                </select>
-                <span
-                  class="help-block"
-                  style="text-align:right;font-size:12px;"
-                />
-              </td>
-              <td
-                width="25%"
-                NOWRAP
-                style="padding-right:10px;vertical-align: center;"
-              >
-                <span style="color:#8a8a8a;">TEBAK</span>
-                <select
-                  bind:value={select_5050kombinasi_2}
-                  bind:this={select_5050kombinasi_2_input}
-                  style="border:none;background:#303030;color:white;"
-                  class="form-control"
-                >
-                  <option value="">--Pilih--</option>
-                  <option value="MONO">MONO</option>
-                  <option value="STEREO">STEREO</option>
-                  <option value="KEMBANG">KEMBANG</option>
-                  <option value="KEMPIS">KEMPIS</option>
-                  <option value="KEMBAR">KEMBAR</option>
-                </select>
-                <span
-                  class="help-block"
-                  style="text-align:right;font-size:12px;"
-                />
-              </td>
-              <td
-                width="*"
-                NOWRAP
-                style="padding-right:10px;vertical-align: center;text-align:right;"
-              >
-                <span style="color:#8a8a8a;"
-                  >Bet (min : {new Intl.NumberFormat().format(
-                    min_bet_5050special
-                  )} dan max : {new Intl.NumberFormat().format(
-                    max_bet_5050special
-                  )})</span
-                >
-                <input
-                  bind:value={bet_5050kombinasi}
-                  on:keyup={handleKeyboard_number}
-                  on:keypress={handleKeyboardkombinasi_checkenter}
-                  type="text"
-                  class="form-control"
-                  placeholder="Bet"
-                  style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
-                  minlength="3"
-                  maxlength="7"
-                  tab_index="0"
-                />
-                <span style="text-align:right;font-size:12px;color:#8a8a8a;"
-                  >{new Intl.NumberFormat().format(bet_5050kombinasi)}</span
-                >
-              </td>
-              <td width="20%" NOWRAP style="vertical-align: center;">
+          <div style="margin:10px 0;">
+            <div class="row gap-3">
+              <div class="col-md">
+                <div class="form-floating">
+                  <select
+                    class="form-select button-bet-default"
+                    class:dark={daylight === false}
+                    bind:value={select_5050kombinasi_1}
+                    bind:this={select_5050kombinasi_1_input}
+                    id="selectKmbn1"
+                    aria-label="Floating label select"
+                  >
+                    <option value="">--Pilih--</option>
+                    <option value="BELAKANG">BELAKANG</option>
+                    <option value="TENGAH">TENGAH</option>
+                    <option value="DEPAN">DEPAN</option>
+                  </select>
+                  <label for="selectKmbn1">Pilih</label>
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="form-floating">
+                  <select
+                    class="form-select button-bet-default"
+                    class:dark={daylight === false}
+                    bind:value={select_5050kombinasi_2}
+                    bind:this={select_5050kombinasi_2_input}
+                    id="selectKmbn2"
+                    aria-label="Floating label select"
+                  >
+                    <option value="">--Pilih--</option>
+                    <option value="MONO">MONO</option>
+                    <option value="STEREO">STEREO</option>
+                    <option value="KEMBANG">KEMBANG</option>
+                    <option value="KEMPIS">KEMPIS</option>
+                    <option value="KEMBAR">KEMBAR</option>
+                  </select>
+                  <label for="selectKmbn2">Pilih</label>
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="form-floating">
+                  <input
+                    bind:value={bet_5050kombinasi}
+                    on:keyup={handleKeyboard_number}
+                    on:keypress={handleKeyboardkombinasi_checkenter}
+                    type="text"
+                    id="inptKmbn"
+                    class="form-control fs-5 text-end button-bet-default"
+                    class:dark={daylight === false}
+                    placeholder="Bet"
+                    minlength="3"
+                    maxlength="7"
+                    tab_index="0"
+                    autocomplete="off"
+                  />
+                  <span style="text-align:right;font-size:12px;color:#8a8a8a;"
+                    >{new Intl.NumberFormat().format(bet_5050kombinasi)}</span
+                  >
+                  <label for="inptKmbn" class="form-label text-truncate"
+                    >Bet (min : {new Intl.NumberFormat().format(
+                      min_bet_5050special
+                    )} dan max : {new Intl.NumberFormat().format(
+                      max_bet_5050special
+                    )})</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
                 <Button
                   id="btn2"
+                  class="form-control mt-2"
+                  style="border-radius:5px"
                   on:click={() => {
                     handleTambah("5050kombinasi");
                   }}>TAMBAH</Button
                 >
-              </td>
-            </tr>
-          </table>
+              </div>
+            </div>
+          </div>
         </TabPane>
       </TabContent>
     </CardBody>

@@ -5,13 +5,15 @@
   export let footer = true;
   export let header_style = "";
   export let body_style = "";
+  export let daylight;
 </script>
 
-<Card
-  style="border:none;padding:0px;margin:0px;opacity: 0.9;background: #171717;"
->
+<Card class={daylight ? "" : "bg-dark"}>
   {#if header}
-    <CardHeader style={header_style}>
+    <CardHeader
+      class="card-periode {daylight ? '' : 'dark'}"
+      style={header_style}
+    >
       <slot name="header" />
     </CardHeader>
   {/if}
@@ -19,7 +21,7 @@
     <slot name="body" />
   </CardBody>
   {#if footer}
-    <CardFooter style="background:#101010;">
+    <CardFooter style="background:{daylight ? '#f3f3f3' : '#101010'};">
       <slot name="footer" />
     </CardFooter>
   {/if}

@@ -4,21 +4,20 @@
   export let permainan_title;
   export let pasaran_periode;
   export let pasaran_code;
+  export let daylight = false;
 </script>
 
-<CardHeader style="background:#171717;">
+<CardHeader class="card-periode {daylight ? '' : 'dark'}">
   <div class="row">
     <div class="col">
-      <h2
-        style="font-weight:bold; padding-top:2px; color:white; font-family: 'Poppins';"
-      >
-        {pasaran_name}
+      <h2 class="pt-2">
+        {pasaran_name} - {permainan_title}
       </h2>
     </div>
     <div class="col">
       <div class="float-end">
-        <h5 style="padding-top: 10px;color:white; font-family: 'Poppins';">
-          {permainan_title} | PERIODE : {pasaran_periode + " - " + pasaran_code}
+        <h5 class="pt-3 fw-normal text-black-60">
+          PERIODE : {pasaran_periode + " - " + pasaran_code}
         </h5>
       </div>
     </div>

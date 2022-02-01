@@ -26,6 +26,8 @@
   export let pasaran_name = "";
   export let pasaran_periode = 0;
   export let permainan_title = "COLOK";
+  export let daylight = false;
+
   let keranjang = [];
   let css_loader = "display:none;";
   let nomor_global = 0;
@@ -360,117 +362,108 @@
 
 <Loader cssstyle={css_loader} />
 {#if client_device == "WEBSITE"}
-  <Card color="dark" style="border:1px solid #262424;">
+  <Card class={daylight ? "" : "bg-dark"} style="margin:0px;padding:0px;">
     <PeriodePanel
       {pasaran_name}
       {permainan_title}
       {pasaran_periode}
       {pasaran_code}
+      {daylight}
     />
-    <CardBody style="background:#121212;padding:0px;margin:0px;">
-      <div style="margin:10px;">
-        <table class="table" style="background:none;width:100%;">
-          <tr>
-            <td
-              width="25%"
-              NOWRAP
-              style="padding-right:10px;vertical-align: center;"
-            >
-              <span style="color:#8a8a8a;">TEBAK</span>
+    <CardBody class={daylight ? "" : "dark"}>
+      <div style="margin:10px 0;">
+        <div class="row gap-3">
+          <div class="col-md">
+            <div class="form-floating">
               <select
+                class="form-select button-bet-default"
+                class:dark={daylight === false}
                 bind:value={select_kombinasi_1}
                 bind:this={select_kombinasi_1_input}
-                style="border:none;background:#303030;color:white;"
-                class="form-control"
+                id="selectTebak1"
+                aria-label="Floating label select"
               >
-                <option value="">--Pilih--</option>
+                <option value="">--Kombinasi 1--</option>
                 <option value="BELAKANG">BELAKANG</option>
                 <option value="TENGAH">TENGAH</option>
                 <option value="DEPAN">DEPAN</option>
               </select>
-              <span
-                class="help-block"
-                style="text-align:right;font-size:12px;"
-              />
-            </td>
-            <td
-              width="25%"
-              NOWRAP
-              style="padding-right:10px;vertical-align: center;"
-            >
-              <span style="color:#8a8a8a;">TEBAK</span>
+              <label for="selectTebak1">Pilih</label>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="form-floating">
               <select
+                class="form-select button-bet-default"
+                class:dark={daylight === false}
                 bind:value={select_kombinasi_2}
                 bind:this={select_kombinasi_2_input}
-                style="border:none;background:#303030;color:white;"
-                class="form-control"
+                id="selectTebak2"
+                aria-label="Floating label select"
               >
-                <option value="">--Pilih--</option>
+                <option value="">--Kombinasi 2--</option>
                 <option value="BESAR">BESAR</option>
                 <option value="KECIL">KECIL</option>
               </select>
-              <span
-                class="help-block"
-                style="text-align:right;font-size:12px;"
-              />
-            </td>
-            <td
-              width="25%"
-              NOWRAP
-              style="padding-right:10px;vertical-align: center;"
-            >
-              <span style="color:#8a8a8a;">TEBAK</span>
+              <label for="selectTebak2">Pilih</label>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="form-floating">
               <select
+                class="form-select button-bet-default"
+                class:dark={daylight === false}
                 bind:value={select_kombinasi_3}
                 bind:this={select_kombinasi_3_input}
-                style="border:none;background:#303030;color:white;"
-                class="form-control"
+                id="selectTebak3"
+                aria-label="Floating label select"
               >
-                <option value="">--Pilih--</option>
+                <option value="">--Kombinasi 3--</option>
                 <option value="GENAP">GENAP</option>
                 <option value="GANJIL">GANJIL</option>
               </select>
-              <span
-                class="help-block"
-                style="text-align:right;font-size:12px;"
-              />
-            </td>
-            <td
-              width="*"
-              NOWRAP
-              style="padding-right:10px;vertical-align: center;text-align:right;"
-            >
-              <span style="color:#8a8a8a;"
-                >Bet (min : {new Intl.NumberFormat().format(min_bet)} dan max : {new Intl.NumberFormat().format(
-                  max_bet
-                )})</span
-              >
+              <label for="selectTebak3">Pilih</label>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md">
+            <div class="form-floating">
               <input
                 bind:value={bet_kombinasi}
                 on:keyup={handleKeyboard_number}
                 on:keypress={handleKeyboard_checkenter}
                 type="text"
-                class="form-control"
+                id="betQuick2D"
+                class="form-control fs-5 text-end button-bet-default"
+                class:dark={daylight === false}
                 placeholder="Bet"
-                style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
                 minlength="3"
                 maxlength="7"
                 tab_index="0"
+                autocomplete="off"
               />
-              <span style="text-align:right;font-size:12px;color:#8a8a8a;"
+              <span style="float:right;font-size:12px;color:#8a8a8a;"
                 >{new Intl.NumberFormat().format(bet_kombinasi)}</span
               >
-            </td>
-            <td width="20%" NOWRAP style="vertical-align: center;">
-              <Button
-                id="btn2"
-                on:click={() => {
-                  handleTambah("macaukombinasi");
-                }}>TAMBAH</Button
+              <label for="betQuick2D" class="form-label"
+                >Bet (min : {new Intl.NumberFormat().format(min_bet)} dan max : {new Intl.NumberFormat().format(
+                  max_bet
+                )})</label
               >
-            </td>
-          </tr>
-        </table>
+            </div>
+          </div>
+          <div class="col-md">
+            <Button
+              id="btn2"
+              class="form-control mt-2"
+              style="border-radius:5px"
+              on:click={() => {
+                handleTambah("macaukombinasi");
+              }}>TAMBAH</Button
+            >
+          </div>
+        </div>
       </div>
     </CardBody>
   </Card>

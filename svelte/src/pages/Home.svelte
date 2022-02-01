@@ -20,6 +20,7 @@
   export let client_device = "";
   export let listkeluaran = [];
   export let daylight = false;
+  export let checked;
   let dispatch = createEventDispatcher();
 
   const handleClick = (code, name, periode, status) => {
@@ -45,6 +46,7 @@
   {client_ipaddress}
   {client_timezone}
   {client_device}
+  bind:checked
   {daylight}
 />
 <div class="row">

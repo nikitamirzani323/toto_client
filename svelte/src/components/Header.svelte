@@ -9,6 +9,7 @@
   import Fa from "svelte-fa";
   import { faBell } from "@fortawesome/free-regular-svg-icons";
   import Placeholder from "../components/Placeholder.svelte";
+  import Switch from "../components/Switch.svelte";
 
   dayjs.extend(utc);
   dayjs.extend(timezone);
@@ -21,6 +22,8 @@
   export let client_timezone = "";
   export let client_device = "";
   export let daylight = false;
+  export let checked;
+
   let modal_table_fontsize_header = "13px";
   let modal_table_fontsize_body = "12px";
   let modal_table_fontsize_bukumimpi_header = "14px";
@@ -427,18 +430,19 @@
         <Row class="mt-4 mb-2">
           <Col md="8" />
           <div class="col">
-            <span style="font-size:13px;float:right"
+            <span style="font-size:13px;"
               >Timezone : <span id="style_text"
                 >{client_timezone}, {clockmachine} WIB</span
               ></span
             >
+            <Switch bind:checked />
           </div>
         </Row>
         <Row>
           <div class="col">
             <a
               href="/?token={client_token}&agent={client_company}"
-              title="totoapp"
+              title="sdsb4d"
             >
               <img
                 id="imglogo"
@@ -475,7 +479,7 @@
                 }}
                 class="btn btn-play"
                 class:dark={daylight === false}
-                type="button">INFO PASARAN</button
+                type="button">PASARAN</button
               >
               &nbsp;
               <button
@@ -538,7 +542,7 @@
             alt="SDSB4D"
             style="margin-top:10px;"
             width="123"
-            src="logo.svg"
+            src="logo-green.svg"
           />
         </a>
       </div>
@@ -937,16 +941,20 @@
           >
         </li>
       </ul>
-      <form class="d-flex">
-        <input
-          bind:value={searchbukumimpi}
-          on:keypress={handleKeyboardbukumimpi_checkenter}
-          style="border-radius: 5px;border: none; background: rgb(48, 48, 48) none repeat scroll 0% 0%; color: white; font-size: {modal_table_fontsize_bukumimpi_header}; "
-          placeholder="cari mimpi kamu"
-          class="form-control"
-          type="text"
-        />
-      </form>
+      <div class="d-flex">
+        <div class="form-floating">
+          <input
+            bind:value={searchbukumimpi}
+            on:keypress={handleKeyboardbukumimpi_checkenter}
+            style="border-radius: 5px;border: none; background: rgb(48, 48, 48) none repeat scroll 0% 0%; color: white; font-size: {modal_table_fontsize_bukumimpi_header}; "
+            placeholder="cari mimpi kamu"
+            class="form-control"
+            type="text"
+            id="cariMimpi"
+          />
+          <label for="cariMimpi" class="form-label">cari mimpi kamu</label>
+        </div>
+      </div>
     </div>
   </slot:template>
   <slot:template slot="body">

@@ -4,11 +4,12 @@
 html,
 body {
     font-size: 81.25%;
-    font-family: 'Trebuchet MS', Verdana, Arial, Helvetica, sans-serif;
+    font-family: 'Trebuchet MS', Verdana, Arial, Helvetica, sans-serif, 'Poppins';
     ;
     color: #acacac;
     line-height: 1.5;
-    background: #003E27;
+    /* background: #003E27; */
+    min-height: 100%;
 }
 
 #btn1 {
@@ -71,15 +72,15 @@ a:focus {
 
 .nav-tabs {
     border-radius: 0px;
-    background-color: #181818;
-    border-color: #181818;
+    /* background-color: #181818;
+    border-color: #181818; */
 
 }
 
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
     background-color: #007741;
-    border-color: #F9A407 #F9A407 #F9A407;
+    border-color: #00A86B #00A86B #00A86B;
     border-radius: 0px;
     color: black;
     font-weight: bold;
@@ -288,27 +289,37 @@ hr {
     outline: 1px solid slategrey;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
     color: black;
     background-color: #007741;
-    border-color: #F9A407 #F9A407 #F9A407;
+    border-color: #00A86B #00A86B #00A86B;
     border-radius: 4px;
     font-weight: bold;
 }
+
 input::placeholder {
-    font-size:12px;
+    font-size: 12px;
 }
-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    font-size:12px;
+
+input::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    font-size: 12px;
 }
-input::-moz-placeholder { /* Firefox 19+ */
-    font-size:12px;
+
+input::-moz-placeholder {
+    /* Firefox 19+ */
+    font-size: 12px;
 }
-input:-ms-input-placeholder { /* IE 10+ */
-    font-size:12px;
+
+input:-ms-input-placeholder {
+    /* IE 10+ */
+    font-size: 12px;
 }
-input:-moz-placeholder { /* Firefox 18- */
-    font-size:12px;
+
+input:-moz-placeholder {
+    /* Firefox 18- */
+    font-size: 12px;
 }
 
 .head-fonts {
@@ -335,9 +346,10 @@ input:-moz-placeholder { /* Firefox 18- */
 .custom-icon.dark:hover {
     color: #00a86b;
 }
+
 .periode-menu .nav-tabs {
     white-space: nowrap;
-    overflow-x: scroll; 
+    overflow-x: scroll;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     flex-wrap: unset
@@ -346,33 +358,143 @@ input:-moz-placeholder { /* Firefox 18- */
 .periode-menu .nav-tabs::-webkit-scrollbar {
     height: 7px;
 }
-.periode-menu .nav-tabs::-webkit-scrollbar-track {
-
-}
 
 .periode-menu .nav-tabs::-webkit-scrollbar-thumb:hover {
-    background:  rgb(139, 139, 139); 
+    background: rgb(139, 139, 139);
     overflow-x: scroll;
-    box-shadow: inset 0 0 5px grey; 
+    box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
-  }
+}
 
 .periode-menu .nav-tabs .nav-link {
     background-color: transparent;
-    color: #FFF;
+    color: #171717;
     opacity: .5;
     border: none;
     text-decoration: none;
     border-bottom: 1px solid rgb(139, 139, 139);
 }
 
+.periode-menu.dark .nav-tabs .nav-link {
+    color: #fff;
+}
+
 .periode-menu .nav-tabs .nav-link.active,
 .periode-menu .nav-tabs .nav-link:hover {
-    border-bottom: 2px solid #F9A407;
-    color: #F9A407;
+    border-bottom: 3px solid #00A86B;
+    color: #00A86B;
     opacity: 1;
 }
 
 .periode-menu .nav-tabs li.nav-item {
     display: inline-block;
+}
+
+.panel-menus {
+    background: #fff;
+    opacity: 0.9;
+}
+
+.panel-menus .branding {
+    font-family: Poppins;
+    text-decoration: none;
+    color: #171717;
+}
+
+.panel-menus .branding:hover,
+.panel-menus.dark .branding:hover {
+    color: #00A86B
+}
+
+.panel-menus.dark {
+    background: rgba(0, 0, 0.78);
+}
+
+.panel-menus.dark .branding {
+    color: #fff;
+}
+
+.card-periode {
+    background: #fff;
+    border-bottom: unset
+}
+
+.card-periode+.card-body {
+    background: #fff;
+}
+
+.card-periode+.card-body.dark {
+    background: #171717;
+}
+
+.card-periode.dark {
+    background: #171717;
+    border-bottom: 1px solid rgba(0, 0, 0, .125)
+}
+
+.card-periode h1,
+.card-periode h2,
+.card-periode h5 {
+    color: #171717;
+    font-weight: bold;
+    font-family: 'Poppins';
+}
+
+.card-periode.dark h1,
+.card-periode.dark h2,
+.card-periode.dark h5 {
+    color: #fff;
+}
+
+.button-bet-default {
+    border: none;
+    background: #F3F9FF;
+    color: #171717;
+    border-radius: 5px;
+}
+
+.button-bet-default.dark {
+    background: #303030;
+    color: white;
+}
+
+.table-fill {
+    text-align: center;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+.table-fill.dark {
+    color: #fc0;
+}
+
+.footer-font {
+    color: #00a86b;
+}
+
+.footer-font.dark {
+    color: #f7941d;
+}
+
+.bet-pannel {
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, .125)
+}
+
+.bet-pannel.dark {
+    background-color: #171717;
+}
+
+.bet-pannel .nav-link {
+    color: #171717
+}
+
+.bet-pannel .nav-item {
+    padding: 0 5px;
+}
+
+.bet-pannel .nav-link.active,
+.bet-pannel.dark .nav-link {
+    color: #fff
 }

@@ -13,6 +13,8 @@
   import Formkombinasi from "../permainan/Formkombinasi.svelte";
   import Formdasar from "../permainan/Formdasar.svelte";
   import Formshio from "../permainan/Formshio.svelte";
+  import Fa from "svelte-fa";
+  import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
   export let client_token = "";
   export let client_company = "";
@@ -26,6 +28,8 @@
   export let pasaran_periode = 0;
   export let permainan = "";
   export let daylight = false;
+  export let checked;
+
   let css_loader = "display:none;";
 
   let resultinvoice = [];
@@ -304,26 +308,25 @@
     {client_ipaddress}
     {client_timezone}
     {client_device}
+    bind:checked
     {daylight}
   />
   {#if client_device == "WEBSITE"}
     <Col xs="12" style="padding:0;">
-      <Panel>
+      <Panel {daylight}>
         <slot:template slot="body">
           <nav class="navbar">
             <a
-              class="navbar-brand"
-              style="font-family: Poppins;text-decoration: none"
+              class="navbar-brand branding"
               href="/?token={client_token}&agent={client_company}"
-              ><img
-                style="margin-top: 0px;"
-                width="30"
-                src="/back_home.png"
-                alt="close"
-              /> Back</a
+              ><Fa icon={faArrowLeft} size="1x" /> Back</a
             >
-            <ul class="nav top-menu nav-pills justify-content-center">
+            <ul
+              class="nav top-menu nav-pills justify-content-center"
+              class:dark={daylight === false}
+            >
               <li class="nav-item">
+                <!-- svelte-ignore a11y-missing-attribute -->
                 <a
                   class="nav-link"
                   class:active={selected === "4-3-2"}
@@ -333,6 +336,7 @@
                 >
               </li>
               <li class="nav-item">
+                <!-- svelte-ignore a11y-missing-attribute -->
                 <a
                   class="nav-link"
                   class:active={selected === "colok"}
@@ -342,6 +346,7 @@
                 >
               </li>
               <li class="nav-item">
+                <!-- svelte-ignore a11y-missing-attribute -->
                 <a
                   class="nav-link"
                   class:active={selected === "5050"}
@@ -351,6 +356,7 @@
                 >
               </li>
               <li class="nav-item">
+                <!-- svelte-ignore a11y-missing-attribute -->
                 <a
                   class="nav-link"
                   class:active={selected === "kombinasi"}
@@ -360,6 +366,7 @@
                 >
               </li>
               <li class="nav-item">
+                <!-- svelte-ignore a11y-missing-attribute -->
                 <a
                   class="nav-link"
                   class:active={selected === "dasar"}
@@ -369,6 +376,7 @@
                 >
               </li>
               <li class="nav-item">
+                <!-- svelte-ignore a11y-missing-attribute -->
                 <a
                   class="nav-link"
                   class:active={selected === "shio"}
@@ -408,6 +416,7 @@
           {pasaran_code}
           {pasaran_periode}
           {permainan_title}
+          {daylight}
         />
       {/if}
       {#if permainan == "colok"}
@@ -426,6 +435,7 @@
           {pasaran_periode}
           {permainan_title}
           {permainan_periode}
+          {daylight}
         />
       {/if}
       {#if permainan == "5050"}
@@ -444,6 +454,7 @@
           {pasaran_periode}
           {permainan_title}
           {permainan_periode}
+          {daylight}
         />
       {/if}
       {#if permainan == "kombinasi"}
@@ -462,6 +473,7 @@
           {pasaran_periode}
           {permainan_title}
           {permainan_periode}
+          {daylight}
         />
       {/if}
       {#if permainan == "dasar"}
@@ -480,6 +492,7 @@
           {pasaran_periode}
           {permainan_title}
           {permainan_periode}
+          {daylight}
         />
       {/if}
       {#if permainan == "shio"}
@@ -498,6 +511,7 @@
           {pasaran_periode}
           {permainan_title}
           {permainan_periode}
+          {daylight}
         />
       {/if}
     </Col>
@@ -511,10 +525,10 @@
       style="padding:0px;padding-left:2px;"
     >
       <ul
-        class="nav nav-pills mb-3"
+        class="nav nav-pills bet-pannel mb-3"
+        class:dark={daylight === false}
         id="pills-tab"
         role="tablist"
-        style="background-color: #171717;padding:10px;"
       >
         <li class="nav-item" role="presentation">
           <button
@@ -1002,6 +1016,7 @@
       >
         <br />
         <b style="font-size: 13px;">Pilih Permainan Dibawah Ini : </b>
+        <!-- svelte-ignore a11y-no-onchange -->
         <select
           on:change={handleSelect}
           style="background-color: #323030;color:white;border:1px solid #323030;"
@@ -1275,19 +1290,32 @@
 <style scoped>
   .nav.top-menu > .nav-item > .nav-link.active,
   .nav.top-menu > .nav-item > .nav-link:hover {
-    background: #ff9900;
+    background: #00a86b;
     border-radius: 4px;
-    color: #000;
+    color: #fff;
     cursor: pointer;
+  }
+
+  .nav.top-menu > .nav-item > .nav-link {
+    color: #171717;
   }
   .nav.top-menu > .nav-item {
     font-size: 10pt;
     font-family: "Poppins";
     opacity: 1;
-    color: #fff;
+    color: #171717;
     width: 105px;
     text-align: center;
     margin: 0 5px;
+  }
+
+  .nav.top-menu.dark > .nav-item > .nav-link.active,
+  .nav.top-menu.dark > .nav-item > .nav-link:hover {
+    color: #171717;
+  }
+
+  .nav.top-menu.dark .nav-link {
+    color: #fff;
   }
 
   .nav.top-menu > .nav-item > .nav-link,

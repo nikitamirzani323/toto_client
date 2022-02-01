@@ -19,6 +19,8 @@
   export let pasaran_name = "";
   export let pasaran_periode = 0;
   export let permainan_title = "COLOK";
+  export let daylight = false;
+
   let keranjang = [];
   let css_loader = "display:none;";
   let nomor_global = 0;
@@ -322,30 +324,28 @@
 
 <Loader cssstyle={css_loader} />
 {#if client_device == "WEBSITE"}
-  <Card color="dark" style="border:1px solid #262424;">
+  <Card class={daylight ? "" : "bg-dark"} style="margin:0px;padding:0px;">
     <PeriodePanel
       {pasaran_name}
       {permainan_title}
       {pasaran_periode}
       {pasaran_code}
+      {daylight}
     />
-    <CardBody style="background:#121212;padding:0px;margin:0px;">
-      <div style="margin:10px;">
-        <table class="table" style="background:none;width:100%;">
-          <tr>
-            <td
-              width="25%"
-              NOWRAP
-              style="padding-right:10px;vertical-align: center;"
-            >
-              <span style="color:#8a8a8a;">TEBAK</span>
+    <CardBody class={daylight ? "" : "dark"}>
+      <div style="margin:10px 0;">
+        <div class="row gap-3">
+          <div class="col-md">
+            <div class="form-floating">
               <select
+                class="form-select button-bet-default"
+                class:dark={daylight === false}
                 bind:value={select_shio}
                 bind:this={select_shio_input}
-                style="border:none;background:#303030;color:white;"
-                class="form-control"
+                id="selectShio"
+                aria-label="Floating label select"
               >
-                <option value="">--Pilih--</option>
+                <option selected>--Shio--</option>
                 <option value="ANJING">ANJING</option>
                 <option value="AYAM">AYAM</option>
                 <option value="MONYET">MONYET</option>
@@ -359,48 +359,46 @@
                 <option value="TIKUS">TIKUS</option>
                 <option value="BABI">BABI</option>
               </select>
-              <span
-                class="help-block"
-                style="text-align:right;font-size:12px;"
-              />
-            </td>
-
-            <td
-              width="*"
-              NOWRAP
-              style="padding-right:10px;vertical-align: center;text-align:right;"
-            >
-              <span style="color:#8a8a8a;"
-                >Bet (min : {new Intl.NumberFormat().format(min_bet)} dan max : {new Intl.NumberFormat().format(
-                  max_bet
-                )})</span
-              >
+              <label for="selectShio">Pilih</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating">
               <input
                 bind:value={bet_shio}
                 on:keyup={handleKeyboard_number}
                 on:keypress={handleKeyboard_checkenter}
                 type="text"
-                class="form-control"
+                id="betDasar"
+                class="form-control fs-5 text-end button-bet-default"
+                class:dark={daylight === false}
                 placeholder="Bet"
-                style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
                 minlength="3"
                 maxlength="7"
                 tab_index="0"
+                autocomplete="off"
               />
-              <span style="text-align:right;font-size:12px;color:#8a8a8a;"
+              <span style="float:right;font-size:12px;color:#8a8a8a;"
                 >{new Intl.NumberFormat().format(bet_shio)}</span
               >
-            </td>
-            <td width="20%" NOWRAP style="vertical-align: center;">
-              <Button
-                id="btn2"
-                on:click={() => {
-                  handleTambah("shio");
-                }}>TAMBAH</Button
+              <label for="betDasar" class="form-label"
+                >Bet (min : {new Intl.NumberFormat().format(min_bet)} dan max : {new Intl.NumberFormat().format(
+                  max_bet
+                )})</label
               >
-            </td>
-          </tr>
-        </table>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <Button
+              id="btn2"
+              class="form-control mt-2"
+              style="border-radius:5px"
+              on:click={() => {
+                handleTambah("shio");
+              }}>TAMBAH</Button
+            >
+          </div>
+        </div>
       </div>
     </CardBody>
   </Card>

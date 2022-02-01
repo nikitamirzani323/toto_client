@@ -8,6 +8,7 @@
   import utc from "dayjs/plugin/utc";
   import timezone from "dayjs/plugin/timezone";
   import Notification, { notifications } from "./components/Noti.svelte";
+  import Switch from "./components/Switch.svelte";
 
   dayjs.extend(utc);
   dayjs.extend(timezone);
@@ -54,12 +55,15 @@
   let record = "";
   let message_err = "";
   let css_err = "display:none;";
-  let daylight = false;
+  let checked = false;
+
+  $: daylight = checked;
+
   // $: callday = daylights();
   function daylights() {
     const time = new Date().getHours();
     console.log(time);
-    if (time >= 6 && time <= 18) {
+    if (time >= 6 && time < 18) {
       return true;
     }
     return false;
@@ -77,11 +81,11 @@
     }
     let callday = daylights();
     if (callday) {
-      daylight = true;
-      console.log(daylight);
+      checked = true;
     }
     initapp(token_browser, agentCode);
   }
+  $: console.log("check for daylight?", daylight);
   async function initapp(token, agent_code) {
     const resInit = await fetch("/api/init", {
       method: "POST",
@@ -200,23 +204,27 @@
                 {pasaran_name}
                 {pasaran_periode}
                 {permainan}
+                bind:checked
                 {daylight}
               />
             </Row>
           {/if}
         {:else if client_token != ""}
-          <Home
-            {client_token}
-            {client_company}
-            {client_username}
-            {client_credit}
-            {client_ipaddress}
-            {client_timezone}
-            {client_device}
-            {listkeluaran}
-            {daylight}
-            on:pasaran={pasaran}
-          />
+          <Row align-items-start>
+            <Home
+              {client_token}
+              {client_company}
+              {client_username}
+              {client_credit}
+              {client_ipaddress}
+              {client_timezone}
+              {client_device}
+              {listkeluaran}
+              bind:checked
+              {daylight}
+              on:pasaran={pasaran}
+            />
+          </Row>
         {:else}
           <Notif message={message_err} css_init={css_err} />
           <div style="height: 100%;margin:100px 0px 100px 0px;">
@@ -229,7 +237,7 @@
     </Container>
   </div>
 {:else}
-  <div class="content mobile">
+  <div class="content" class:dark={daylight === false}>
     <Container>
       {#if token_browser != ""}
         <Row align-items-start>
@@ -279,17 +287,12 @@
     background-image: url("/bg-light.svg");
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    height: 100%;
   }
 
   .content.dark {
     background-image: url("/bg-dark.svg");
-  }
-  .content.mobile {
-    background-image: linear-gradient(
-        180deg,
-        rgba(51, 0, 5, 0) 17.78%,
-        #330500 52.74%
-      ),
-      url("/bg-mobile.svg");
   }
 </style>
