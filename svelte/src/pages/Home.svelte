@@ -21,6 +21,7 @@
   export let listkeluaran = [];
   export let daylight = false;
   export let checked;
+  let home = true;
   let dispatch = createEventDispatcher();
 
   const handleClick = (code, name, periode, status) => {
@@ -48,6 +49,7 @@
   {client_device}
   bind:checked
   {daylight}
+  {home}
 />
 <div class="row">
   {#each listkeluaran as { pasaran_code, pasaran, pasaran_periode, pasaran_status, pasaran_tgl }, i}

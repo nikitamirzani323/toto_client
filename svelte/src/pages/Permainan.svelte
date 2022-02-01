@@ -30,6 +30,7 @@
   export let daylight = false;
   export let checked;
 
+  let home = false;
   let css_loader = "display:none;";
 
   let resultinvoice = [];
@@ -310,6 +311,7 @@
     {client_device}
     bind:checked
     {daylight}
+    {home}
   />
   {#if client_device == "WEBSITE"}
     <Col xs="12" style="padding:0;">

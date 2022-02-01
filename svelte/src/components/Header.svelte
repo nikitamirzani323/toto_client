@@ -23,6 +23,7 @@
   export let client_device = "";
   export let daylight = false;
   export let checked;
+  export let home;
 
   let modal_table_fontsize_header = "13px";
   let modal_table_fontsize_body = "12px";
@@ -428,14 +429,20 @@
     <Col>
       <Container style="padding:0;">
         <Row class="mt-4 mb-2">
-          <Col md="8" />
-          <div class="col">
-            <span style="font-size:13px;"
-              >Timezone : <span id="style_text"
-                >{client_timezone}, {clockmachine} WIB</span
-              ></span
-            >
-            <Switch bind:checked />
+          <div class="w-25" />
+          <div class="w-75">
+            <Row>
+              <div class="col text-end">
+                <span style="font-size:13px;"
+                  >Timezone : <span id="style_text"
+                    >{client_timezone}, {clockmachine} WIB</span
+                  ></span
+                >
+              </div>
+              <div class="col-1 px-0 d-none d-xl-block d-xxl-block">
+                <Switch bind:checked />
+              </div>
+            </Row>
           </div>
         </Row>
         <Row>
@@ -482,14 +489,16 @@
                 type="button">PASARAN</button
               >
               &nbsp;
-              <button
-                on:click={() => {
-                  handleClickButtonTop("bukumimpi");
-                }}
-                class="btn btn-play"
-                class:dark={daylight === false}
-                type="button">BUKU MIMPI</button
-              >
+              {#if home}
+                <button
+                  on:click={() => {
+                    handleClickButtonTop("bukumimpi");
+                  }}
+                  class="btn btn-play"
+                  class:dark={daylight === false}
+                  type="button">BUKU MIMPI</button
+                >
+              {/if}
             </form>
           </div>
           <div class="col">
