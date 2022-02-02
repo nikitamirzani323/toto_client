@@ -3,6 +3,7 @@
   import { createEventDispatcher } from "svelte";
   import PanelFull from "../components/Panelfull.svelte";
   import Modal from "../components/Modalfull2.svelte";
+  import Lineinfo from "../components/Keranjang.svelte";
 
   export let keranjang = [];
   export let client_device = "";
@@ -20,6 +21,7 @@
   export let disc_kecil_bet = 0;
   export let disc_genap_bet = 0;
   export let disc_ganjil_bet = 0;
+  export let daylight;
 
   let count_line = 0;
   let dispatch = createEventDispatcher();
@@ -48,235 +50,123 @@
 <PanelFull
   header={true}
   footer={true}
-  header_style="background:#181717;border-bottom:1px solid #333;border-top: 0 solid #333;"
-  body_style="padding:0px;background:#181717;height:500px;"
+  body_style="padding:0px;background:{daylight
+    ? '#fff'
+    : '#181717'};height:450px;"
+  {daylight}
 >
   <slot:template slot="header">
-    {#if client_device == "WEBSITE"}
-      {#if group_btn_beli == true}
-        <div class="float-end" id="btnbelitogel">
-          <Button
-            id="btn1"
-            data-bs-toggle="modal"
-            data-bs-target="#modalInformasi"
-            style="margin-top:5px;"
-            ><Icon name="info-circle" /> Informasi</Button
-          >
-          <Button
-            id="btn1"
-            on:click={handleRemoveKeranjang_all}
-            style="margin-top:5px;"><Icon name="trash" /> Hapus Semua</Button
-          >
-          <Button id="btn2" on:click={handleSave} style="margin-top:5px;"
-            ><Icon name="cart-check" /> BELI</Button
-          >
+    <div class="container px-0">
+      <div class="row">
+        <div class="col-md">
+          <h1 style="padding:5px;margin:0px;font-size:15px;">
+            TOTAL BAYAR : <span style="color:{daylight ? '#00A86B' : '#fc0'};"
+              >{new Intl.NumberFormat().format(totalkeranjang)}</span
+            >
+          </h1>
         </div>
-      {/if}
-      <h1 style="padding:5px;margin:0px;color:white;font-size:15px;">
-        TOTAL BAYAR : <span style="color:#fc0;"
-          >{new Intl.NumberFormat().format(totalkeranjang)}</span
-        >
-      </h1>
-    {:else}
-      <h1 style="padding:5px;margin:0px;color:white;font-size:13px;">
-        TOTAL BAYAR : <span style="color:#fc0;"
-          >{new Intl.NumberFormat().format(totalkeranjang)}</span
-        >
-      </h1>
-      {#if group_btn_beli == true}
-        <center id="btnbelitogel">
-          <Button
-            size="sm"
-            id="btn1"
-            data-bs-toggle="modal"
-            data-bs-target="#modalInformasi"
-            style="margin-top:5px;"
-            ><Icon name="info-circle" /> Informasi</Button
-          >
-          <Button
-            size="sm"
-            id="btn1"
-            on:click={handleRemoveKeranjang_all}
-            style="margin-top:5px;"><Icon name="trash" /> Hapus Semua</Button
-          >
-          <Button
-            size="sm"
-            id="btn2"
-            on:click={handleSave}
-            style="margin-top:5px;"><Icon name="cart-check" /> BELI</Button
-          >
-        </center>
-      {/if}
-    {/if}
+
+        <div class="col-md">
+          <div class="float-end" id="btnbelitogel">
+            <Button
+              id="btn1"
+              data-bs-toggle="modal"
+              data-bs-target="#modalInformasi"
+              style="margin-top:5px;"
+              ><Icon name="info-circle" /> Informasi</Button
+            >
+            {#if group_btn_beli == true}
+              <Button
+                id="btn1"
+                on:click={handleRemoveKeranjang_all}
+                style="margin-top:5px;"
+                ><Icon name="trash" /> Hapus Semua</Button
+              >
+              <Button id="btn2" on:click={handleSave} style="margin-top:5px;"
+                ><Icon name="cart-check" /> BELI</Button
+              >
+            {/if}
+          </div>
+        </div>
+      </div>
+    </div>
   </slot:template>
   <slot:template slot="body">
-    {#if client_device == "WEBSITE"}
-      <table class="table table-dark table-striped">
-        <thead>
-          <tr>
-            <th
-              width="1%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:13px;border-bottom:none;"
-              NOWRAP>&nbsp;</th
-            >
-            <th
-              width="10%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:13px;border-bottom:none;"
-              NOWRAP>NOMOR</th
-            >
-            <th
-              width="20%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:13px;border-bottom:none;"
-              NOWRAP>PERMAINAN</th
-            >
-            <th
-              width="20%"
-              style="text-align:right;vertical-align:top;background:#303030;font-size:13px;border-bottom:none;"
-              NOWRAP>BET</th
-            >
-            <th
-              width="20%"
-              style="text-align:right;vertical-align:top;background:#303030;font-size:13px;border-bottom:none;"
-              NOWRAP>DISKON</th
-            >
+    <table
+      class="table {daylight
+        ? ''
+        : 'table-dark table-striped '} table-sm table-responsive"
+    >
+      <thead>
+        <tr>
+          <th
+            width="1%"
+            style="text-align:center;vertical-align:top;font-size:13px;border-bottom:none;"
+            NOWRAP>&nbsp;</th
+          >
+          <th
+            width="10%"
+            style="text-align:center;vertical-align:top;font-size:13px;border-bottom:none;"
+            NOWRAP>NOMOR</th
+          >
+          <th
+            width="20%"
+            style="text-align:center;vertical-align:top;font-size:13px;border-bottom:none;"
+            NOWRAP>PERMAINAN</th
+          >
+          <th
+            width="20%"
+            style="text-align:right;vertical-align:top;font-size:13px;border-bottom:none;"
+            NOWRAP>BET</th
+          >
+          <th
+            width="20%"
+            style="text-align:right;vertical-align:top;font-size:13px;border-bottom:none;"
+            NOWRAP>DISKON</th
+          >
 
-            <th
-              width="*"
-              style="text-align:right;vertical-align:top;background:#303030;font-size:13px;border-bottom:none;"
-              NOWRAP>BAYAR</th
-            >
-          </tr>
-        </thead>
-        <tbody>
-          {#each keranjang as rec}
-            <tr>
-              <td
-                style="text-align:center;vertical-align:middle;"
-                on:click={() => {
-                  handleRemoveKeranjang(rec.id, rec.bayar);
-                }}
-              >
-                <Icon name="trash" style="cursor:pointer;" />
-              </td>
-              <td
-                style="text-align:center;vertical-align:top;font-size:12px;color:#fc0;"
-                >{rec.nomor}</td
-              >
-              <td
-                style="text-align:center;vertical-align:top;font-size:12px;color:#fc0;"
-                >{rec.permainan}</td
-              >
-              <td
-                style="text-align:right;vertical-align:top;font-size:12px;color:#fc0;"
-              >
-                {new Intl.NumberFormat().format(rec.bet)}
-              </td>
-              <td
-                style="text-align:right;vertical-align:top;font-size:12px;color:#fc0;"
-              >
-                {new Intl.NumberFormat().format(Math.ceil(rec.diskon))} ({(
-                  rec.diskonpercen * 100
-                ).toFixed(1)}%)
-              </td>
-              <td
-                style="text-align:right;vertical-align:top;font-size:12px;color:#fc0;"
-              >
-                {new Intl.NumberFormat().format(rec.bayar)}
-              </td>
-            </tr>
-          {/each}
-        </tbody>
-      </table>
-    {:else}
-      <table class="table table-dark table-striped">
-        <thead>
+          <th
+            width="*"
+            style="text-align:right;vertical-align:top;font-size:13px;border-bottom:none;"
+            NOWRAP>BAYAR</th
+          >
+        </tr>
+      </thead>
+      <tbody>
+        {#each keranjang as rec}
           <tr>
-            <th
-              width="1%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:11px;border-bottom:none;"
-              NOWRAP>&nbsp;</th
+            <td
+              style="text-align:center;vertical-align:middle;"
+              on:click={() => {
+                handleRemoveKeranjang(rec.id, rec.bayar);
+              }}
             >
-            <th
-              width="10%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:11px;border-bottom:none;"
-              NOWRAP>NOMOR</th
+              <Icon name="trash" style="cursor:pointer;" />
+            </td>
+            <td class="table-fill text-center" class:dark={daylight === false}
+              >{rec.nomor}</td
             >
-            <th
-              width="20%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:11px;border-bottom:none;"
-              NOWRAP>PERMAINAN</th
+            <td class="table-fill text-center" class:dark={daylight === false}
+              >{rec.permainan}</td
             >
-            <th
-              width="20%"
-              style="text-align:right;vertical-align:top;background:#303030;font-size:11px;border-bottom:none;"
-              NOWRAP>BET</th
-            >
-            <th
-              width="20%"
-              style="text-align:right;vertical-align:top;background:#303030;font-size:11px;border-bottom:none;"
-              NOWRAP>DISKON</th
-            >
-
-            <th
-              width="*"
-              style="text-align:right;vertical-align:top;background:#303030;font-size:11px;border-bottom:none;"
-              NOWRAP>BAYAR</th
-            >
+            <td class="table-fill text-end" class:dark={daylight === false}>
+              {new Intl.NumberFormat().format(rec.bet)}
+            </td>
+            <td class="table-fill text-end" class:dark={daylight === false}>
+              {new Intl.NumberFormat().format(Math.ceil(rec.diskon))} ({(
+                rec.diskonpercen * 100
+              ).toFixed(1)}%)
+            </td>
+            <td class="table-fill text-end" class:dark={daylight === false}>
+              {new Intl.NumberFormat().format(rec.bayar)}
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {#each keranjang as rec}
-            <tr>
-              <td
-                style="text-align:center;vertical-align:top;"
-                on:click={() => {
-                  handleRemoveKeranjang(rec.id, rec.bayar);
-                }}
-              >
-                <Icon name="trash" style="cursor:pointer;" />
-              </td>
-              <td
-                style="text-align:center;vertical-align:top;font-size:11px;color:#fc0;"
-                >{rec.nomor}</td
-              >
-              <td
-                style="text-align:center;vertical-align:top;font-size:11px;color:#fc0;"
-                >{rec.permainan}</td
-              >
-              <td
-                style="text-align:right;vertical-align:top;font-size:11px;color:#fc0;"
-              >
-                {new Intl.NumberFormat().format(rec.bet)}
-              </td>
-              <td
-                style="text-align:right;vertical-align:top;font-size:11px;color:#fc0;"
-              >
-                {new Intl.NumberFormat().format(Math.ceil(rec.diskon))}
-                <br />
-                ({(rec.diskonpercen * 100).toFixed(1)}%)
-              </td>
-              <td
-                style="text-align:right;vertical-align:top;font-size:11px;color:#fc0;"
-              >
-                {new Intl.NumberFormat().format(rec.bayar)}
-              </td>
-            </tr>
-          {/each}
-        </tbody>
-      </table>
-    {/if}
+        {/each}
+      </tbody>
+    </table>
   </slot:template>
   <slot:template slot="footer">
-    <table
-      class="table"
-      style="font-size:15px;padding:0px;margin:0px;background:#101010;"
-    >
-      <tr>
-        <td colspan="5" style="color:white;"
-          >TOTAL LINE : <span style="color:#f7941d;">{count_line}</span></td
-        >
-      </tr>
-    </table>
+    <Lineinfo {daylight} {count_line} />
   </slot:template>
 </PanelFull>
 
@@ -285,6 +175,7 @@
   modal_footer_flag={false}
   modal_body_height={"height:500px;"}
   modal_size={"modal-dialog-centered"}
+  {daylight}
 >
   <slot:template slot="header">
     <h5 class="modal-title">DASAR</h5>

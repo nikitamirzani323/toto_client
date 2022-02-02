@@ -5,13 +5,18 @@
   export let pasaran_periode;
   export let pasaran_code;
   export let daylight = false;
+  export let client_device = "WEBSITE";
 </script>
 
 <CardHeader class="card-periode {daylight ? '' : 'dark'}">
   <div class="row">
-    <div class="col">
+    <div class="col-{client_device !== 'WEBSITE' ? '6' : '8'}">
       <h2 class="pt-2">
-        {pasaran_name} - {permainan_title}
+        {pasaran_name}
+        {#if client_device !== "WEBSITE"}
+          <br />
+        {/if}
+        ({permainan_title})
       </h2>
     </div>
     <div class="col">

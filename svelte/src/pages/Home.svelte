@@ -10,6 +10,7 @@
   } from "sveltestrap";
   import Header from "../components/Header.svelte";
   import { notifications } from "../components/Noti.svelte";
+  import Swal from "sweetalert2";
 
   export let client_token = "";
   export let client_company = "";
@@ -22,6 +23,8 @@
   export let daylight = false;
   export let checked;
   let home = true;
+  let timerInterval;
+
   let dispatch = createEventDispatcher();
 
   const handleClick = (code, name, periode, status) => {
@@ -34,7 +37,25 @@
       };
       dispatch("pasaran", pasaran);
     } else {
-      notifications.push("PASARAN " + name + " OFFLINE");
+      Swal.fire({
+        title: "Pasaran " + name + " sedang OFFLINE!",
+        html: "silahkan bermain di pasaran lain.",
+        timer: 2000,
+        timerProgressBar: true,
+        heightAuto: false,
+        didOpen: () => {
+          Swal.showLoading();
+          const b = Swal.getHtmlContainer().querySelector("b");
+          timerInterval = setInterval(() => {
+            b.textContent = Swal.getTimerLeft();
+          }, 100);
+        },
+        willClose: () => {
+          clearInterval(timerInterval);
+        },
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+      });
     }
   };
 </script>
@@ -117,35 +138,40 @@
       >
         <div
           class="default-block mobile-block card"
+          class:dark={daylight === false}
           style="border:none;"
           on:click={() => {
             handleClick(pasaran_code, pasaran, pasaran_periode, pasaran_status);
           }}
         >
-          <div class="card-header">
-            {#if pasaran_status == "ONLINE"}
-              <div
-                class="blink_me"
-                style="margin-top:0px;color:black;background:#c4f750;font-size:12px;font-weight:bold;padding:5px;border-radius:15px;text-align:center;"
-              >
-                {pasaran_status}
-              </div>
-            {:else}
-              <div
-                style="margin-top:0px;background:#f7602e;color:white;font-size:12px;font-weight:bold;padding:5px;border-radius:15px;text-align:center;"
-              >
-                {pasaran_status}
-              </div>
-            {/if}
+          <div class="card-header" class:custom-dark={daylight === false}>
+            <center id="style_text">
+              {#if pasaran_status == "ONLINE"}
+                <span class="badge rounded-pill bg-online blink_me"
+                  >{pasaran_status}</span
+                >
+              {:else}
+                <span class="badge rounded-pill bg-secondary"
+                  >{pasaran_status}</span
+                >
+              {/if}
+            </center>
           </div>
           <CardBody>
-            <center id="style_text" style="font-size:15px;">
-              <h5 class="head-fonts">{pasaran}</h5>
-              <span style="font-size: 11px;">
-                PERIODE : {pasaran_periode}
-              </span>
+            <center>
+              <!-- svelte-ignore a11y-missing-attribute -->
+              <img class="mb-2" src="/flags/{pasaran_code}.svg" />
               <br />
-              <span style="font-size: 10px;">{pasaran_tgl} WIB</span>
+              <h4 class="head-fonts" class:custom-dark={daylight === false}>
+                {pasaran}
+              </h4>
+              <span style="font-size: 12px;line-height: 18px;"
+                >{pasaran_tgl} WIB</span
+              >
+              <br />
+              <span style="font-size: 10px;line-height: 15px;"
+                >PERIODE : {pasaran_periode}</span
+              >
             </center>
           </CardBody>
         </div>
@@ -210,6 +236,13 @@
     letter-spacing: 1px;
     font-family: Montserrat;
   }
+
+  @media (max-width: 360px) {
+    .head-fonts {
+      font-size: 1rem;
+      color: #171717;
+    }
+  }
   @media (min-width: 1200px) {
     .web-block {
       width: 250px;
@@ -238,9 +271,13 @@
 
   .mobile-block {
     width: 100%;
-    height: 163px;
+    height: 185px;
     border-radius: 14px;
     margin-bottom: 0;
+  }
+
+  .mobile-block .card-header {
+    padding-top: 1rem !important;
   }
   .blink_me {
     animation: blinker 1s linear infinite;

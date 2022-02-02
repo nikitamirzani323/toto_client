@@ -8,8 +8,7 @@ body {
     ;
     color: #acacac;
     line-height: 1.5;
-    /* background: #003E27; */
-    min-height: 100%;
+    height: 100%;
 }
 
 #btn1 {
@@ -459,7 +458,6 @@ input:-moz-placeholder {
 }
 
 .table-fill {
-    text-align: center;
     vertical-align: top;
     font-size: 12px;
 }
@@ -468,11 +466,11 @@ input:-moz-placeholder {
     color: #fc0;
 }
 
-.footer-font {
+.color-font {
     color: #00a86b;
 }
 
-.footer-font.dark {
+.color-font.dark {
     color: #f7941d;
 }
 

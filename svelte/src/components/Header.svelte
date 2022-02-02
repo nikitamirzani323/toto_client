@@ -582,6 +582,7 @@
         handleClickButtonTop("result");
       }}
       class="btn btn-play "
+      class:dark={daylight === false}
       type="button">RESULT</button
     >&nbsp;
     <button
@@ -589,6 +590,7 @@
         handleClickButtonTop("invoice");
       }}
       class="btn btn-play"
+      class:dark={daylight === false}
       type="button">INVOICE</button
     >&nbsp;
     <button
@@ -596,6 +598,7 @@
         handleClickButtonTop("bukumimpi");
       }}
       class="btn btn-play"
+      class:dark={daylight === false}
       type="button">BUKU MIMPI</button
     >
   </div>

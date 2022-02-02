@@ -3,6 +3,7 @@
   import { createEventDispatcher } from "svelte";
   import PanelFull from "../components/Panelfull.svelte";
   import Modal from "../components/Modalfull2.svelte";
+  import Lineinfo from "../components/Keranjang.svelte";
 
   export let keranjang = [];
   export let totalkeranjang = 0;
@@ -58,6 +59,7 @@
   export let limitline_2dd = 0;
   export let limitline_2dt = 0;
   export let daylight;
+  let line4d = true;
   let count_line = 0;
   let dispatch = createEventDispatcher();
 
@@ -106,16 +108,17 @@
             >
           </h1>
         </div>
-        {#if group_btn_beli == true}
-          <div class="col-md">
-            <div class="float-end" id="btnbelitogel">
-              <Button
-                id="btn1"
-                data-bs-toggle="modal"
-                data-bs-target="#modalInformasi"
-                style="margin-top:5px;"
-                ><Icon name="info-circle" /> Informasi</Button
-              >
+
+        <div class="col-md">
+          <div class="float-end" id="btnbelitogel">
+            <Button
+              id="btn1"
+              data-bs-toggle="modal"
+              data-bs-target="#modalInformasi"
+              style="margin-top:5px;"
+              ><Icon name="info-circle" /> Informasi</Button
+            >
+            {#if group_btn_beli == true}
               <Button
                 id="btn1"
                 on:click={handleRemoveKeranjang_all}
@@ -125,9 +128,9 @@
               <Button id="btn2" on:click={handleSave} style="margin-top:5px;"
                 ><Icon name="cart-check" /> BELI</Button
               >
-            </div>
+            {/if}
           </div>
-        {/if}
+        </div>
       </div>
     </div>
   </slot:template>
@@ -187,24 +190,24 @@
             >
               <Icon name="trash" style="cursor:pointer;" />
             </td>
-            <td class="table-fill" class:dark={daylight === false}
+            <td class="table-fill text-center" class:dark={daylight === false}
               >{rec.nomor}</td
             >
-            <td class="table-fill" class:dark={daylight === false}
+            <td class="table-fill text-center" class:dark={daylight === false}
               >{rec.tipetoto}</td
             >
-            <td class="table-fill" class:dark={daylight === false}
+            <td class="table-fill text-center" class:dark={daylight === false}
               >{rec.permainan}</td
             >
-            <td class="table-fill" class:dark={daylight === false}>
+            <td class="table-fill text-end" class:dark={daylight === false}>
               {new Intl.NumberFormat().format(rec.bet)}
             </td>
-            <td class="table-fill" class:dark={daylight === false}>
+            <td class="table-fill text-end" class:dark={daylight === false}>
               {new Intl.NumberFormat().format(Math.ceil(rec.diskon))} ({(
                 rec.diskonpercen * 100
               ).toFixed(1)}%)
             </td>
-            <td class="table-fill" class:dark={daylight === false}>
+            <td class="table-fill text-end" class:dark={daylight === false}>
               {new Intl.NumberFormat().format(rec.bayar)}
             </td>
           </tr>
@@ -213,47 +216,17 @@
     </table>
   </slot:template>
   <slot:template slot="footer">
-    <div class="container mt-3">
-      <div class="row">
-        <div class="col-md fs-4">
-          TOTAL LINE : <span class="footer-font" class:dark={daylight === false}
-            >{count_line}</span
-          >
-        </div>
-      </div>
-      <div class="row">
-        <div class="col fs-6">
-          4D : <span class="footer-font" class:dark={daylight === false}
-            >{count_line_4d}</span
-          >
-        </div>
-        <div class="col fs-6">
-          3D : <span class="footer-font" class:dark={daylight === false}
-            >{count_line_3d}</span
-          >
-        </div>
-        <div class="col fs-6">
-          3DD : <span class="footer-font" class:dark={daylight === false}
-            >{count_line_3dd}</span
-          >
-        </div>
-        <div class="col fs-6">
-          2D : <span class="footer-font" class:dark={daylight === false}
-            >{count_line_2d}</span
-          >
-        </div>
-        <div class="col fs-6">
-          2DD : <span class="footer-font" class:dark={daylight === false}
-            >{count_line_2dd}</span
-          >
-        </div>
-        <div class="col fs-6">
-          2DT : <span class="footer-font" class:dark={daylight === false}
-            >{count_line_2dt}</span
-          >
-        </div>
-      </div>
-    </div>
+    <Lineinfo
+      {daylight}
+      {count_line}
+      {count_line_4d}
+      {count_line_3d}
+      {count_line_3dd}
+      {count_line_2d}
+      {count_line_2dd}
+      {count_line_2dt}
+      {line4d}
+    />
   </slot:template>
 </PanelFull>
 

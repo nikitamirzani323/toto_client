@@ -13,6 +13,7 @@
   import { createEventDispatcher } from "svelte";
   import { notifications } from "../components/Noti.svelte";
   import PeriodePanel from "../components/PeriodePanel.svelte";
+  import Swal from "sweetalert2";
 
   export let idcomppasaran = "";
   export let idtrxkeluaran = "";
@@ -27,6 +28,14 @@
   export let pasaran_periode = 0;
   export let permainan_title = "COLOK";
   export let daylight = false;
+
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "mx-2 rounded-2 btn btn-success",
+      cancelButton: "mx-2 rounded-2 btn btn-danger",
+    },
+    buttonsStyling: false,
+  });
 
   let keranjang = [];
   let css_loader = "display:none;";
@@ -168,12 +177,18 @@
     const json = await res.json();
     if (json.status == "200") {
       css_loader = "display:none;";
-      notifications.push(
-        "Data telah berhasil disimpan, Total belanja : " +
-          new Intl.NumberFormat().format(totalkeranjang),
-        "warning",
-        "middle"
-      );
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Data telah berhasil disimpan",
+        html:
+          "Total belanja : " + new Intl.NumberFormat().format(totalkeranjang),
+        showConfirmButton: false,
+        timer: 5000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
       dispatch("handleInvoice", "call");
       reset();
     } else {
@@ -282,14 +297,65 @@
       reset();
       count_keranjang();
     } else {
-      notifications.push("Tidak ada list transaksi", "", "middle");
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Tidak ada list transaksi",
+        showConfirmButton: false,
+        timer: 1500,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
   };
   const handleSave = (e) => {
     if (keranjang.length > 0) {
-      savetransaksi();
+      swalWithBootstrapButtons
+        .fire({
+          title: "Apakah anda ingin melanjutkan?",
+          html:
+            "Total belanja anda sebesar : <strong>IDR. " +
+            new Intl.NumberFormat().format(totalkeranjang) +
+            "</strong>",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Ya, beli sekarang!",
+          cancelButtonText: "Tidak!",
+          reverseButtons: true,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            savetransaksi();
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            Swal.fire({
+              position: "center",
+              icon: "info",
+              title: "Transaksi dibatalkan",
+              showConfirmButton: false,
+              timer: 3000,
+              background: daylight ? "#fff" : "#171717",
+              color: daylight ? "#00a86b" : "#ff9900",
+              toast: true,
+            });
+          }
+        });
     } else {
-      notifications.push("Tidak ada list transaksi", "", "middle");
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Tidak ada list transaksi",
+        showConfirmButton: false,
+        timer: 1500,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
   };
   function count_keranjang() {
@@ -407,7 +473,16 @@
     }
     if (bet == "") {
       flag = false;
-      notifications.push("Amount tidak boleh kosong");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Amount tidak boleh kosong",
+        showConfirmButton: false,
+        timer: 1500,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (parseInt(bet) < parseInt(min_bet_colokbebas)) {
       flag = false;
@@ -471,7 +546,16 @@
     }
     if (bet == "") {
       flag = false;
-      notifications.push("Amount tidak boleh kosong");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Amount tidak boleh kosong",
+        showConfirmButton: false,
+        timer: 1500,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (parseInt(bet) < parseInt(min_bet_colokmacau)) {
       bet_colokmacau = min_bet_colokmacau;
@@ -546,7 +630,16 @@
     }
     if (bet == "") {
       flag = false;
-      notifications.push("Amount tidak boleh kosong");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Amount tidak boleh kosong",
+        showConfirmButton: false,
+        timer: 1500,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (parseInt(bet) < parseInt(min_bet_coloknaga)) {
       bet_coloknaga = min_bet_coloknaga;
@@ -601,7 +694,16 @@
     }
     if (bet == "") {
       flag = false;
-      notifications.push("Amount tidak boleh kosong");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Amount tidak boleh kosong",
+        showConfirmButton: false,
+        timer: 1500,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (parseInt(bet) < parseInt(min_bet_colokjitu)) {
       bet_colokjitu = min_bet_colokjitu;
@@ -1007,628 +1109,21 @@
 </script>
 
 <Loader cssstyle={css_loader} />
-{#if client_device == "WEBSITE"}
-  <Card class={daylight ? "" : "bg-dark"} style="margin:0px;padding:0px;">
-    <PeriodePanel
-      {pasaran_name}
-      {permainan_title}
-      {pasaran_periode}
-      {pasaran_code}
-      {daylight}
-    />
-    <CardBody class={daylight ? "" : "dark"}>
-      <div
-        class="tab-content periode-menu {daylight ? '' : 'dark'}"
-        id="nav-tabContent"
-      >
-        <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <button
-              class="nav-link active"
-              id="pills-cbebas-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#pills-cbebas"
-              type="button"
-              role="tab"
-              aria-controls="pills-cbebas"
-              aria-selected="true">BEBAS</button
-            >
-          </li>
-          <li class="nav-item">
-            <button
-              class="nav-link"
-              id="pills-cmacau-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#pills-cmacau"
-              type="button"
-              role="tab"
-              aria-controls="pills-cmacau"
-              aria-selected="true">MACAU</button
-            >
-          </li>
-          <li class="nav-item">
-            <button
-              class="nav-link"
-              id="pills-cnaga-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#pills-cnaga"
-              type="button"
-              role="tab"
-              aria-controls="pills-cnaga"
-              aria-selected="true">NAGA</button
-            >
-          </li>
-          <li class="nav-item">
-            <button
-              class="nav-link"
-              id="pills-cjitu-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#pills-cjitu"
-              type="button"
-              role="tab"
-              aria-controls="pills-cjitu"
-              aria-selected="true">JITU</button
-            >
-          </li>
-          <li class="nav-item">
-            <button
-              class="nav-link"
-              id="pills-polacolok-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#pills-polacolok"
-              type="button"
-              role="tab"
-              aria-controls="pills-polacolok"
-              aria-selected="true">POLA COLOK</button
-            >
-          </li>
-        </ul>
-        <div
-          class="tab-pane fade show active"
-          id="pills-cbebas"
-          role="tabpanel"
-          aria-labelledby="pills-cbebas-tab"
-        >
-          <div style="margin:10px 0;">
-            <div class="row">
-              <div class="col-md-3">
-                <div class="mb-3">
-                  <div class="form-floating">
-                    <!-- svelte-ignore a11y-autofocus -->
-                    <input
-                      bind:this={nomor_colokbebas_input}
-                      bind:value={nomor_colokbebas}
-                      on:keyup={handleKeyboard_format}
-                      on:keypress={handleKeyboard_checkenter}
-                      type="text"
-                      class="form-control fs-5 text-center button-bet-default"
-                      class:dark={daylight === false}
-                      placeholder="Input 1 Digit"
-                      id="inputNomorBebas"
-                      minlength="1"
-                      maxlength="1"
-                      tab_index="-1"
-                      autocomplete="off"
-                    />
-                    <label for="inputNomorBebas" class="form-label"
-                      >Input 1 Digit (0-9)</label
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <div class="form-floating">
-                    <input
-                      bind:value={bet_colokbebas}
-                      on:keyup={handleKeyboard_number}
-                      on:keypress={handleKeyboard_checkenter}
-                      type="text"
-                      class="form-control fs-5 text-end button-bet-default"
-                      class:dark={daylight === false}
-                      placeholder="Bet"
-                      id="inputBetBebas"
-                      style=""
-                      minlength="3"
-                      maxlength="7"
-                      tab_index="0"
-                    />
-                    <label for="inputBetBebas" class="form-label"
-                      >Bet (min : {new Intl.NumberFormat().format(
-                        min_bet_colokbebas
-                      )} dan max : {new Intl.NumberFormat().format(
-                        max_bet_colokbebas
-                      )})</label
-                    >
-                    <span style="text-align:right;font-size:12px;color:#8a8a8a;"
-                      >{new Intl.NumberFormat().format(bet_colokbebas)}</span
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="mb-3">
-                  <Button
-                    id="btn2"
-                    class="form-control mt-2"
-                    style="border-radius:5px"
-                    on:click={() => {
-                      handleTambah("colokbebas");
-                    }}>TAMBAH</Button
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="tab-pane fade "
-          id="pills-cmacau"
-          role="tabpanel"
-          aria-labelledby="pills-cmacau-tab"
-        >
-          <div style="margin:10px 0;">
-            <div class="row gap-3">
-              <div class="col-md">
-                <div class="form-floating">
-                  <!-- svelte-ignore a11y-autofocus -->
-                  <input
-                    bind:this={nomor_colokmacau_1_input}
-                    bind:value={nomor_colokmacau_1}
-                    on:keyup={handleKeyboard_format}
-                    on:keypress={handleKeyboard_checkenter}
-                    type="text"
-                    id="inputNomorMacau1"
-                    class="form-control fs-5 text-center button-bet-default"
-                    class:dark={daylight === false}
-                    placeholder="Input 1 Digit"
-                    minlength="1"
-                    maxlength="1"
-                    tab_index="-1"
-                    autocomplete="off"
-                  />
-                  <label for="inputNomorMacau1" class="form-label"
-                    >Input 1 Digit (0-9)</label
-                  >
-                </div>
-              </div>
-              <div class="col-md">
-                <div class="form-floating">
-                  <!-- svelte-ignore a11y-autofocus -->
-                  <input
-                    bind:this={nomor_colokmacau_2_input}
-                    bind:value={nomor_colokmacau_2}
-                    on:keyup={handleKeyboard_format}
-                    on:keypress={handleKeyboard_checkenter}
-                    type="text"
-                    id="inputNomorMacau2"
-                    class="form-control fs-5 text-center button-bet-default"
-                    class:dark={daylight === false}
-                    placeholder="Input 1 Digit"
-                    minlength="1"
-                    maxlength="1"
-                    tab_index="-1"
-                    autocomplete="off"
-                  />
-                  <label for="inputNomorMacau2" class="form-label"
-                    >Input 1 Digit (0-9)</label
-                  >
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-floating">
-                  <input
-                    bind:value={bet_colokmacau}
-                    on:keyup={handleKeyboard_number}
-                    on:keypress={handleKeyboardcolokmacau_checkenter}
-                    type="text"
-                    class="form-control fs-5 text-end button-bet-default"
-                    class:dark={daylight === false}
-                    placeholder="Bet"
-                    id="inputBetMacau"
-                    style=""
-                    minlength="3"
-                    maxlength="7"
-                    tab_index="0"
-                  />
-                  <label for="inputBetMacau" class="form-label"
-                    >Bet (min : {new Intl.NumberFormat().format(
-                      min_bet_colokmacau
-                    )} dan max : {new Intl.NumberFormat().format(
-                      max_bet_colokmacau
-                    )})</label
-                  >
-                  <span style="float:right;font-size:12px;color:#8a8a8a;"
-                    >{new Intl.NumberFormat().format(bet_colokmacau)}</span
-                  >
-                </div>
-              </div>
-              <div class="col">
-                <div class="mb-3">
-                  <Button
-                    id="btn2"
-                    class="form-control mt-2"
-                    style="border-radius:5px"
-                    on:click={() => {
-                      handleTambah("colokmacau");
-                    }}>TAMBAH</Button
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="tab-pane fade "
-          id="pills-cnaga"
-          role="tabpanel"
-          aria-labelledby="pills-cnaga-tab"
-        >
-          <div style="margin:10px 0;">
-            <div class="row gap-3">
-              <div class="col-md">
-                <div class="form-floating">
-                  <!-- svelte-ignore a11y-autofocus -->
-                  <input
-                    bind:this={nomor_coloknaga_1_input}
-                    bind:value={nomor_coloknaga_1}
-                    on:keyup={handleKeyboard_format}
-                    on:keypress={handleKeyboard_checkenter}
-                    type="text"
-                    id="inputNomorNaga1"
-                    class="form-control fs-5 text-center button-bet-default"
-                    class:dark={daylight === false}
-                    placeholder="Input 1 Digit"
-                    minlength="1"
-                    maxlength="1"
-                    tab_index="-1"
-                    autocomplete="off"
-                  />
-                  <label for="inputNomorNaga1" class="form-label"
-                    >Input 1 Digit (0-9)</label
-                  >
-                </div>
-              </div>
-              <div class="col-md">
-                <div class="form-floating">
-                  <!-- svelte-ignore a11y-autofocus -->
-                  <input
-                    bind:this={nomor_coloknaga_2_input}
-                    bind:value={nomor_coloknaga_2}
-                    on:keyup={handleKeyboard_format}
-                    on:keypress={handleKeyboard_checkenter}
-                    type="text"
-                    id="inputNomorNaga2"
-                    class="form-control fs-5 text-center button-bet-default"
-                    class:dark={daylight === false}
-                    placeholder="Input 1 Digit"
-                    minlength="1"
-                    maxlength="1"
-                    tab_index="-1"
-                    autocomplete="off"
-                  />
-                  <label for="inputNomorNaga2" class="form-label"
-                    >Input 1 Digit (0-9)</label
-                  >
-                </div>
-              </div>
-              <div class="col-md">
-                <div class="form-floating">
-                  <!-- svelte-ignore a11y-autofocus -->
-                  <input
-                    bind:this={nomor_coloknaga_3_input}
-                    bind:value={nomor_coloknaga_3}
-                    on:keyup={handleKeyboard_format}
-                    on:keypress={handleKeyboard_checkenter}
-                    type="text"
-                    id="inputNomorNaga3"
-                    class="form-control fs-5 text-center button-bet-default"
-                    class:dark={daylight === false}
-                    placeholder="Input 1 Digit"
-                    minlength="1"
-                    maxlength="1"
-                    tab_index="-1"
-                    autocomplete="off"
-                  />
-                  <label for="inputNomorNaga3" class="form-label"
-                    >Input 1 Digit (0-9)</label
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-md">
-                <div class="form-floating">
-                  <input
-                    bind:value={bet_coloknaga}
-                    on:keyup={handleKeyboard_number}
-                    on:keypress={handleKeyboardcoloknaga_checkenter}
-                    type="text"
-                    class="form-control fs-5 text-end button-bet-default"
-                    class:dark={daylight === false}
-                    placeholder="Bet"
-                    id="inputBetNaga"
-                    style=""
-                    minlength="3"
-                    maxlength="7"
-                    tab_index="0"
-                  />
-                  <label for="inputBetNaga" class="form-label">
-                    Bet (min : {new Intl.NumberFormat().format(
-                      min_bet_coloknaga
-                    )}
-                    dan max : {new Intl.NumberFormat().format(
-                      max_bet_coloknaga
-                    )})</label
-                  >
-                  <span style="float:right;font-size:12px;color:#8a8a8a;"
-                    >{new Intl.NumberFormat().format(bet_coloknaga)}</span
-                  >
-                </div>
-              </div>
-              <div class="col-md">
-                <div class="mb-3">
-                  <Button
-                    id="btn2"
-                    class="form-control mt-2"
-                    style="border-radius:5px"
-                    on:click={() => {
-                      handleTambah("coloknaga");
-                    }}>TAMBAH</Button
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="tab-pane fade "
-          id="pills-cjitu"
-          role="tabpanel"
-          aria-labelledby="pills-cjitu-tab"
-        >
-          <div style="margin:10px 0;">
-            <div class="row gap-3">
-              <div class="col-md">
-                <div class="form-floating">
-                  <!-- svelte-ignore a11y-autofocus -->
-                  <input
-                    bind:this={nomor_colokjitu_input}
-                    bind:value={nomor_colokjitu}
-                    on:keyup={handleKeyboard_format}
-                    on:keypress={handleKeyboard_checkenter}
-                    type="text"
-                    id="inputNomorJitu"
-                    class="form-control fs-5 text-center button-bet-default"
-                    class:dark={daylight === false}
-                    placeholder="Input 1 Digit"
-                    minlength="1"
-                    maxlength="1"
-                    tab_index="-1"
-                    autocomplete="off"
-                  />
-                  <label for="inputNomorJitu" class="form-label"
-                    >Input 1 Digit (0-9)</label
-                  >
-                </div>
-              </div>
-              <div class="col-md">
-                <div class="form-floating">
-                  <select
-                    class="form-select button-bet-default"
-                    class:dark={daylight === false}
-                    bind:value={select_pilihancolokjitu}
-                    bind:this={select_pilihancolokjitu_input}
-                    id="selectOptJitu"
-                    aria-label="Floating label select"
-                  >
-                    <option value="">--Pilih--</option>
-                    <option value="AS">AS</option>
-                    <option value="KECIL">KOP</option>
-                    <option value="KEPALA">KEPALA</option>
-                    <option value="EKOR">EKOR</option>
-                  </select>
-                  <label for="selectOptJitu">Posisi</label>
-                </div>
-              </div>
-              <div class="col-md">
-                <div class="form-floating">
-                  <input
-                    bind:value={bet_colokjitu}
-                    on:keyup={handleKeyboard_number}
-                    on:keypress={handleKeyboardcolokjitu_checkenter}
-                    type="text"
-                    id="betColokJitu"
-                    class="form-control fs-5 text-end button-bet-default"
-                    class:dark={daylight === false}
-                    placeholder="Bet"
-                    minlength="3"
-                    maxlength="7"
-                    tab_index="0"
-                    autocomplete="off"
-                  />
-                  <span style="float:right;font-size:12px;color:#8a8a8a;"
-                    >{new Intl.NumberFormat().format(bet_colokjitu)}</span
-                  >
-                  <label for="betColokJitu" class="form-label"
-                    >Bet (min : {new Intl.NumberFormat().format(
-                      min_bet_colokjitu
-                    )} dan max : {new Intl.NumberFormat().format(
-                      max_bet_colokjitu
-                    )})</label
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <Button
-                  id="btn2"
-                  class="form-control mt-2"
-                  style="border-radius:5px"
-                  on:click={() => {
-                    handleTambah("colokjitu");
-                  }}>TAMBAH</Button
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="tab-pane fade "
-          id="pills-polacolok"
-          role="tabpanel"
-          aria-labelledby="pills-polacolok-tab"
-        >
-          <div style="margin:10px 0;">
-            <div class="row gap-3">
-              <div class="col-md">
-                <div class="mb-3">
-                  <div class="form-floating">
-                    <!-- svelte-ignore a11y-autofocus -->
-                    <input
-                      bind:this={nomor_polacolok_input}
-                      bind:value={nomor_polacolok}
-                      on:keyup={handleKeyboard_number}
-                      on:keypress={handleKeyboard_checkenter}
-                      type="text"
-                      id="inputNomorPola"
-                      class="form-control fs-5 text-center button-bet-default"
-                      class:dark={daylight === false}
-                      placeholder="Input 4 - 7 Digit"
-                      minlength="4"
-                      maxlength="7"
-                      tab_index="-1"
-                      autocomplete="off"
-                    />
-                    <label for="inputNomorPola" class="form-label"
-                      >Input 4 - 7 Digit</label
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="col-md">
-                <div class="mb-3">
-                  <div class="form-floating">
-                    <!-- svelte-ignore a11y-autofocus -->
-                    <input
-                      bind:value={bet_polacolokbebas}
-                      on:keyup={handleKeyboard_number}
-                      on:keypress={handleKeyboardpolacolok_checkenter}
-                      type="text"
-                      id="BetNomorBebas"
-                      class="form-control fs-5 text-center button-bet-default"
-                      class:dark={daylight === false}
-                      placeholder="Input 1 Digit"
-                      minlength="3"
-                      maxlength="7"
-                      tab_index="0"
-                      autocomplete="off"
-                    />
-                    <label for="BetNomorBebas" class="form-label">
-                      Bet Colok Bebas</label
-                    >
-                    <span style="float:right;font-size:12px;color:#8a8a8a;"
-                      >{new Intl.NumberFormat().format(
-                        bet_polacolokbebas
-                      )}</span
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="col-md">
-                <div class="mb-3">
-                  <div class="form-floating">
-                    <!-- svelte-ignore a11y-autofocus -->
-                    <input
-                      bind:value={bet_polacolokmacau}
-                      on:keyup={handleKeyboard_number}
-                      on:keypress={handleKeyboardpolacolok_checkenter}
-                      type="text"
-                      id="BetColokMacau"
-                      class="form-control fs-5 text-center button-bet-default"
-                      class:dark={daylight === false}
-                      placeholder="Bet Colok Macau"
-                      minlength="3"
-                      maxlength="7"
-                      tab_index="0"
-                      autocomplete="off"
-                    />
-                    <label for="BetColokMacau" class="form-label"
-                      >Bet Colok Macau</label
-                    >
-                    <span style="float:right;font-size:12px;color:#8a8a8a;"
-                      >{new Intl.NumberFormat().format(
-                        bet_polacolokmacau
-                      )}</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-md">
-                <div class="form-floating">
-                  <input
-                    bind:value={bet_polacoloknaga}
-                    on:keyup={handleKeyboard_number}
-                    on:keypress={handleKeyboardpolacolok_checkenter}
-                    type="text"
-                    class="form-control fs-5 text-end button-bet-default"
-                    class:dark={daylight === false}
-                    placeholder="Bet"
-                    id="BetPolaNaga"
-                    style=""
-                    minlength="3"
-                    maxlength="7"
-                    tab_index="0"
-                  />
-                  <label for="BetPolaNaga" class="form-label">
-                    Bet Colok Naga</label
-                  >
-                  <span style="float:right;font-size:12px;color:#8a8a8a;"
-                    >{new Intl.NumberFormat().format(bet_polacoloknaga)}</span
-                  >
-                </div>
-                ``
-              </div>
-              <div class="col">
-                <div class="mb-3">
-                  <Button
-                    id="btn2"
-                    class="form-control mt-2"
-                    style="border-radius:5px"
-                    on:click={() => {
-                      handleTambah("polacolok");
-                    }}>TAMBAH</Button
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </CardBody>
-  </Card>
-{:else}
-  <Card color="dark" style="border:1px solid #262424;margin:0px;padding:0px;">
-    <CardHeader
-      style="background:#323030;border-bottom:1px solid #333;border-top: 0 solid #333;"
+<Card class={daylight ? "" : "bg-dark"} style="margin:0px;padding:0px;">
+  <PeriodePanel
+    {pasaran_name}
+    {permainan_title}
+    {pasaran_periode}
+    {pasaran_code}
+    {daylight}
+    {client_device}
+  />
+  <CardBody class={daylight ? "" : "dark"}>
+    <div
+      class="tab-content periode-menu {daylight ? '' : 'dark'}"
+      id="nav-tabContent"
     >
-      <div class="float-end">
-        <div
-          style="color:white;text-align:right;font-size:12px;font-weight:bold;"
-        >
-          {pasaran_name}
-        </div>
-      </div>
-      <h1 style="padding:0px;margin:0px;color:white;font-size:12px;">
-        {permainan_title}<br />
-        PERIODE : {pasaran_periode + " - " + pasaran_code}
-      </h1>
-    </CardHeader>
-    <CardBody style="background:#121212;padding:0px;margin:0px;">
-      <ul class="nav nav-pills">
+      <ul class="nav nav-tabs">
         <li class="nav-item">
           <button
             class="nav-link active"
@@ -1690,518 +1185,528 @@
           >
         </li>
       </ul>
-      <div class="tab-content" id="nav-tabContent">
-        <div
-          class="tab-pane fade show active"
-          id="pills-cbebas"
-          role="tabpanel"
-          aria-labelledby="pills-cbebas-tab"
-        >
-          <div style="margin:5px;">
-            <table class="table" style="background:none;width:100%;">
-              <tr>
-                <td
-                  width="25%"
-                  NOWRAP
-                  style="padding-right:10px;vertical-align: center;"
-                >
-                  <span style="color:#8a8a8a;">Nomor (0-9)</span>
+      <div
+        class="tab-pane fade show active"
+        id="pills-cbebas"
+        role="tabpanel"
+        aria-labelledby="pills-cbebas-tab"
+      >
+        <div style="margin:10px 0;">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="mb-3">
+                <div class="form-floating">
+                  <!-- svelte-ignore a11y-autofocus -->
                   <input
                     bind:this={nomor_colokbebas_input}
                     bind:value={nomor_colokbebas}
                     on:keyup={handleKeyboard_format}
                     on:keypress={handleKeyboard_checkenter}
                     type="text"
-                    class="form-control form-control-sm"
+                    class="form-control fs-5 text-center button-bet-default"
+                    class:dark={daylight === false}
                     placeholder="Input 1 Digit"
-                    style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
+                    id="inputNomorBebas"
                     minlength="1"
                     maxlength="1"
                     tab_index="-1"
                     autocomplete="off"
                   />
-                  <span
-                    class="help-block"
-                    style="text-align:right;font-size:12px;"
-                  />
-                </td>
-                <td
-                  width="*"
-                  NOWRAP
-                  style="padding-right:10px;vertical-align: center;text-align:right;"
-                >
-                  <span style="color:#8a8a8a;"
-                    >Bet (min : {new Intl.NumberFormat().format(
-                      min_bet_colokbebas
-                    )} dan max : {new Intl.NumberFormat().format(
-                      max_bet_colokbebas
-                    )})</span
+                  <label for="inputNomorBebas" class="form-label"
+                    >Input 1 Digit (0-9)</label
                   >
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <div class="form-floating">
                   <input
                     bind:value={bet_colokbebas}
                     on:keyup={handleKeyboard_number}
                     on:keypress={handleKeyboard_checkenter}
                     type="text"
-                    class="form-control"
+                    class="form-control fs-5 text-end button-bet-default"
+                    class:dark={daylight === false}
                     placeholder="Bet"
-                    style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
+                    id="inputBetBebas"
+                    style=""
                     minlength="3"
                     maxlength="7"
                     tab_index="0"
                   />
+                  <label for="inputBetBebas" class="form-label"
+                    >Bet (min : {new Intl.NumberFormat().format(
+                      min_bet_colokbebas
+                    )} dan max : {new Intl.NumberFormat().format(
+                      max_bet_colokbebas
+                    )})</label
+                  >
                   <span style="text-align:right;font-size:12px;color:#8a8a8a;"
                     >{new Intl.NumberFormat().format(bet_colokbebas)}</span
                   >
-                </td>
-              </tr>
-            </table>
-            <Button
-              block
-              id="btn2"
-              on:click={() => {
-                handleTambah("colokbebas");
-              }}>TAMBAH</Button
-            >
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <Button
+                  id="btn2"
+                  class="form-control mt-2"
+                  style="border-radius:5px"
+                  on:click={() => {
+                    handleTambah("colokbebas");
+                  }}>TAMBAH</Button
+                >
+              </div>
+            </div>
           </div>
         </div>
-        <div
-          class="tab-pane fade "
-          id="pills-cmacau"
-          role="tabpanel"
-          aria-labelledby="pills-cmacau-tab"
-        >
-          <div style="margin:5px;">
-            <table class="table" style="background:none;width:100%;">
-              <tr>
-                <td
-                  width="25%"
-                  NOWRAP
-                  style="padding-right:10px;vertical-align: center;"
+      </div>
+      <div
+        class="tab-pane fade "
+        id="pills-cmacau"
+        role="tabpanel"
+        aria-labelledby="pills-cmacau-tab"
+      >
+        <div style="margin:10px 0;">
+          <div class="row gap-3">
+            <div class="col-md">
+              <div class="form-floating">
+                <!-- svelte-ignore a11y-autofocus -->
+                <input
+                  bind:this={nomor_colokmacau_1_input}
+                  bind:value={nomor_colokmacau_1}
+                  on:keyup={handleKeyboard_format}
+                  on:keypress={handleKeyboard_checkenter}
+                  type="text"
+                  id="inputNomorMacau1"
+                  class="form-control fs-5 text-center button-bet-default"
+                  class:dark={daylight === false}
+                  placeholder="Input 1 Digit"
+                  minlength="1"
+                  maxlength="1"
+                  tab_index="-1"
+                  autocomplete="off"
+                />
+                <label for="inputNomorMacau1" class="form-label"
+                  >Input 1 Digit (0-9)</label
                 >
-                  <span style="color:#8a8a8a;">Nomor (0-9)</span>
-                  <input
-                    bind:this={nomor_colokmacau_1_input}
-                    bind:value={nomor_colokmacau_1}
-                    on:keyup={handleKeyboard_format}
-                    on:keypress={handleKeyboard_checkenter}
-                    type="text"
-                    class="form-control form-control-sm"
-                    placeholder="Input 1 Digit"
-                    style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
-                    minlength="1"
-                    maxlength="1"
-                    tab_index="-1"
-                    autocomplete="off"
-                  />
-                  <span
-                    class="help-block"
-                    style="text-align:right;font-size:12px;"
-                  />
-                </td>
-                <td
-                  width="25%"
-                  NOWRAP
-                  style="padding-right:10px;vertical-align: center;"
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form-floating">
+                <!-- svelte-ignore a11y-autofocus -->
+                <input
+                  bind:this={nomor_colokmacau_2_input}
+                  bind:value={nomor_colokmacau_2}
+                  on:keyup={handleKeyboard_format}
+                  on:keypress={handleKeyboard_checkenter}
+                  type="text"
+                  id="inputNomorMacau2"
+                  class="form-control fs-5 text-center button-bet-default"
+                  class:dark={daylight === false}
+                  placeholder="Input 1 Digit"
+                  minlength="1"
+                  maxlength="1"
+                  tab_index="-1"
+                  autocomplete="off"
+                />
+                <label for="inputNomorMacau2" class="form-label"
+                  >Input 1 Digit (0-9)</label
                 >
-                  <span style="color:#8a8a8a;">Nomor (0-9)</span>
-                  <input
-                    bind:this={nomor_colokmacau_2_input}
-                    bind:value={nomor_colokmacau_2}
-                    on:keyup={handleKeyboard_format}
-                    on:keypress={handleKeyboard_checkenter}
-                    type="text"
-                    class="form-control form-control-sm"
-                    placeholder="Input 1 Digit"
-                    style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
-                    minlength="1"
-                    maxlength="1"
-                    tab_index="-1"
-                    autocomplete="off"
-                  />
-                  <span
-                    class="help-block"
-                    style="text-align:right;font-size:12px;"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td
-                  colspan="2"
-                  NOWRAP
-                  style="padding-right:10px;vertical-align: center;text-align:right;"
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input
+                  bind:value={bet_colokmacau}
+                  on:keyup={handleKeyboard_number}
+                  on:keypress={handleKeyboardcolokmacau_checkenter}
+                  type="text"
+                  class="form-control fs-5 text-end button-bet-default"
+                  class:dark={daylight === false}
+                  placeholder="Bet"
+                  id="inputBetMacau"
+                  style=""
+                  minlength="3"
+                  maxlength="7"
+                  tab_index="0"
+                />
+                <label for="inputBetMacau" class="form-label"
+                  >Bet (min : {new Intl.NumberFormat().format(
+                    min_bet_colokmacau
+                  )} dan max : {new Intl.NumberFormat().format(
+                    max_bet_colokmacau
+                  )})</label
                 >
-                  <span style="color:#8a8a8a;"
-                    >Bet (min : {new Intl.NumberFormat().format(
-                      min_bet_colokmacau
-                    )} dan max : {new Intl.NumberFormat().format(
-                      max_bet_colokmacau
-                    )})</span
-                  >
-                  <input
-                    bind:value={bet_colokmacau}
-                    on:keyup={handleKeyboard_number}
-                    on:keypress={handleKeyboardcolokmacau_checkenter}
-                    type="text"
-                    class="form-control"
-                    placeholder="Bet"
-                    style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
-                    minlength="3"
-                    maxlength="7"
-                    tab_index="0"
-                  />
-                  <span style="text-align:right;font-size:12px;color:#8a8a8a;"
-                    >{new Intl.NumberFormat().format(bet_colokmacau)}</span
-                  >
-                </td>
-              </tr>
-            </table>
-            <Button
-              block
-              id="btn2"
-              on:click={() => {
-                handleTambah("colokmacau");
-              }}>TAMBAH</Button
-            >
+                <span style="float:right;font-size:12px;color:#8a8a8a;"
+                  >{new Intl.NumberFormat().format(bet_colokmacau)}</span
+                >
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <Button
+                  id="btn2"
+                  class="form-control mt-2"
+                  style="border-radius:5px"
+                  on:click={() => {
+                    handleTambah("colokmacau");
+                  }}>TAMBAH</Button
+                >
+              </div>
+            </div>
           </div>
         </div>
-        <div
-          class="tab-pane fade "
-          id="pills-cnaga"
-          role="tabpanel"
-          aria-labelledby="pills-cnaga-tab"
-        >
-          <div style="margin:5px;">
-            <table class="table" style="background:none;width:100%;">
-              <tr>
-                <td
-                  width="25%"
-                  NOWRAP
-                  style="padding-right:10px;vertical-align: center;"
+      </div>
+      <div
+        class="tab-pane fade "
+        id="pills-cnaga"
+        role="tabpanel"
+        aria-labelledby="pills-cnaga-tab"
+      >
+        <div style="margin:10px 0;">
+          <div class="row gap-3">
+            <div class="col-md">
+              <div class="form-floating">
+                <!-- svelte-ignore a11y-autofocus -->
+                <input
+                  bind:this={nomor_coloknaga_1_input}
+                  bind:value={nomor_coloknaga_1}
+                  on:keyup={handleKeyboard_format}
+                  on:keypress={handleKeyboard_checkenter}
+                  type="text"
+                  id="inputNomorNaga1"
+                  class="form-control fs-5 text-center button-bet-default"
+                  class:dark={daylight === false}
+                  placeholder="Input 1 Digit"
+                  minlength="1"
+                  maxlength="1"
+                  tab_index="-1"
+                  autocomplete="off"
+                />
+                <label for="inputNomorNaga1" class="form-label"
+                  >Input 1 Digit (0-9)</label
                 >
-                  <span style="color:#8a8a8a;">Nomor (0-9)</span>
-                  <input
-                    bind:this={nomor_coloknaga_1_input}
-                    bind:value={nomor_coloknaga_1}
-                    on:keyup={handleKeyboard_format}
-                    on:keypress={handleKeyboard_checkenter}
-                    type="text"
-                    class="form-control form-control-sm"
-                    placeholder="Input 1 Digit"
-                    style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
-                    minlength="1"
-                    maxlength="1"
-                    tab_index="-1"
-                    autocomplete="off"
-                  />
-                  <span
-                    class="help-block"
-                    style="text-align:right;font-size:12px;"
-                  />
-                </td>
-                <td
-                  width="25%"
-                  NOWRAP
-                  style="padding-right:10px;vertical-align: center;"
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form-floating">
+                <!-- svelte-ignore a11y-autofocus -->
+                <input
+                  bind:this={nomor_coloknaga_2_input}
+                  bind:value={nomor_coloknaga_2}
+                  on:keyup={handleKeyboard_format}
+                  on:keypress={handleKeyboard_checkenter}
+                  type="text"
+                  id="inputNomorNaga2"
+                  class="form-control fs-5 text-center button-bet-default"
+                  class:dark={daylight === false}
+                  placeholder="Input 1 Digit"
+                  minlength="1"
+                  maxlength="1"
+                  tab_index="-1"
+                  autocomplete="off"
+                />
+                <label for="inputNomorNaga2" class="form-label"
+                  >Input 1 Digit (0-9)</label
                 >
-                  <span style="color:#8a8a8a;">Nomor (0-9)</span>
-                  <input
-                    bind:this={nomor_coloknaga_2_input}
-                    bind:value={nomor_coloknaga_2}
-                    on:keyup={handleKeyboard_format}
-                    on:keypress={handleKeyboard_checkenter}
-                    type="text"
-                    class="form-control form-control-sm"
-                    placeholder="Input 1 Digit"
-                    style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
-                    minlength="1"
-                    maxlength="1"
-                    tab_index="-1"
-                    autocomplete="off"
-                  />
-                  <span
-                    class="help-block"
-                    style="text-align:right;font-size:12px;"
-                  />
-                </td>
-                <td
-                  width="25%"
-                  NOWRAP
-                  style="padding-right:10px;vertical-align: center;"
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form-floating">
+                <!-- svelte-ignore a11y-autofocus -->
+                <input
+                  bind:this={nomor_coloknaga_3_input}
+                  bind:value={nomor_coloknaga_3}
+                  on:keyup={handleKeyboard_format}
+                  on:keypress={handleKeyboard_checkenter}
+                  type="text"
+                  id="inputNomorNaga3"
+                  class="form-control fs-5 text-center button-bet-default"
+                  class:dark={daylight === false}
+                  placeholder="Input 1 Digit"
+                  minlength="1"
+                  maxlength="1"
+                  tab_index="-1"
+                  autocomplete="off"
+                />
+                <label for="inputNomorNaga3" class="form-label"
+                  >Input 1 Digit (0-9)</label
                 >
-                  <span style="color:#8a8a8a;">Nomor (0-9)</span>
-                  <input
-                    bind:this={nomor_coloknaga_3_input}
-                    bind:value={nomor_coloknaga_3}
-                    on:keyup={handleKeyboard_format}
-                    on:keypress={handleKeyboard_checkenter}
-                    type="text"
-                    class="form-control form-control-sm"
-                    placeholder="Input 1 Digit"
-                    style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
-                    minlength="1"
-                    maxlength="1"
-                    tab_index="-1"
-                    autocomplete="off"
-                  />
-                  <span
-                    class="help-block"
-                    style="text-align:right;font-size:12px;"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td
-                  colspan="3"
-                  NOWRAP
-                  style="padding-right:10px;vertical-align: center;text-align:right;"
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md">
+              <div class="form-floating">
+                <input
+                  bind:value={bet_coloknaga}
+                  on:keyup={handleKeyboard_number}
+                  on:keypress={handleKeyboardcoloknaga_checkenter}
+                  type="text"
+                  class="form-control fs-5 text-end button-bet-default"
+                  class:dark={daylight === false}
+                  placeholder="Bet"
+                  id="inputBetNaga"
+                  style=""
+                  minlength="3"
+                  maxlength="7"
+                  tab_index="0"
+                />
+                <label for="inputBetNaga" class="form-label">
+                  Bet (min : {new Intl.NumberFormat().format(min_bet_coloknaga)}
+                  dan max : {new Intl.NumberFormat().format(
+                    max_bet_coloknaga
+                  )})</label
                 >
-                  <span style="color:#8a8a8a;"
-                    >Bet (min : {new Intl.NumberFormat().format(
-                      min_bet_coloknaga
-                    )} dan max : {new Intl.NumberFormat().format(
-                      max_bet_coloknaga
-                    )})</span
-                  >
-                  <input
-                    bind:value={bet_coloknaga}
-                    on:keyup={handleKeyboard_number}
-                    on:keypress={handleKeyboardcoloknaga_checkenter}
-                    type="text"
-                    class="form-control"
-                    placeholder="Bet"
-                    style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
-                    minlength="3"
-                    maxlength="7"
-                    tab_index="0"
-                  />
-                  <span style="text-align:right;font-size:12px;color:#8a8a8a;"
-                    >{new Intl.NumberFormat().format(bet_coloknaga)}</span
-                  >
-                </td>
-              </tr>
-            </table>
-            <Button
-              block
-              id="btn2"
-              on:click={() => {
-                handleTambah("coloknaga");
-              }}>TAMBAH</Button
-            >
+                <span style="float:right;font-size:12px;color:#8a8a8a;"
+                  >{new Intl.NumberFormat().format(bet_coloknaga)}</span
+                >
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="mb-3">
+                <Button
+                  id="btn2"
+                  class="form-control mt-2"
+                  style="border-radius:5px"
+                  on:click={() => {
+                    handleTambah("coloknaga");
+                  }}>TAMBAH</Button
+                >
+              </div>
+            </div>
           </div>
         </div>
-        <div
-          class="tab-pane fade "
-          id="pills-cjitu"
-          role="tabpanel"
-          aria-labelledby="pills-cjitu-tab"
-        >
-          <div style="margin:5px;">
-            <table class="table" style="background:none;width:100%;">
-              <tr>
-                <td
-                  width="25%"
-                  NOWRAP
-                  style="padding-right:10px;vertical-align: center;"
+      </div>
+      <div
+        class="tab-pane fade "
+        id="pills-cjitu"
+        role="tabpanel"
+        aria-labelledby="pills-cjitu-tab"
+      >
+        <div style="margin:10px 0;">
+          <div class="row gap-3">
+            <div class="col-md">
+              <div class="form-floating">
+                <!-- svelte-ignore a11y-autofocus -->
+                <input
+                  bind:this={nomor_colokjitu_input}
+                  bind:value={nomor_colokjitu}
+                  on:keyup={handleKeyboard_format}
+                  on:keypress={handleKeyboard_checkenter}
+                  type="text"
+                  id="inputNomorJitu"
+                  class="form-control fs-5 text-center button-bet-default"
+                  class:dark={daylight === false}
+                  placeholder="Input 1 Digit"
+                  minlength="1"
+                  maxlength="1"
+                  tab_index="-1"
+                  autocomplete="off"
+                />
+                <label for="inputNomorJitu" class="form-label"
+                  >Input 1 Digit (0-9)</label
                 >
-                  <span style="color:#8a8a8a;">Nomor (0-9)</span>
-                  <input
-                    bind:this={nomor_colokjitu_input}
-                    bind:value={nomor_colokjitu}
-                    on:keyup={handleKeyboard_format}
-                    on:keypress={handleKeyboard_checkenter}
-                    type="text"
-                    class="form-control form-control-sm"
-                    placeholder="Input 1 Digit"
-                    style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
-                    minlength="1"
-                    maxlength="1"
-                    tab_index="-1"
-                    autocomplete="off"
-                  />
-                  <span
-                    class="help-block"
-                    style="text-align:right;font-size:12px;"
-                  />
-                </td>
-                <td
-                  width="15%"
-                  NOWRAP
-                  style="padding-right:10px;vertical-align: center;"
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form-floating">
+                <select
+                  class="form-select button-bet-default"
+                  class:dark={daylight === false}
+                  bind:value={select_pilihancolokjitu}
+                  bind:this={select_pilihancolokjitu_input}
+                  id="selectOptJitu"
+                  aria-label="Floating label select"
                 >
-                  <div style="margin-top:-20px;">
-                    <span style="color:#8a8a8a;">Posisi</span>
-                    <select
-                      bind:value={select_pilihancolokjitu}
-                      bind:this={select_pilihancolokjitu_input}
-                      style="border:none;background:#303030;color:white;"
-                      class="form-control"
-                    >
-                      <option value="">--Pilih--</option>
-                      <option value="AS">AS</option>
-                      <option value="KECIL">KOP</option>
-                      <option value="KEPALA">KEPALA</option>
-                      <option value="EKOR">EKOR</option>
-                    </select>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  colspan="2"
-                  NOWRAP
-                  style="padding-right:10px;vertical-align: center;text-align:right;"
+                  <option value="">--Pilih--</option>
+                  <option value="AS">AS</option>
+                  <option value="KECIL">KOP</option>
+                  <option value="KEPALA">KEPALA</option>
+                  <option value="EKOR">EKOR</option>
+                </select>
+                <label for="selectOptJitu">Posisi</label>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form-floating">
+                <input
+                  bind:value={bet_colokjitu}
+                  on:keyup={handleKeyboard_number}
+                  on:keypress={handleKeyboardcolokjitu_checkenter}
+                  type="text"
+                  id="betColokJitu"
+                  class="form-control fs-5 text-end button-bet-default"
+                  class:dark={daylight === false}
+                  placeholder="Bet"
+                  minlength="3"
+                  maxlength="7"
+                  tab_index="0"
+                  autocomplete="off"
+                />
+                <span style="float:right;font-size:12px;color:#8a8a8a;"
+                  >{new Intl.NumberFormat().format(bet_colokjitu)}</span
                 >
-                  <span style="color:#8a8a8a;"
-                    >Bet (min : {new Intl.NumberFormat().format(
-                      min_bet_colokjitu
-                    )} dan max : {new Intl.NumberFormat().format(
-                      max_bet_colokjitu
-                    )})</span
-                  >
-                  <input
-                    bind:value={bet_colokjitu}
-                    on:keyup={handleKeyboard_number}
-                    on:keypress={handleKeyboardcolokjitu_checkenter}
-                    type="text"
-                    class="form-control"
-                    placeholder="Bet"
-                    style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
-                    minlength="3"
-                    maxlength="7"
-                    tab_index="0"
-                  />
-                  <span style="text-align:right;font-size:12px;color:#8a8a8a;"
-                    >{new Intl.NumberFormat().format(bet_colokjitu)}</span
-                  >
-                </td>
-              </tr>
-            </table>
-            <Button
-              block
-              id="btn2"
-              on:click={() => {
-                handleTambah("colokjitu");
-              }}>TAMBAH</Button
-            >
+                <label for="betColokJitu" class="form-label"
+                  >Bet (min : {new Intl.NumberFormat().format(
+                    min_bet_colokjitu
+                  )} dan max : {new Intl.NumberFormat().format(
+                    max_bet_colokjitu
+                  )})</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <Button
+                id="btn2"
+                class="form-control mt-2"
+                style="border-radius:5px"
+                on:click={() => {
+                  handleTambah("colokjitu");
+                }}>TAMBAH</Button
+              >
+            </div>
           </div>
         </div>
-        <div
-          class="tab-pane fade "
-          id="pills-polacolok"
-          role="tabpanel"
-          aria-labelledby="pills-polacolok-tab"
-        >
-          <div style="margin:5px;">
-            <table class="table" style="background:none;width:100%;">
-              <tr>
-                <td
-                  NOWRAP
-                  style="padding-right:10px;vertical-align: center;"
-                  colspan="3"
-                >
-                  <span style="color:#8a8a8a;">Nomor (4 Digit / 7 Digit)</span>
+      </div>
+      <div
+        class="tab-pane fade "
+        id="pills-polacolok"
+        role="tabpanel"
+        aria-labelledby="pills-polacolok-tab"
+      >
+        <div style="margin:10px 0;">
+          <div class="row gap-3">
+            <div class="col-md">
+              <div class="mb-3">
+                <div class="form-floating">
+                  <!-- svelte-ignore a11y-autofocus -->
                   <input
                     bind:this={nomor_polacolok_input}
                     bind:value={nomor_polacolok}
                     on:keyup={handleKeyboard_number}
                     on:keypress={handleKeyboard_checkenter}
                     type="text"
-                    class="form-control form-control-sm"
-                    placeholder="Input 4 / 7 Digit"
-                    style="border:none;background:#303030;color:white;font-size:20px;text-align:center;"
+                    id="inputNomorPola"
+                    class="form-control fs-5 text-center button-bet-default"
+                    class:dark={daylight === false}
+                    placeholder="Input 4 - 7 Digit"
                     minlength="4"
                     maxlength="7"
                     tab_index="-1"
                     autocomplete="off"
                   />
-                  <span
-                    class="help-block"
-                    style="text-align:right;font-size:12px;"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td
-                  width="25%"
-                  NOWRAP
-                  style="padding-right:10px;vertical-align: center;text-align:right;"
-                >
-                  <span style="color:#8a8a8a;">Bet Colok Bebas</span>
+                  <label for="inputNomorPola" class="form-label"
+                    >Input 4 - 7 Digit</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="mb-3">
+                <div class="form-floating">
+                  <!-- svelte-ignore a11y-autofocus -->
                   <input
                     bind:value={bet_polacolokbebas}
                     on:keyup={handleKeyboard_number}
                     on:keypress={handleKeyboardpolacolok_checkenter}
                     type="text"
-                    class="form-control"
-                    placeholder="Bet"
-                    style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
+                    id="BetNomorBebas"
+                    class="form-control fs-5 text-center button-bet-default"
+                    class:dark={daylight === false}
+                    placeholder="Input 1 Digit"
                     minlength="3"
                     maxlength="7"
                     tab_index="0"
+                    autocomplete="off"
                   />
-                  <span style="text-align:right;font-size:12px;color:#8a8a8a;">
-                    {new Intl.NumberFormat().format(bet_polacolokbebas)}
-                  </span>
-                </td>
-                <td
-                  width="25%"
-                  NOWRAP
-                  style="padding-right:10px;vertical-align: center;text-align:right;"
-                >
-                  <span style="color:#8a8a8a;">Bet Colok Macau</span>
+                  <label for="BetNomorBebas" class="form-label">
+                    Bet Colok Bebas</label
+                  >
+                  <span style="float:right;font-size:12px;color:#8a8a8a;"
+                    >{new Intl.NumberFormat().format(bet_polacolokbebas)}</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="mb-3">
+                <div class="form-floating">
+                  <!-- svelte-ignore a11y-autofocus -->
                   <input
                     bind:value={bet_polacolokmacau}
                     on:keyup={handleKeyboard_number}
                     on:keypress={handleKeyboardpolacolok_checkenter}
                     type="text"
-                    class="form-control"
-                    placeholder="Bet"
-                    style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
+                    id="BetColokMacau"
+                    class="form-control fs-5 text-center button-bet-default"
+                    class:dark={daylight === false}
+                    placeholder="Bet Colok Macau"
                     minlength="3"
                     maxlength="7"
                     tab_index="0"
+                    autocomplete="off"
                   />
-                  <span style="text-align:right;font-size:12px;color:#8a8a8a;">
-                    {new Intl.NumberFormat().format(bet_polacolokmacau)}
-                  </span>
-                </td>
-                <td
-                  width="25%"
-                  NOWRAP
-                  style="padding-right:10px;vertical-align: center;text-align:right;"
+                  <label for="BetColokMacau" class="form-label"
+                    >Bet Colok Macau</label
+                  >
+                  <span style="float:right;font-size:12px;color:#8a8a8a;"
+                    >{new Intl.NumberFormat().format(bet_polacolokmacau)}</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md">
+              <div class="form-floating">
+                <input
+                  bind:value={bet_polacoloknaga}
+                  on:keyup={handleKeyboard_number}
+                  on:keypress={handleKeyboardpolacolok_checkenter}
+                  type="text"
+                  class="form-control fs-5 text-end button-bet-default"
+                  class:dark={daylight === false}
+                  placeholder="Bet"
+                  id="BetPolaNaga"
+                  style=""
+                  minlength="3"
+                  maxlength="7"
+                  tab_index="0"
+                />
+                <label for="BetPolaNaga" class="form-label">
+                  Bet Colok Naga</label
                 >
-                  <span style="color:#8a8a8a;">Bet Colok Naga</span>
-                  <input
-                    bind:value={bet_polacoloknaga}
-                    on:keyup={handleKeyboard_number}
-                    on:keypress={handleKeyboardpolacolok_checkenter}
-                    type="text"
-                    class="form-control"
-                    placeholder="Bet"
-                    style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
-                    minlength="3"
-                    maxlength="7"
-                    tab_index="0"
-                  />
-                  <span style="text-align:right;font-size:12px;color:#8a8a8a;"
-                    >{new Intl.NumberFormat().format(bet_polacoloknaga)}
-                  </span>
-                </td>
-              </tr>
-            </table>
-            <Button
-              block
-              id="btn2"
-              on:click={() => {
-                handleTambah("polacolok");
-              }}>TAMBAH</Button
-            >
+                <span style="float:right;font-size:12px;color:#8a8a8a;"
+                  >{new Intl.NumberFormat().format(bet_polacoloknaga)}</span
+                >
+              </div>
+              ``
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <Button
+                  id="btn2"
+                  class="form-control mt-2"
+                  style="border-radius:5px"
+                  on:click={() => {
+                    handleTambah("polacolok");
+                  }}>TAMBAH</Button
+                >
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </CardBody>
-  </Card>
-{/if}
+    </div>
+  </CardBody>
+</Card>
+
 <Modal modal_id={"modalError"} modal_size={"modal-dialog-centered"}>
   <slot:template slot="header">
     <div class="float-end">
@@ -2256,6 +1761,7 @@
   {winkop_bet_colokjitu}
   {winkepala_bet_colokjitu}
   {winekor_bet_colokjitu}
+  {daylight}
 />
 
 <style>

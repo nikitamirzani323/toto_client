@@ -15,6 +15,7 @@
   import Formshio from "../permainan/Formshio.svelte";
   import Fa from "svelte-fa";
   import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+  import Swal from "sweetalert2";
 
   export let client_token = "";
   export let client_company = "";
@@ -222,10 +223,28 @@
           ];
         }
       } else {
-        alert("Error");
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Pencarian tidak ditemukan",
+          showConfirmButton: false,
+          timer: 3000,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+          toast: true,
+        });
       }
     } else {
-      alert("Error");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Terjadi kesalahan pada server",
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
   }
   const handleInvoice = (e) => {
@@ -578,23 +597,33 @@
             body_style="padding:0px;margin:0px;background: url(/bg-invoice.svg);
             background-position: bottom right;
             background-repeat: no-repeat;
-            background-size: 400px;border:1px solid #0e0c13;height:655px;"
+            background-size: 400px;
+            border:1px solid {daylight ? '#fff' : '#0e0c13'};height:655px;"
+            {daylight}
           >
             <slot:template slot="header">
               <div
                 class="row"
-                style="padding: 20px;font-size: 15px;color: #fff;"
+                style="padding: 20px;font-size: 15px;color: {daylight
+                  ? '#171717'
+                  : '#fff'};"
               >
                 <div class="col">
                   <span
-                    >BET SAYA : <span style="color:#FF9900; font-weight:bold"
+                    >BET SAYA : <span
+                      style="color:{daylight
+                        ? '#00a86b'
+                        : '#FF9900'}; font-weight:bold"
                       >{new Intl.NumberFormat().format(totalbet_invoice)}</span
                     ></span
                   >
                 </div>
                 <div class="col text-end">
                   <span
-                    >TOTAL BAYAR : <span style="color:#FF9900; font-weight:bold"
+                    >TOTAL BAYAR : <span
+                      style="color:{daylight
+                        ? '#00a86b'
+                        : '#FF9900'}; font-weight:bold"
                       >{new Intl.NumberFormat().format(
                         totalbayar_invoice
                       )}</span
@@ -602,61 +631,43 @@
                   >
                 </div>
               </div>
-              <!-- <table class="table" style="background:none;">
-                <tr>
-                  <td style="text-align:right;color:white;font-size:12px;"
-                    >TOTAL BET</td
-                  >
-                  <td style="text-align:right;color:white;font-size:12px;">:</td
-                  >
-                  <td style="text-align:right;color:#fc0;font-size:12px;"
-                    >{new Intl.NumberFormat().format(totalbet_invoice)}</td
-                  >
-                </tr>
-                <tr>
-                  <td style="text-align:right;color:white;font-size:12px;"
-                    >TOTAL BAYAR</td
-                  >
-                  <td style="text-align:right;color:white;font-size:12px;">:</td
-                  >
-                  <td style="text-align:right;color:#fc0;font-size:12px;"
-                    >{new Intl.NumberFormat().format(totalbayar_invoice)}</td
-                  >
-                </tr>
-              </table> -->
             </slot:template>
             <slot:template slot="body">
-              <table class="table table-dark table-striped">
+              <table
+                class="table"
+                class:table-dark={daylight === false}
+                class:table-striped={daylight === false}
+              >
                 <thead>
                   <tr>
                     <th
                       width="10%"
-                      style="text-align:center;vertical-align:top;background:#171717;font-size:13px;border-bottom:none;"
+                      style="text-align:center;vertical-align:top;font-size:13px;border-bottom:none;"
                       NOWRAP>NOMOR</th
                     >
                     <th
                       width="10%"
-                      style="text-align:center;vertical-align:top;background:#171717;font-size:13px;border-bottom:none;"
+                      style="text-align:center;vertical-align:top;font-size:13px;border-bottom:none;"
                       NOWRAP>PERMAINAN</th
                     >
                     <th
                       width="20%"
-                      style="text-align:right;vertical-align:top;background:#171717;font-size:13px;border-bottom:none;"
+                      style="text-align:right;vertical-align:top;font-size:13px;border-bottom:none;"
                       NOWRAP>BET</th
                     >
                     <th
                       width="20%"
-                      style="text-align:right;vertical-align:top;background:#171717;font-size:13px;border-bottom:none;"
+                      style="text-align:right;vertical-align:top;font-size:13px;border-bottom:none;"
                       NOWRAP>KEI(%)</th
                     >
                     <th
                       width="20%"
-                      style="text-align:right;vertical-align:top;background:#171717;font-size:13px;border-bottom:none;"
+                      style="text-align:right;vertical-align:top;font-size:13px;border-bottom:none;"
                       NOWRAP>DIS(%)</th
                     >
                     <th
                       width="20%"
-                      style="text-align:right;vertical-align:top;background:#171717;font-size:13px;border-bottom:none;"
+                      style="text-align:right;vertical-align:top;font-size:13px;border-bottom:none;"
                       NOWRAP>BAYAR</th
                     >
                   </tr>
@@ -665,27 +676,33 @@
                   {#each resultinvoice as rec}
                     <tr>
                       <td
-                        style="text-align:center;vertical-align:top;font-size:12px;color:#fc0;"
+                        class="table-fill text-center"
+                        class:dark={daylight === false}
                         NOWRAP>{rec.nomor}</td
                       >
                       <td
-                        style="text-align:center;vertical-align:top;font-size:12px;color:#fc0;"
+                        class="table-fill text-center"
+                        class:dark={daylight === false}
                         NOWRAP>{rec.permainan}</td
                       >
                       <td
-                        style="text-align:right;vertical-align:top;font-size:12px;color:#fc0;"
+                        class="table-fill text-end"
+                        class:dark={daylight === false}
                         NOWRAP>{new Intl.NumberFormat().format(rec.bet)}</td
                       >
                       <td
-                        style="text-align:right;vertical-align:top;font-size:12px;color:#fc0;"
+                        class="table-fill text-end"
+                        class:dark={daylight === false}
                         NOWRAP>{rec.kei.toFixed(1)}</td
                       >
                       <td
-                        style="text-align:right;vertical-align:top;font-size:12px;color:#fc0;"
+                        class="table-fill text-end"
+                        class:dark={daylight === false}
                         NOWRAP>{rec.diskon.toFixed(1)}</td
                       >
                       <td
-                        style="text-align:right;vertical-align:top;font-size:12px;color:#fc0;"
+                        class="table-fill text-end"
+                        class:dark={daylight === false}
                         NOWRAP>{new Intl.NumberFormat().format(rec.bayar)}</td
                       >
                     </tr>
@@ -702,94 +719,112 @@
           role="tabpanel"
           aria-labelledby="pills-result-tab"
         >
-          <ul
-            class="nav nav-pills mb-3"
-            id="pills-tab"
-            role="tablist"
-            style="background-color: #181818;"
+          <div
+            class="tab-content periode-menu"
+            class:dark={daylight === false}
+            id="pills-tabContent"
           >
-            <li
-              on:click={() => {
-                handleClickBukuMimpi("ALL");
-              }}
-              class="nav-item"
-              role="presentation"
+            <ul
+              class="nav nav-tabs"
+              id="pills-tab"
+              role="tablist"
+              style="background-color: {daylight
+                ? '#fff'
+                : '#181818'};overflow-x:hidden;"
             >
-              <button
-                class="nav-link active"
-                id="pills-home-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-bukumimpiall"
-                type="button"
-                role="tab"
-                aria-controls="pills-bukumimpiall"
-                aria-selected="true">ALL</button
+              <li
+                on:click={() => {
+                  handleClickBukuMimpi("ALL");
+                }}
+                class="nav-item"
+                role="presentation"
               >
-            </li>
-            <li
-              on:click={() => {
-                handleClickBukuMimpi("4D");
-              }}
-              class="nav-item"
-              role="presentation"
-            >
-              <button
-                class="nav-link"
-                id="pills-profile-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-bukumimpi4d"
-                type="button"
-                role="tab"
-                aria-controls="pills-bukumimpi4d"
-                aria-selected="false">4D</button
+                <button
+                  class="nav-link active"
+                  id="pills-home-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-bukumimpiall"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-bukumimpiall"
+                  aria-selected="true">ALL</button
+                >
+              </li>
+              <li
+                on:click={() => {
+                  handleClickBukuMimpi("4D");
+                }}
+                class="nav-item"
+                role="presentation"
               >
-            </li>
-            <li
-              on:click={() => {
-                handleClickBukuMimpi("3D");
-              }}
-              class="nav-item"
-              role="presentation"
-            >
-              <button
-                class="nav-link"
-                id="pills-contact-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-bukumimpi3d"
-                type="button"
-                role="tab"
-                aria-controls="pills-bukumimpi3d"
-                aria-selected="false">3D</button
+                <button
+                  class="nav-link"
+                  id="pills-profile-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-bukumimpi4d"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-bukumimpi4d"
+                  aria-selected="false">4D</button
+                >
+              </li>
+              <li
+                on:click={() => {
+                  handleClickBukuMimpi("3D");
+                }}
+                class="nav-item"
+                role="presentation"
               >
-            </li>
-            <li
-              on:click={() => {
-                handleClickBukuMimpi("2D");
-              }}
-              class="nav-item"
-              role="presentation"
-            >
-              <button
-                class="nav-link"
-                id="pills-contact-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-bukumimpi2d"
-                type="button"
-                role="tab"
-                aria-controls="pills-bukumimpi2d"
-                aria-selected="false">2D</button
+                <button
+                  class="nav-link"
+                  id="pills-contact-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-bukumimpi3d"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-bukumimpi3d"
+                  aria-selected="false">3D</button
+                >
+              </li>
+              <li
+                on:click={() => {
+                  handleClickBukuMimpi("2D");
+                }}
+                class="nav-item"
+                role="presentation"
               >
-            </li>
-          </ul>
-          <input
-            bind:value={searchbukumimpi}
-            on:keypress={handleKeyboardbukumimpi_checkenter}
-            style="border-radius: none;border: none; background: rgb(48, 48, 48) none repeat scroll 0% 0%; color: white; font-size: 15px; "
-            placeholder="Ketik apa yang telah kamu impikan"
-            class="form-control"
-            type="text"
-          />
-          <div class="tab-content" id="pills-tabContent">
+                <button
+                  class="nav-link"
+                  id="pills-contact-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-bukumimpi2d"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-bukumimpi2d"
+                  aria-selected="false">2D</button
+                >
+              </li>
+            </ul>
+            <div class="form-floating">
+              <input
+                bind:value={searchbukumimpi}
+                on:keypress={handleKeyboardbukumimpi_checkenter}
+                style="border-radius: none;border: none; background: {daylight
+                  ? '#fff'
+                  : '#303030'} none repeat scroll 0% 0%; color: {daylight
+                  ? '#171717'
+                  : '#fff'}; font-size: 15px; "
+                placeholder="Ketik apa yang telah kamu impikan"
+                class="form-control button-bet-default"
+                type="text"
+                id="cariMimpi"
+                autocomplete="off"
+              />
+              <label for="cariMimpi" class="form-label"
+                >Ketik apa yang telah kamu impikan</label
+              >
+            </div>
+
             <div
               class="tab-pane fade show active"
               id="pills-bukumimpiall"
@@ -799,7 +834,8 @@
               <PanelFull
                 header={false}
                 footer={false}
-                body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:620px;"
+                body_style="padding:0px;margin:0px;height:650px;"
+                {daylight}
               >
                 <slot:template slot="body">
                   {#if filterBukuMimpi !== ""}
@@ -810,7 +846,9 @@
                             <td
                               NOWRAP
                               width="30px"
-                              style="text-align:center;vertical-align:top;font-size:14px;color:#fc0;"
+                              style="text-align:center;vertical-align:top;font-size:14px;"
+                              class="color-font"
+                              class:dark={daylight === false}
                               >{rec.bukumimpi_tipe}</td
                             >
                             <td
@@ -818,7 +856,10 @@
                               style="text-align:left;vertical-align:top;font-size:15px;color:#8b8989;"
                               >{rec.bukumimpi_nama}
                               <br />
-                              <span style="color:#fc0;font-size:14px;"
+                              <span
+                                style="font-size:14px;"
+                                class="color-font"
+                                class:dark={daylight === false}
                                 >{rec.bukumimpi_nomor}</span
                               >
                             </td>
@@ -844,7 +885,8 @@
               <PanelFull
                 header={false}
                 footer={false}
-                body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:620px;"
+                body_style="padding:0px;margin:0px;height:650px;"
+                {daylight}
               >
                 <slot:template slot="body">
                   {#if filterBukuMimpi !== ""}
@@ -855,7 +897,9 @@
                             <td
                               NOWRAP
                               width="30px"
-                              style="text-align:center;vertical-align:top;font-size:14px;color:#fc0;"
+                              style="text-align:center;vertical-align:top;font-size:14px;"
+                              class="color-font"
+                              class:dark={daylight === false}
                               >{rec.bukumimpi_tipe}</td
                             >
                             <td
@@ -863,7 +907,10 @@
                               style="text-align:left;vertical-align:top;font-size:15px;color:#8b8989;"
                               >{rec.bukumimpi_nama}
                               <br />
-                              <span style="color:#fc0;font-size:14px;"
+                              <span
+                                style="font-size:14px;"
+                                class="color-font"
+                                class:dark={daylight === false}
                                 >{rec.bukumimpi_nomor}</span
                               >
                             </td>
@@ -889,7 +936,8 @@
               <PanelFull
                 header={false}
                 footer={false}
-                body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:620px;"
+                body_style="padding:0px;margin:0px;height:650px;"
+                {daylight}
               >
                 <slot:template slot="body">
                   {#if filterBukuMimpi != ""}
@@ -900,15 +948,19 @@
                             <td
                               NOWRAP
                               width="30px"
-                              style="text-align:center;vertical-align:top;font-size:14px;color:#fc0;"
+                              style="text-align:center;vertical-align:top;font-size:14px;"
+                              class="color-font"
+                              class:dark={daylight === false}
                               >{rec.bukumimpi_tipe}</td
                             >
                             <td
                               width="*"
                               style="text-align:left;vertical-align:top;font-size:15px;color:#8b8989;"
+                              class="color-font"
+                              class:dark={daylight === false}
                               >{rec.bukumimpi_nama}
                               <br />
-                              <span style="color:#fc0;font-size:14px;"
+                              <span style="font-size:14px;"
                                 >{rec.bukumimpi_nomor}</span
                               >
                             </td>
@@ -934,7 +986,8 @@
               <PanelFull
                 header={false}
                 footer={false}
-                body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:620px;"
+                body_style="padding:0px;margin:0px;height:650px;"
+                {daylight}
               >
                 <slot:template slot="body">
                   {#if filterBukuMimpi !== ""}
@@ -945,7 +998,9 @@
                             <td
                               NOWRAP
                               width="30px"
-                              style="text-align:center;vertical-align:top;font-size:14px;color:#fc0;"
+                              style="text-align:center;vertical-align:top;font-size:14px;"
+                              class="color-font"
+                              class:dark={daylight === false}
                               >{rec.bukumimpi_tipe}</td
                             >
                             <td
@@ -953,7 +1008,10 @@
                               style="text-align:left;vertical-align:top;font-size:15px;color:#8b8989;"
                               >{rec.bukumimpi_nama}
                               <br />
-                              <span style="color:#fc0;font-size:14px;"
+                              <span
+                                style="font-size:14px;"
+                                class="color-font"
+                                class:dark={daylight === false}
                                 >{rec.bukumimpi_nomor}</span
                               >
                             </td>
@@ -975,9 +1033,9 @@
       </div>
     </Col>
   {:else}
-    <div style="margin-top:40px;">&nbsp;</div>
+    <div style="margin-top:5px;">&nbsp;</div>
     <ul
-      class="nav nav-pills mb-3"
+      class="nav nav-fill nav-pills mb-3"
       id="pills-tab"
       role="tablist"
       style="background-color: #181818;"
@@ -1021,7 +1079,11 @@
         <!-- svelte-ignore a11y-no-onchange -->
         <select
           on:change={handleSelect}
-          style="background-color: #323030;color:white;border:1px solid #323030;"
+          style="background-color: {daylight
+            ? '#fff'
+            : '#323030'};color: {daylight
+            ? '#171717'
+            : '#fff'};border:1px solid {daylight ? '#f3f3f3' : '#323030'};"
           aria-label="Permainan"
           class="form-select"
         >
@@ -1049,6 +1111,7 @@
             {pasaran_code}
             {pasaran_periode}
             {permainan_title}
+            {daylight}
           />
         {/if}
         {#if permainan == "colok"}
@@ -1066,6 +1129,7 @@
             {pasaran_code}
             {pasaran_periode}
             {permainan_title}
+            {daylight}
           />
         {/if}
         {#if permainan == "5050"}
@@ -1083,6 +1147,7 @@
             {pasaran_code}
             {pasaran_periode}
             {permainan_title}
+            {daylight}
           />
         {/if}
         {#if permainan == "kombinasi"}
@@ -1100,6 +1165,7 @@
             {pasaran_code}
             {pasaran_periode}
             {permainan_title}
+            {daylight}
           />
         {/if}
         {#if permainan == "dasar"}
@@ -1117,6 +1183,7 @@
             {pasaran_code}
             {pasaran_periode}
             {permainan_title}
+            {daylight}
           />
         {/if}
         {#if permainan == "shio"}
@@ -1134,6 +1201,7 @@
             {pasaran_code}
             {pasaran_periode}
             {permainan_title}
+            {daylight}
           />
         {/if}
       </div>
@@ -1146,63 +1214,78 @@
         <PanelFull
           header={true}
           footer={true}
-          header_style="padding:0px;margin:0px;"
-          body_style="padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;height:450px;"
+          body_style="padding:0px;margin:0px;background: url(/bg-invoice.svg);
+          background-position: bottom right;
+          background-repeat: no-repeat;
+          background-size: 400px;
+          border:1px solid {daylight ? '#fff' : '#0e0c13'};height:450px;"
+          {daylight}
         >
           <slot:template slot="header">
-            <table class="table" style="background:none;">
-              <tr>
-                <td style="text-align:right;color:white;font-size:11px;"
-                  >TOTAL BET</td
+            <div
+              class="row"
+              style="padding: 5px;font-size: 15px;color: {daylight
+                ? '#171717'
+                : '#fff'};"
+            >
+              <div class="col">
+                <span
+                  >BET SAYA : <span
+                    style="color:{daylight
+                      ? '#00a86b'
+                      : '#FF9900'}; font-weight:bold"
+                    >{new Intl.NumberFormat().format(totalbet_invoice)}</span
+                  ></span
                 >
-                <td style="text-align:right;color:white;font-size:11px;">:</td>
-                <td style="text-align:right;color:#fc0;font-size:11px;"
-                  >{new Intl.NumberFormat().format(totalbet_invoice)}</td
+              </div>
+              <div class="col text-end">
+                <span
+                  >TOTAL BAYAR : <span
+                    style="color:{daylight
+                      ? '#00a86b'
+                      : '#FF9900'}; font-weight:bold"
+                    >{new Intl.NumberFormat().format(totalbayar_invoice)}</span
+                  ></span
                 >
-              </tr>
-              <tr>
-                <td style="text-align:right;color:white;font-size:11px;"
-                  >TOTAL BAYAR</td
-                >
-                <td style="text-align:right;color:white;font-size:11px;">:</td>
-                <td style="text-align:right;color:#fc0;font-size:11px;"
-                  >{new Intl.NumberFormat().format(totalbayar_invoice)}</td
-                >
-              </tr>
-            </table>
+              </div>
+            </div>
           </slot:template>
           <slot:template slot="body">
-            <table class="table table-dark table-striped">
+            <table
+              class="table"
+              class:table-dark={daylight === false}
+              class:table-striped={daylight === false}
+            >
               <thead>
                 <tr>
                   <th
                     width="10%"
-                    style="text-align:center;vertical-align:top;background:#303030;font-size:11px;border-bottom:none;"
+                    style="text-align:center;vertical-align:top;font-size:11px;border-bottom:none;"
                     NOWRAP>NOMOR</th
                   >
                   <th
                     width="10%"
-                    style="text-align:center;vertical-align:top;background:#303030;font-size:11px;border-bottom:none;"
+                    style="text-align:center;vertical-align:top;font-size:11px;border-bottom:none;"
                     NOWRAP>PERMAINAN</th
                   >
                   <th
                     width="20%"
-                    style="text-align:right;vertical-align:top;background:#303030;font-size:11px;border-bottom:none;"
+                    style="text-align:right;vertical-align:top;font-size:11px;border-bottom:none;"
                     NOWRAP>BET</th
                   >
                   <th
                     width="20%"
-                    style="text-align:right;vertical-align:top;background:#303030;font-size:11px;border-bottom:none;"
+                    style="text-align:right;vertical-align:top;font-size:11px;border-bottom:none;"
                     NOWRAP>KEI(%)</th
                   >
                   <th
                     width="20%"
-                    style="text-align:right;vertical-align:top;background:#303030;font-size:11px;border-bottom:none;"
+                    style="text-align:right;vertical-align:top;font-size:11px;border-bottom:none;"
                     NOWRAP>DIS(%)</th
                   >
                   <th
                     width="20%"
-                    style="text-align:right;vertical-align:top;background:#303030;font-size:11px;border-bottom:none;"
+                    style="text-align:right;vertical-align:top;font-size:11px;border-bottom:none;"
                     NOWRAP>BAYAR</th
                   >
                 </tr>
@@ -1211,27 +1294,33 @@
                 {#each resultinvoice as rec}
                   <tr>
                     <td
-                      style="text-align:center;vertical-align:top;font-size:12px;color:#fc0;"
+                      class="table-fill text-center"
+                      class:dark={daylight === false}
                       NOWRAP>{rec.nomor}</td
                     >
                     <td
-                      style="text-align:center;vertical-align:top;font-size:12px;color:#fc0;"
+                      class="table-fill text-center"
+                      class:dark={daylight === false}
                       NOWRAP>{rec.permainan}</td
                     >
                     <td
-                      style="text-align:right;vertical-align:top;font-size:12px;color:#fc0;"
+                      class="table-fill text-end"
+                      class:dark={daylight === false}
                       NOWRAP>{new Intl.NumberFormat().format(rec.bet)}</td
                     >
                     <td
-                      style="text-align:right;vertical-align:top;font-size:12px;color:#fc0;"
+                      class="table-fill text-end"
+                      class:dark={daylight === false}
                       NOWRAP>{rec.kei.toFixed(1)}</td
                     >
                     <td
-                      style="text-align:right;vertical-align:top;font-size:12px;color:#fc0;"
+                      class="table-fill text-end"
+                      class:dark={daylight === false}
                       NOWRAP>{rec.diskon.toFixed(1)}</td
                     >
                     <td
-                      style="text-align:right;vertical-align:top;font-size:12px;color:#fc0;"
+                      class="table-fill text-end"
+                      class:dark={daylight === false}
                       NOWRAP>{new Intl.NumberFormat().format(rec.bayar)}</td
                     >
                   </tr>

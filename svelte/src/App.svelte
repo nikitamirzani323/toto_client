@@ -8,7 +8,7 @@
   import utc from "dayjs/plugin/utc";
   import timezone from "dayjs/plugin/timezone";
   import Notification, { notifications } from "./components/Noti.svelte";
-  import Switch from "./components/Switch.svelte";
+  import Swal from "sweetalert2";
 
   dayjs.extend(utc);
   dayjs.extend(timezone);
@@ -56,7 +56,7 @@
   let message_err = "";
   let css_err = "display:none;";
   let checked = false;
-
+  // let daylight = false;
   $: daylight = checked;
 
   // $: callday = daylights();
@@ -109,6 +109,13 @@
           case "":
             css_err = "display:inline-block";
             message_err = "Agen not found, Please contact admin";
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: message_err,
+              heightAuto: false,
+            });
+            // notifications.push(message_err, "white", "middle");
             setTimeout(function () {
               css_err = "display: none;";
             }, 5000);
@@ -122,8 +129,14 @@
             client_website_message = initJson.website_message;
             if (client_website_status == "OFFLINE") {
               client_token = "";
-              message_err = client_website_message;
-              css_err = "display:inline-block";
+              // message_err = client_website_message;
+              // css_err = "display:inline-block";
+              Swal.fire({
+                icon: "warning",
+                title: "Sorry...",
+                text: client_website_message,
+                heightAuto: false,
+              });
             } else {
               initPasaran();
             }
@@ -168,14 +181,20 @@
             ];
           }
         } else {
-          notifications.push(
-            "An error has occured, Please Contact Administrator"
-          );
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "An error has occured, Please Contact Administrator",
+            heightAuto: false,
+          });
         }
       } else {
-        notifications.push(
-          "An error has occured, Please Contact Administrator"
-        );
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "An error has occured, Please Contact Administrator",
+          heightAuto: false,
+        });
       }
     }
   }
@@ -187,10 +206,10 @@
 <Notification duration="3000" />
 {#if client_device == "WEBSITE"}
   <div class="content" class:dark={daylight === false}>
-    <Container>
-      {#if token_browser != ""}
-        {#if pasaran_code != ""}
-          {#if client_token != ""}
+    {#if client_token != ""}
+      <Container>
+        {#if token_browser != ""}
+          {#if pasaran_code != ""}
             <Row align-items-start>
               <Permainan
                 {client_token}
@@ -208,41 +227,40 @@
                 {daylight}
               />
             </Row>
+          {:else}
+            <Row align-items-start>
+              <Home
+                {client_token}
+                {client_company}
+                {client_username}
+                {client_credit}
+                {client_ipaddress}
+                {client_timezone}
+                {client_device}
+                {listkeluaran}
+                bind:checked
+                {daylight}
+                on:pasaran={pasaran}
+              />
+            </Row>
           {/if}
-        {:else if client_token != ""}
-          <Row align-items-start>
-            <Home
-              {client_token}
-              {client_company}
-              {client_username}
-              {client_credit}
-              {client_ipaddress}
-              {client_timezone}
-              {client_device}
-              {listkeluaran}
-              bind:checked
-              {daylight}
-              on:pasaran={pasaran}
-            />
-          </Row>
-        {:else}
-          <Notif message={message_err} css_init={css_err} />
-          <div style="height: 100%;margin:100px 0px 100px 0px;">
-            <center>
-              <Loader cssstyle={"height: 100%;margin:100px 0px 100px 0px;"} />
-            </center>
-          </div>
         {/if}
-      {/if}
-    </Container>
+      </Container>
+    {:else}
+      <div style="padding-top: 100px">
+        <center>
+          <Loader />
+        </center>
+      </div>
+    {/if}
   </div>
 {:else}
-  <div class="content" class:dark={daylight === false}>
-    <Container>
-      {#if token_browser != ""}
-        <Row align-items-start>
-          {#if pasaran_code != ""}
-            {#if client_token != ""}
+  <div class="content mobile" class:dark={daylight === false}>
+    {#if client_token != ""}
+      <Container>
+        {#if token_browser != ""}
+          <Row align-items-start>
+            {#if pasaran_code != ""}
               <Permainan
                 {client_token}
                 {client_company}
@@ -255,30 +273,34 @@
                 {pasaran_name}
                 {pasaran_periode}
                 {permainan}
+                bind:checked
+                {daylight}
+              />
+            {:else}
+              <Home
+                {client_token}
+                {client_company}
+                {client_username}
+                {client_credit}
+                {client_ipaddress}
+                {client_timezone}
+                {client_device}
+                {listkeluaran}
+                bind:checked
+                {daylight}
+                on:pasaran={pasaran}
               />
             {/if}
-          {:else if client_token != ""}
-            <Home
-              {client_token}
-              {client_company}
-              {client_username}
-              {client_credit}
-              {client_ipaddress}
-              {client_timezone}
-              {client_device}
-              {listkeluaran}
-              on:pasaran={pasaran}
-            />
-          {:else}
-            <div style="height: 100%;margin:100px 0px 100px 0px;">
-              <center>
-                <Loader cssstyle={"height: 100%;margin:100px 0px 100px 0px;"} />
-              </center>
-            </div>
-          {/if}
-        </Row>
-      {/if}
-    </Container>
+          </Row>
+        {/if}
+      </Container>
+    {:else}
+      <div style="height: 100%;margin:100px 0px 100px 0px;">
+        <center>
+          <Loader cssstyle={"height: 100%;margin:100px 0px 100px 0px;"} />
+        </center>
+      </div>
+    {/if}
   </div>
 {/if}
 
@@ -294,5 +316,10 @@
 
   .content.dark {
     background-image: url("/bg-dark.svg");
+  }
+
+  .content.mobile,
+  .content.dark.mobile {
+    height: unset;
   }
 </style>

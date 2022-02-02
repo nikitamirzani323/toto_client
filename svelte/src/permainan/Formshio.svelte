@@ -6,6 +6,7 @@
   import { createEventDispatcher } from "svelte";
   import { notifications } from "../components/Noti.svelte";
   import PeriodePanel from "../components/PeriodePanel.svelte";
+  import Swal from "sweetalert2";
 
   export let idcomppasaran = "";
   export let idtrxkeluaran = "";
@@ -20,6 +21,14 @@
   export let pasaran_periode = 0;
   export let permainan_title = "COLOK";
   export let daylight = false;
+
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "mx-2 rounded-2 btn btn-success",
+      cancelButton: "mx-2 rounded-2 btn btn-danger",
+    },
+    buttonsStyling: false,
+  });
 
   let keranjang = [];
   let css_loader = "display:none;";
@@ -106,12 +115,18 @@
     const json = await res.json();
     if (json.status == "200") {
       css_loader = "display:none;";
-      notifications.push(
-        "Data telah berhasil disimpan, Total belanja : " +
-          new Intl.NumberFormat().format(totalkeranjang),
-        "warning",
-        "middle"
-      );
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Data telah berhasil disimpan",
+        html:
+          "Total belanja : " + new Intl.NumberFormat().format(totalkeranjang),
+        showConfirmButton: false,
+        timer: 5000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
       dispatch("handleInvoice", "call");
       reset();
     } else {
@@ -206,14 +221,65 @@
       reset();
       count_keranjang();
     } else {
-      alert("Tidak ada list transaksi");
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Tidak ada list transaksi",
+        showConfirmButton: false,
+        timer: 1500,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
   };
   const handleSave = (e) => {
     if (keranjang.length > 0) {
-      savetransaksi();
+      swalWithBootstrapButtons
+        .fire({
+          title: "Apakah anda ingin melanjutkan?",
+          html:
+            "Total belanja anda sebesar : <strong>IDR. " +
+            new Intl.NumberFormat().format(totalkeranjang) +
+            "</strong>",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Ya, beli sekarang!",
+          cancelButtonText: "Tidak!",
+          reverseButtons: true,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            savetransaksi();
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            Swal.fire({
+              position: "center",
+              icon: "info",
+              title: "Transaksi dibatalkan",
+              showConfirmButton: false,
+              timer: 3000,
+              background: daylight ? "#fff" : "#171717",
+              color: daylight ? "#00a86b" : "#ff9900",
+              toast: true,
+            });
+          }
+        });
     } else {
-      alert("Tidak ada list transaksi");
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Tidak ada list transaksi",
+        showConfirmButton: false,
+        timer: 1500,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
   };
   function count_keranjang() {
@@ -259,7 +325,16 @@
 
     if (bet == "") {
       flag = false;
-      notifications.push("Amount tidak boleh kosong");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Amount tidak boleh kosong",
+        showConfirmButton: false,
+        timer: 1500,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (parseInt(bet) < parseInt(min_bet)) {
       bet_shio = min_bet;
@@ -323,177 +398,86 @@
 </script>
 
 <Loader cssstyle={css_loader} />
-{#if client_device == "WEBSITE"}
-  <Card class={daylight ? "" : "bg-dark"} style="margin:0px;padding:0px;">
-    <PeriodePanel
-      {pasaran_name}
-      {permainan_title}
-      {pasaran_periode}
-      {pasaran_code}
-      {daylight}
-    />
-    <CardBody class={daylight ? "" : "dark"}>
-      <div style="margin:10px 0;">
-        <div class="row gap-3">
-          <div class="col-md">
-            <div class="form-floating">
-              <select
-                class="form-select button-bet-default"
-                class:dark={daylight === false}
-                bind:value={select_shio}
-                bind:this={select_shio_input}
-                id="selectShio"
-                aria-label="Floating label select"
-              >
-                <option selected>--Shio--</option>
-                <option value="ANJING">ANJING</option>
-                <option value="AYAM">AYAM</option>
-                <option value="MONYET">MONYET</option>
-                <option value="KAMBING">KAMBING</option>
-                <option value="KUDA">KUDA</option>
-                <option value="ULAR">ULAR</option>
-                <option value="NAGA">NAGA</option>
-                <option value="KELINCI">KELINCI</option>
-                <option value="HARIMAU">HARIMAU</option>
-                <option value="KERBAU">KERBAU</option>
-                <option value="TIKUS">TIKUS</option>
-                <option value="BABI">BABI</option>
-              </select>
-              <label for="selectShio">Pilih</label>
-            </div>
+<Card class={daylight ? "" : "bg-dark"} style="margin:0px;padding:0px;">
+  <PeriodePanel
+    {pasaran_name}
+    {permainan_title}
+    {pasaran_periode}
+    {pasaran_code}
+    {daylight}
+    {client_device}
+  />
+  <CardBody class={daylight ? "" : "dark"}>
+    <div style="margin:10px 0;">
+      <div class="row gap-3">
+        <div class="col-md">
+          <div class="form-floating">
+            <select
+              class="form-select button-bet-default"
+              class:dark={daylight === false}
+              bind:value={select_shio}
+              bind:this={select_shio_input}
+              id="selectShio"
+              aria-label="Floating label select"
+            >
+              <option selected>--Shio--</option>
+              <option value="ANJING">ANJING</option>
+              <option value="AYAM">AYAM</option>
+              <option value="MONYET">MONYET</option>
+              <option value="KAMBING">KAMBING</option>
+              <option value="KUDA">KUDA</option>
+              <option value="ULAR">ULAR</option>
+              <option value="NAGA">NAGA</option>
+              <option value="KELINCI">KELINCI</option>
+              <option value="HARIMAU">HARIMAU</option>
+              <option value="KERBAU">KERBAU</option>
+              <option value="TIKUS">TIKUS</option>
+              <option value="BABI">BABI</option>
+            </select>
+            <label for="selectShio">Pilih</label>
           </div>
-          <div class="col-md-6">
-            <div class="form-floating">
-              <input
-                bind:value={bet_shio}
-                on:keyup={handleKeyboard_number}
-                on:keypress={handleKeyboard_checkenter}
-                type="text"
-                id="betDasar"
-                class="form-control fs-5 text-end button-bet-default"
-                class:dark={daylight === false}
-                placeholder="Bet"
-                minlength="3"
-                maxlength="7"
-                tab_index="0"
-                autocomplete="off"
-              />
-              <span style="float:right;font-size:12px;color:#8a8a8a;"
-                >{new Intl.NumberFormat().format(bet_shio)}</span
-              >
-              <label for="betDasar" class="form-label"
-                >Bet (min : {new Intl.NumberFormat().format(min_bet)} dan max : {new Intl.NumberFormat().format(
-                  max_bet
-                )})</label
-              >
-            </div>
-          </div>
-          <div class="col-md-2">
-            <Button
-              id="btn2"
-              class="form-control mt-2"
-              style="border-radius:5px"
-              on:click={() => {
-                handleTambah("shio");
-              }}>TAMBAH</Button
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating">
+            <input
+              bind:value={bet_shio}
+              on:keyup={handleKeyboard_number}
+              on:keypress={handleKeyboard_checkenter}
+              type="text"
+              id="betDasar"
+              class="form-control fs-5 text-end button-bet-default"
+              class:dark={daylight === false}
+              placeholder="Bet"
+              minlength="3"
+              maxlength="7"
+              tab_index="0"
+              autocomplete="off"
+            />
+            <span style="float:right;font-size:12px;color:#8a8a8a;"
+              >{new Intl.NumberFormat().format(bet_shio)}</span
+            >
+            <label for="betDasar" class="form-label"
+              >Bet (min : {new Intl.NumberFormat().format(min_bet)} dan max : {new Intl.NumberFormat().format(
+                max_bet
+              )})</label
             >
           </div>
         </div>
-      </div>
-    </CardBody>
-  </Card>
-{:else}
-  <Card color="dark" style="border:1px solid #262424;margin:0px;padding:0px;">
-    <CardHeader
-      style="background:#323030;border-bottom:1px solid #333;border-top: 0 solid #333;"
-    >
-      <div class="float-end">
-        <div
-          style="color:white;text-align:right;font-size:12px;font-weight:bold;"
-        >
-          {pasaran_name}
+        <div class="col-md-2">
+          <Button
+            id="btn2"
+            class="form-control mt-2"
+            style="border-radius:5px"
+            on:click={() => {
+              handleTambah("shio");
+            }}>TAMBAH</Button
+          >
         </div>
       </div>
-      <h1 style="padding:0px;margin:0px;color:white;font-size:12px;">
-        {permainan_title}<br />
-        PERIODE : {pasaran_periode + " - " + pasaran_code}
-      </h1>
-    </CardHeader>
-    <CardBody style="background:#121212;padding:0px;margin:0px;">
-      <div style="margin:10px 0;">
-        <table class="table" style="background:none;width:100%;">
-          <tr>
-            <td
-              width="35%"
-              NOWRAP
-              style="padding-right:10px;vertical-align: center;"
-            >
-              <span style="color:#8a8a8a;">TEBAK</span>
-              <select
-                bind:value={select_shio}
-                bind:this={select_shio_input}
-                style="border:none;background:#303030;color:white;"
-                class="form-control"
-              >
-                <option value="">--Pilih--</option>
-                <option value="ANJING">ANJING</option>
-                <option value="AYAM">AYAM</option>
-                <option value="MONYET">MONYET</option>
-                <option value="KAMBING">KAMBING</option>
-                <option value="KUDA">KUDA</option>
-                <option value="ULAR">ULAR</option>
-                <option value="NAGA">NAGA</option>
-                <option value="KELINCI">KELINCI</option>
-                <option value="HARIMAU">HARIMAU</option>
-                <option value="KERBAU">KERBAU</option>
-                <option value="TIKUS">TIKUS</option>
-                <option value="BABI">BABI</option>
-              </select>
-              <span
-                class="help-block"
-                style="text-align:right;font-size:12px;"
-              />
-            </td>
+    </div>
+  </CardBody>
+</Card>
 
-            <td
-              width="*"
-              NOWRAP
-              style="padding-right:10px;vertical-align: center;text-align:right;"
-            >
-              <span style="color:#8a8a8a;"
-                >Bet (min : {new Intl.NumberFormat().format(min_bet)} dan max : {new Intl.NumberFormat().format(
-                  max_bet
-                )})</span
-              >
-              <input
-                bind:value={bet_shio}
-                on:keyup={handleKeyboard_number}
-                on:keypress={handleKeyboard_checkenter}
-                type="text"
-                class="form-control"
-                placeholder="Bet"
-                style="border:none;background:#303030;color:white;font-size:20px;text-align:right;"
-                minlength="3"
-                maxlength="7"
-                tab_index="0"
-              />
-              <span style="text-align:right;font-size:12px;color:#8a8a8a;"
-                >{new Intl.NumberFormat().format(bet_shio)}</span
-              >
-            </td>
-          </tr>
-        </table>
-        <Button
-          block
-          id="btn2"
-          on:click={() => {
-            handleTambah("shio");
-          }}>TAMBAH</Button
-        >
-      </div>
-    </CardBody>
-  </Card>
-{/if}
 <Modal modal_id={"modalError"} modal_size={"modal-dialog-centered"}>
   <slot:template slot="header">
     <div class="float-end">
@@ -528,6 +512,7 @@
   {max_bet}
   {win_bet}
   {diskon_bet}
+  {daylight}
 />
 
 <style>

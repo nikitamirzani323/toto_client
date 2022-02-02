@@ -7,10 +7,10 @@
       messageType = messageType ? messageType : "danger";
       switch (messagePos) {
         case "middle":
-			messagePos = "top-50 start-50 translate-middle"
+          messagePos = "top-50 start-50 translate-middle";
           break;
         default:
-			messagePos = "bottom-0 start-50 translate-middle-x"
+          messagePos = "bottom-0 start-50 translate-middle-x";
           break;
       }
       update((arr) => [...arr, { message, messageType, messagePos }]);
@@ -47,23 +47,25 @@
 		</div>
 	</div> -->
 
-   <div
-      class="toast-container position-absolute p-3 {$notifications[0].messagePos} "
-      id="toastPlacement"
-      data-original-class="toast-container position-absolute p-3"
+  <div
+    class="toast-container position-absolute p-3 {$notifications[0]
+      .messagePos} "
+    id="toastPlacement"
+    data-original-class="toast-container position-absolute p-3"
+  >
+    <div
+      class="toast bg-dark h-50 text-{$notifications[0]
+        .messageType} fs-5 fade show"
     >
-      <div
-        class="toast bg-dark text-{$notifications[0].messageType}  fade show"
-      >
-        <div class="toast-body border border-light rounded-2 text-center">
-          {$notifications[0].message}
-        </div>
+      <div class="toast-body border border-light rounded-2 text-center">
+        {$notifications[0].message}
       </div>
     </div>
+  </div>
 {/if}
 
 <style>
-	.toast-container {
-		z-index: 1080;
-	}
+  .toast-container {
+    z-index: 1080;
+  }
 </style>
