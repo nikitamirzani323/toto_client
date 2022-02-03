@@ -4068,9 +4068,27 @@
         break;
       case "pilihan":
         path_432 = path;
-        idmodal = "modalpilihan432";
-        myModal = new bootstrap.Modal(document.getElementById(idmodal));
-        myModal.show();
+        Swal.fire({
+          title: "Pilih permainan dibawah ini :",
+          showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonText: "Diskon",
+          denyButtonText: `Non Diskon / Full`,
+          cancelButtonText: `Bolak Balik / BB`,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            handlePilihan("DISC");
+          } else if (result.isDenied) {
+            handlePilihan("FULL");
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            handlePilihan("BB");
+          }
+        });
+        // myModal = new bootstrap.Modal(document.getElementById(idmodal));
+        // myModal.show();
         break;
     }
   };
@@ -5176,39 +5194,6 @@
     </TabContent>
   </CardBody>
 </Card>
-
-<Modal2
-  modal_id={"modalpilihan432"}
-  modal_footer_flag={false}
-  modal_size={"modal-dialog-centered"}
->
-  <slot:template slot="body">
-    <center style="margin-top:20px;margin-bottom:20px;">
-      <span style="color: white;font-weight:12px;"
-        >Pilih Permainan dibawah ini :
-      </span>
-      <br />
-      <button
-        on:click={() => {
-          handlePilihan("DISC");
-        }}
-        class="btn btn-info btn-lg">DISKON</button
-      >
-      <button
-        on:click={() => {
-          handlePilihan("FULL");
-        }}
-        class="btn btn-info btn-lg">NON DISKON / FULL</button
-      >
-      <button
-        on:click={() => {
-          handlePilihan("BB");
-        }}
-        class="btn btn-info btn-lg">BOLAK BALIK / BB</button
-      >
-    </center>
-  </slot:template>
-</Modal2>
 
 <Modal modal_id={"modalError"} modal_size={"modal-dialog-centered"}>
   <slot:template slot="header">
