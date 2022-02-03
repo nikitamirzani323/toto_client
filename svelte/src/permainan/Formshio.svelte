@@ -133,7 +133,24 @@
       css_loader = "display:none;";
       if (json.status == "500" || json.status == "404") {
         group_btn_beli = true;
-        notifications.push(json.message);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: json.message,
+          showConfirmButton: false,
+          timer: 3000,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+          toast: true,
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: json.message,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+        });
       }
     }
   }
@@ -339,12 +356,30 @@
     if (parseInt(bet) < parseInt(min_bet)) {
       bet_shio = min_bet;
       flag = false;
-      notifications.push("Minimal Bet : " + min_bet);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Minimal Bet : " + min_bet,
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (parseInt(bet) > parseInt(max_bet)) {
       bet_shio = max_bet;
       flag = false;
-      notifications.push(" Maximal Bet : " + max_bet);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Maximal Bet : " + max_bet,
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (flag == true) {
       diskon = bet * diskon_bet;

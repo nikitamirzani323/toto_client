@@ -251,6 +251,7 @@ func Listpasaran(c *fiber.Ctx) error {
 		"time":   time.Since(render_page).String(),
 	})
 }
+
 func Checkpasaran(c *fiber.Ctx) error {
 	client := new(clientcheckpasaran)
 	origin := c.Get("origin")

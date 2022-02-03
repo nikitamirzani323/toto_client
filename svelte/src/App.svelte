@@ -108,7 +108,7 @@
         switch (initJson.company) {
           case "":
             css_err = "display:inline-block";
-            message_err = "Agen not found, Please contact admin";
+            message_err = "Agent not found, Please contact admin";
             Swal.fire({
               icon: "error",
               title: "Oops...",
@@ -310,7 +310,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    background-attachment: fixed;
+    background-attachment: scroll;
     height: 100%;
   }
 

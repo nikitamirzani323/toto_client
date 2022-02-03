@@ -140,7 +140,24 @@
       css_loader = "display:none;";
       if (json.status == "500" || json.status == "404") {
         group_btn_beli = true;
-        notifications.push(json.message);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: json.message,
+          showConfirmButton: false,
+          timer: 3000,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+          toast: true,
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: json.message,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+        });
       }
     }
   }
@@ -344,17 +361,44 @@
     if (nomor == "") {
       select_kombinasi_1_input.focus();
       flag = false;
-      notifications.push("Tebak tidak boleh kosong");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Tebak tidak boleh kosong",
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (nomor2 == "") {
       select_kombinasi_2_input.focus();
       flag = false;
-      notifications.push("Tebak tidak boleh kosong");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Tebak tidak boleh kosong",
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (nomor3 == "") {
       select_kombinasi_3_input.focus();
       flag = false;
-      notifications.push("Tebak tidak boleh kosong");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Tebak tidak boleh kosong",
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (bet == "") {
       flag = false;
@@ -372,12 +416,30 @@
     if (parseInt(bet) < parseInt(min_bet)) {
       bet_kombinasi = min_bet;
       flag = false;
-      notifications.push("Minimal Bet : " + min_bet);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Minimal Bet : " + min_bet,
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (parseInt(bet) > parseInt(max_bet)) {
       bet_kombinasi = max_bet;
       flag = false;
-      notifications.push(" Maximal Bet : " + max_bet);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Maximal Bet : " + max_bet,
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (flag == true) {
       diskon = bet * diskon_bet;

@@ -281,6 +281,14 @@
           color: daylight ? "#00a86b" : "#ff9900",
           toast: true,
         });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: json.message,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+        });
       }
     }
   }
@@ -5230,6 +5238,7 @@
   {group_btn_beli}
   {count_line_4d}
   {count_line_3d}
+  {count_line_3dd}
   {count_line_2d}
   {count_line_2dd}
   {count_line_2dt}
@@ -5238,21 +5247,43 @@
   {minimal_bet}
   {max4d_bet}
   {max3d_bet}
+  {max3dd_bet}
   {max2d_bet}
   {max2dd_bet}
   {max2dt_bet}
   {disc4d_bet}
   {disc3d_bet}
+  {disc3dd_bet}
   {disc2d_bet}
   {disc2dd_bet}
   {disc2dt_bet}
   {win4d_bet}
   {win3d_bet}
+  {win3dd_bet}
   {win2d_bet}
   {win2dd_bet}
   {win2dt_bet}
+  {win4dnodiskon_bet}
+  {win3dnodiskon_bet}
+  {win3ddnodiskon_bet}
+  {win2dnodiskon_bet}
+  {win2ddnodiskon_bet}
+  {win2dtnodiskon_bet}
+  {win4dbb_kena_bet}
+  {win3dbb_kena_bet}
+  {win3ddbb_kena_bet}
+  {win2dbb_kena_bet}
+  {win2ddbb_kena_bet}
+  {win2dtbb_kena_bet}
+  {win4dbb_bet}
+  {win3dbb_bet}
+  {win3ddbb_bet}
+  {win2dbb_bet}
+  {win2ddbb_bet}
+  {win2dtbb_bet}
   {limitline_4d}
   {limitline_3d}
+  {limitline_3dd}
   {limitline_2d}
   {limitline_2dd}
   {limitline_2dt}

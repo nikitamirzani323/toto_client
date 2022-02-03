@@ -441,6 +441,14 @@
           color: daylight ? "#00a86b" : "#ff9900",
           toast: true,
         });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: json.message,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+        });
       }
     }
   }

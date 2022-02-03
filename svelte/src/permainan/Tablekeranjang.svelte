@@ -533,14 +533,20 @@
         </tr>
       </tbody>
     </table>
-    <p style="font-size:13px;padding:5px;color:white;">
+    <p
+      style="font-size:13px;padding:5px;color:{daylight ? '#171717' : 'white'};"
+    >
       <b>Contoh Penulisan 4D/3D/2D:</b><br />
       1234 : 4D<br />
       123 : 3D<br /> *123 : 3D<br /> 123* : 3DD<br />
       12 : 2D <br />
       **12 : 2D<br /> 12** : 2DD<br /> *12* : 2DT
     </p>
-    <p style="font-size:13px;padding: 5px;color:white;">
+    <p
+      style="font-size:13px;padding: 5px;color:{daylight
+        ? '#171717'
+        : 'white'};"
+    >
       <b>CARA BERMAIN</b><br />
       Menebak 4 angka, 3 angka dan 2 angka
       <br />

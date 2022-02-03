@@ -260,7 +260,7 @@
     <h5 class="modal-title">50-50</h5>
   </slot:template>
   <slot:template slot="body">
-    <TabContent style="padding: 0px;margin:0px;">
+    <TabContent class="periode-menu" style="padding: 0px;margin:0px;">
       <TabPane
         tabId="informasi_5050umum"
         tab="UMUM"
@@ -325,7 +325,11 @@
             </tr>
           </tbody>
         </table>
-        <p style="padding: 5px;color:white;font-size:13px;">
+        <p
+          style="padding: 5px;color:{daylight
+            ? '#171717'
+            : 'white'};font-size:13px;"
+        >
           CARA BERMAIN
           <br />
           Permainan ganjil/genap, besar/kecil, dan tengah/ tepi UMUM
@@ -444,7 +448,11 @@
             </tr>
           </tbody>
         </table>
-        <p style="padding: 5px;color:white;font-size:13px;">
+        <p
+          style="padding: 5px;color:{daylight
+            ? '#171717'
+            : 'white'};font-size:13px;"
+        >
           CARA BERMAIN
           <br />
           Menebak ganjil/genap, besar/kecil <br />
@@ -585,7 +593,11 @@
             </tr>
           </tbody>
         </table>
-        <p style="padding: 5px;color:white;font-size:13px;">
+        <p
+          style="padding: 5px;color:{daylight
+            ? '#171717'
+            : 'white'};font-size:13px;"
+        >
           CARA BERMAIN
           <br />
           MONO STEREO <br />

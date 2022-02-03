@@ -42,6 +42,7 @@
   let resulttogel = [];
   let listhasilinvoice = [];
   let listhasilinvoicebet = [];
+  let listpasaran = [];
   let searchbukumimpi = "";
   let tipe = "";
   let idinvoiceall = "";
@@ -109,10 +110,29 @@
           ];
         }
       } else {
-        notifications.push("Error");
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: "Data tidak ditemukan!",
+          showConfirmButton: false,
+          timer: 3000,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+          toast: true,
+        });
       }
     } else {
-      notifications.push("Error");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title:
+          "Terjadi kesalahan pada server, silahkan coba beberapa saat lagi!",
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
   }
   async function fetch_resultall() {
@@ -150,10 +170,29 @@
         }
         // console.log(listhasilkeluaran);
       } else {
-        notifications.push("Error");
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: "Data tidak ditemukan!",
+          showConfirmButton: false,
+          timer: 1500,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+          toast: true,
+        });
       }
     } else {
-      notifications.push("Error");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title:
+          "Terjadi kesalahan pada server, silahkan coba beberapa saat lagi!",
+        showConfirmButton: false,
+        timer: 1500,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
   }
   async function fetch_resultbypasaran(e, y) {
@@ -231,10 +270,29 @@
           ];
         }
       } else {
-        notifications.push("Error");
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: "Tidak menemukan data",
+          showConfirmButton: false,
+          timer: 1500,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+          toast: true,
+        });
       }
     } else {
-      notifications.push("Error");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title:
+          "Terjadi kesalahan pada server, silahkan coba beberapa saat lagi!",
+        showConfirmButton: false,
+        timer: 1500,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
   }
   async function fetch_invoicelldetail(e, periode) {
@@ -349,13 +407,106 @@
           );
           myModal.show();
         } else {
-          notifications.push("Error");
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "Tidak menemukan data",
+            showConfirmButton: false,
+            timer: 1500,
+            background: daylight ? "#fff" : "#171717",
+            color: daylight ? "#00a86b" : "#ff9900",
+            toast: true,
+          });
         }
       } else {
-        notifications.push("Error");
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title:
+            "Terjadi kesalahan pada server, silahkan coba beberapa saat lagi",
+          showConfirmButton: false,
+          timer: 1500,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+          toast: true,
+        });
       }
     } else {
-      notifications.push("Data Not Found", "", "middle");
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Tidak menemukan data",
+        showConfirmButton: false,
+        timer: 1500,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
+    }
+  }
+
+  async function fetch_jadwal_pasaran() {
+    const respasaran = await fetch("/api/listpasaran", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token: client_token,
+        company: client_company,
+        timezone: client_timezone,
+      }),
+    });
+    if (!respasaran.ok) {
+      const pasarMessage = `An error has occured: ${resPasar.status}`;
+      throw new Error(pasarMessage);
+    } else {
+      const jsonpasaran = await respasaran.json();
+      if (jsonpasaran.status == 200) {
+        let record = jsonpasaran.record;
+        if (record != null) {
+          for (var i = 0; i < record.length; i++) {
+            listpasaran = [
+              ...listpasaran,
+              {
+                pasaran_id: record[i]["pasaran_id"],
+                pasaran_marketclose: record[i]["pasaran_marketclose"],
+                pasaran_marketopen: record[i]["pasaran_marketopen"],
+                pasaran_marketschedule: record[i]["pasaran_marketschedule"],
+                pasaran_periode: record[i]["pasaran_periode"],
+                pasaran_status: record[i]["pasaran_status"],
+                pasaran_tglkeluaran: record[i]["pasaran_tglkeluaran"],
+                pasaran_togel: record[i]["pasaran_togel"],
+                pasaran_url: record[i]["pasaran_url"],
+                pasaran_jadwal: record[i]["pasaran_jadwal"],
+              },
+            ];
+          }
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "Tidak menemukan pasaran",
+            showConfirmButton: false,
+            timer: 1500,
+            background: daylight ? "#fff" : "#171717",
+            color: daylight ? "#00a86b" : "#ff9900",
+            toast: true,
+          });
+        }
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title:
+            "Terjadi kesalahan pada server, silahkan coba beberapa saat lagi",
+          showConfirmButton: false,
+          timer: 1500,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+          toast: true,
+        });
+      }
     }
   }
   $: {
@@ -386,6 +537,10 @@
       case "bukumimpi":
         idmodal = "modalbukumimpi";
         fetch_bukumimpi();
+        break;
+      case "pasaran":
+        idmodal = "modalpasaran";
+        fetch_jadwal_pasaran();
         break;
     }
     let myModal = new bootstrap.Modal(document.getElementById(idmodal));
@@ -482,7 +637,7 @@
               &nbsp;
               <button
                 on:click={() => {
-                  handleClickButtonTop("invoice");
+                  handleClickButtonTop("pasaran");
                 }}
                 class="btn btn-play"
                 class:dark={daylight === false}
@@ -559,15 +714,16 @@
     <Col style="padding:5px;margin:0px;">
       <Card style="border:none;background-color:transparent;text-align:right;">
         <CardBody style="background-color: transparent; padding: 1rem 0;">
-          <span style="font-size:12px;color:#fff;"
-            >{client_username} ({client_ipaddress})</span
-          ><br />
-          <span style="font-size:12px;color:#fff;"
-            >Saldo : IDR <span id="style_text">{display_credit}</span></span
-          ><br />
           <span style="font-size:10px;">Timezone : {client_timezone}</span><br
           />
           <span id="style_text">{clockmachine} WIB</span>
+          <br />
+          <span class="user-detail mobile" class:dark={daylight === false}
+            >{client_username} ({client_ipaddress})</span
+          ><br />
+          <span style="font-size:1rem;color: {daylight ? '#171717' : '#fff'};"
+            >Saldo : IDR <span id="style_text">{display_credit}</span></span
+          ><br />
         </CardBody>
       </Card>
     </Col>
@@ -581,7 +737,7 @@
       on:click={() => {
         handleClickButtonTop("result");
       }}
-      class="btn btn-play "
+      class="btn btn-play mobile"
       class:dark={daylight === false}
       type="button">RESULT</button
     >&nbsp;
@@ -589,15 +745,23 @@
       on:click={() => {
         handleClickButtonTop("invoice");
       }}
-      class="btn btn-play"
+      class="btn btn-play mobile"
       class:dark={daylight === false}
       type="button">INVOICE</button
     >&nbsp;
     <button
       on:click={() => {
+        handleClickButtonTop("pasaran");
+      }}
+      class="btn btn-play mobile"
+      class:dark={daylight === false}
+      type="button">PASARAN</button
+    >&nbsp;
+    <button
+      on:click={() => {
         handleClickButtonTop("bukumimpi");
       }}
-      class="btn btn-play"
+      class="btn btn-play mobile"
       class:dark={daylight === false}
       type="button">BUKU MIMPI</button
     >
@@ -617,32 +781,46 @@
   </slot:template>
   <slot:template slot="body">
     {#if listhasilkeluaran != ""}
-      <table class="table table-dark table-striped">
+      <table
+        class="table"
+        class:table-dark={daylight === false}
+        class:table-striped={daylight === false}
+      >
         <thead>
           <tr>
             <th
               width="1%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              style="text-align:center;vertical-align:top;background:{daylight
+                ? '#fff'
+                : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
               >NO</th
             >
             <th
               width="15%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              style="text-align:center;vertical-align:top;background:{daylight
+                ? '#fff'
+                : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
               >TANGGAL</th
             >
             <th
               width="*"
-              style="text-align:left;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              style="text-align:left;vertical-align:top;background:{daylight
+                ? '#fff'
+                : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
               >PASARAN</th
             >
             <th
               width="15%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              style="text-align:center;vertical-align:top;background:{daylight
+                ? '#fff'
+                : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
               >PERIODE</th
             >
             <th
               width="25%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              style="text-align:center;vertical-align:top;background:{daylight
+                ? '#fff'
+                : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
               >HASIL</th
             >
           </tr>
@@ -678,8 +856,9 @@
               >
               <td
                 NOWRAP
-                style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};color:rgb(255, 204, 0);"
-                >{rec.keluaran_result}</td
+                style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};color:{daylight
+                  ? '#00A86B'
+                  : '#fc0'};">{rec.keluaran_result}</td
               >
             </tr>
           {/each}
@@ -688,7 +867,9 @@
     {:else}
       <Placeholder
         total_placeholder="3"
-        card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+        card_style="background-color:{daylight
+          ? '#f3f3f3'
+          : '#2c2c2c'};border:none;margin-top:5px;"
       />
     {/if}
   </slot:template>
@@ -707,27 +888,39 @@
   </slot:template>
   <slot:template slot="body">
     {#if resulttogel != ""}
-      <table class="table table-dark table-striped">
+      <table
+        class="table"
+        class:table-dark={daylight === false}
+        class:table-striped={daylight === false}
+      >
         <thead>
           <tr>
             <th
               width="1%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              style="text-align:center;vertical-align:top;background:{daylight
+                ? '#fff'
+                : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
               >NO</th
             >
             <th
               width="15%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              style="text-align:center;vertical-align:top;background:{daylight
+                ? '#fff'
+                : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
               >TANGGAL</th
             >
             <th
               width="15%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              style="text-align:center;vertical-align:top;background:{daylight
+                ? '#fff'
+                : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
               >PERIODE</th
             >
             <th
               width="25%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              style="text-align:center;vertical-align:top;background:{daylight
+                ? '#fff'
+                : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
               >HASIL</th
             >
           </tr>
@@ -753,8 +946,9 @@
               >
               <td
                 NOWRAP
-                style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};color:rgb(255, 204, 0);"
-                >{rec.result}</td
+                style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};color:{daylight
+                  ? '#00A86B'
+                  : '#fc0'};">{rec.result}</td
               >
             </tr>
           {/each}
@@ -763,7 +957,9 @@
     {:else}
       <Placeholder
         total_placeholder="3"
-        card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+        card_style="background-color:{daylight
+          ? '#f3f3f3'
+          : '#2c2c2c'};border:none;margin-top:5px;"
       />
     {/if}
   </slot:template>
@@ -780,32 +976,42 @@
   </slot:template>
   <slot:template slot="body">
     {#if listhasilinvoice != ""}
-      <table class="table table-dark">
+      <table class="table" class:table-dark={daylight === false}>
         <thead>
           <tr>
             <th
               width="1%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              style="text-align:center;vertical-align:top;background:{daylight
+                ? '#fff'
+                : '#303030'};font-size:{modal_table_fontsize_header};"
               >STATUS</th
             >
             <th
               width="15%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              style="text-align:center;vertical-align:top;background:{daylight
+                ? '#fff'
+                : '#303030'};font-size:{modal_table_fontsize_header};"
               >TANGGAL</th
             >
             <th
               width="*"
-              style="text-align:left;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              style="text-align:left;vertical-align:top;background:{daylight
+                ? '#fff'
+                : '#303030'};font-size:{modal_table_fontsize_header};"
               >PASARAN</th
             >
             <th
               width="15%"
-              style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              style="text-align:center;vertical-align:top;background:{daylight
+                ? '#fff'
+                : '#303030'};font-size:{modal_table_fontsize_header};"
               >PERIODE</th
             >
             <th
               width="25%"
-              style="text-align:right;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+              style="text-align:right;vertical-align:top;background:{daylight
+                ? '#fff'
+                : '#303030'};font-size:{modal_table_fontsize_header};"
               >WINLOSE</th
             >
           </tr>
@@ -841,7 +1047,9 @@
               >
               <td
                 NOWRAP
-                style="text-align: right;vertical-align: top;font-size:{modal_table_fontsize_body};color:rgb(255, 204, 0);"
+                style="text-align: right;vertical-align: top;font-size:{modal_table_fontsize_body};color:{daylight
+                  ? '#00A86B'
+                  : '#fc0'};"
               >
                 {new Intl.NumberFormat().format(rec.invoice_totallose)}
               </td>
@@ -852,7 +1060,94 @@
     {:else}
       <Placeholder
         total_placeholder="5"
-        card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+        card_style="background-color:{daylight
+          ? '#f3f3f3'
+          : '#2c2c2c'};border:none;margin-top:5px;"
+      />
+    {/if}
+  </slot:template>
+</Modal>
+<Modal
+  modal_id={"modalpasaran"}
+  modal_footer_flag={false}
+  modal_body_height={"height:350px;"}
+  modal_size={"modal-xl modal-dialog-centered"}
+  {daylight}
+>
+  <slot:template slot="header">
+    <h5 class="modal-title" class:dark={daylight === false}>INFO PASARAN</h5>
+  </slot:template>
+  <slot:template slot="body">
+    {#if listpasaran != ""}
+      <table class="table" class:table-dark={daylight === false}>
+        <thead>
+          <tr>
+            <th
+              style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_header};"
+              >PASARAN</th
+            >
+            <th
+              style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_header};"
+              >DIUNDI</th
+            >
+            <th
+              style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_header};"
+              >JADWAL</th
+            >
+            <th
+              style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_header};"
+              >TUTUP</th
+            >
+            <th
+              style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_header};"
+              >BUKA</th
+            >
+          </tr>
+        </thead>
+        <tbody>
+          {#each listpasaran as rec}
+            <tr>
+              <td NOWRAP style="text-align: center;vertical-align: top;">
+                <a
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="kunjungi website ini : {rec.pasaran_url}"
+                  href={rec.pasaran_url}
+                  target="_blank"
+                  class="link-{daylight ? 'info' : 'light'}"
+                  >{rec.pasaran_togel}</a
+                >
+              </td>
+              <td
+                NOWRAP
+                style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
+                >{rec.pasaran_jadwal}
+              </td>
+              <td
+                NOWRAP
+                style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
+                >{rec.pasaran_marketschedule}
+              </td>
+              <td
+                NOWRAP
+                style="text-align: left;vertical-align: top;font-size:{modal_table_fontsize_body};"
+                >{rec.pasaran_marketclose}</td
+              >
+              <td
+                NOWRAP
+                style="text-align: center;vertical-align: top;font-size:{modal_table_fontsize_body};"
+                >{rec.pasaran_marketopen}</td
+              >
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    {:else}
+      <Placeholder
+        total_placeholder="5"
+        card_style="background-color:{daylight
+          ? '#f3f3f3'
+          : '#2c2c2c'};border:none;margin-top:5px;"
       />
     {/if}
   </slot:template>
@@ -953,19 +1248,20 @@
           >
         </li>
       </ul>
-      <div class="d-flex">
-        <div class="form-floating">
-          <input
-            bind:value={searchbukumimpi}
-            on:keypress={handleKeyboardbukumimpi_checkenter}
-            style="border-radius: 5px;border: none; background: rgb(48, 48, 48) none repeat scroll 0% 0%; color: white; font-size: {modal_table_fontsize_bukumimpi_header}; "
-            placeholder="cari mimpi kamu"
-            class="form-control"
-            type="text"
-            id="cariMimpi"
-          />
-          <label for="cariMimpi" class="form-label">cari mimpi kamu</label>
-        </div>
+      <div class="d-flex {client_device !== 'WEBSITE' ? 'flex-fill mt-3' : ''}">
+        <input
+          bind:value={searchbukumimpi}
+          on:keypress={handleKeyboardbukumimpi_checkenter}
+          style="border-radius: 5px;border: none; background: {daylight
+            ? '#f3f3f3'
+            : '#303030'} none repeat scroll 0% 0%; color: {daylight
+            ? '#171717'
+            : '#fff'}; font-size: {modal_table_fontsize_bukumimpi_header}; "
+          placeholder="cari mimpi kamu"
+          class="form-control"
+          type="text"
+          id="cariMimpi"
+        />
       </div>
     </div>
   </slot:template>
@@ -983,7 +1279,9 @@
               <div class="row">
                 <div class="col-2">
                   <span
-                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                    style="color:{daylight
+                      ? '#00A86B'
+                      : '#fc0'};font-size:{modal_table_fontsize_bukumimpi_header};"
                     >{rec.bukumimpi_tipe}</span
                   >
                 </div>
@@ -991,7 +1289,9 @@
                   {rec.bukumimpi_nama}
                   <br />
                   <span
-                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                    style="color:{daylight
+                      ? '#00A86B'
+                      : '#fc0'};font-size:{modal_table_fontsize_bukumimpi_header};"
                     >{rec.bukumimpi_nomor}</span
                   >
                 </div>
@@ -1000,7 +1300,9 @@
           {:else}
             <Placeholder
               total_placeholder="10"
-              card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+              card_style="background-color:{daylight
+                ? '#f3f3f3'
+                : '#2c2c2c'};border:none;margin-top:5px;"
             />
           {/if}
         </div>
@@ -1017,7 +1319,9 @@
               <div class="row">
                 <div class="col-2">
                   <span
-                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                    style="color:{daylight
+                      ? '#00A86B'
+                      : '#fc0'};font-size:{modal_table_fontsize_bukumimpi_header};"
                     >{rec.bukumimpi_tipe}</span
                   >
                 </div>
@@ -1025,7 +1329,9 @@
                   {rec.bukumimpi_nama}
                   <br />
                   <span
-                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                    style="color:{daylight
+                      ? '#00A86B'
+                      : '#fc0'};font-size:{modal_table_fontsize_bukumimpi_header};"
                     >{rec.bukumimpi_nomor}</span
                   >
                 </div>
@@ -1034,7 +1340,9 @@
           {:else}
             <Placeholder
               total_placeholder="1-"
-              card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+              card_style="background-color:{daylight
+                ? '#f3f3f3'
+                : '#2c2c2c'};border:none;margin-top:5px;"
             />
           {/if}
         </div>
@@ -1051,7 +1359,9 @@
               <div class="row">
                 <div class="col-2">
                   <span
-                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                    style="color:{daylight
+                      ? '#00A86B'
+                      : '#fc0'};font-size:{modal_table_fontsize_bukumimpi_header};"
                     >{rec.bukumimpi_tipe}</span
                   >
                 </div>
@@ -1059,7 +1369,9 @@
                   {rec.bukumimpi_nama}
                   <br />
                   <span
-                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                    style="color:{daylight
+                      ? '#00A86B'
+                      : '#fc0'};font-size:{modal_table_fontsize_bukumimpi_header};"
                     >{rec.bukumimpi_nomor}</span
                   >
                 </div>
@@ -1068,7 +1380,9 @@
           {:else}
             <Placeholder
               total_placeholder="1-"
-              card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+              card_style="background-color:{daylight
+                ? '#f3f3f3'
+                : '#2c2c2c'};border:none;margin-top:5px;"
             />
           {/if}
         </div>
@@ -1086,7 +1400,9 @@
                 <div class="col-2">
                   <span
                     class="text-center"
-                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                    style="color:{daylight
+                      ? '#00A86B'
+                      : '#fc0'};font-size:{modal_table_fontsize_bukumimpi_header};"
                     >{rec.bukumimpi_tipe}</span
                   >
                 </div>
@@ -1094,7 +1410,9 @@
                   {rec.bukumimpi_nama}
                   <br />
                   <span
-                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                    style="color:{daylight
+                      ? '#00A86B'
+                      : '#fc0'};font-size:{modal_table_fontsize_bukumimpi_header};"
                     >{rec.bukumimpi_nomor}</span
                   >
                 </div>
@@ -1103,7 +1421,9 @@
           {:else}
             <Placeholder
               total_placeholder="1-"
-              card_style="background-color:#2c2c2c;border:none;margin-top:5px;"
+              card_style="background-color:{daylight
+                ? '#f3f3f3'
+                : '#2c2c2c'};border:none;margin-top:5px;"
             />
           {/if}
         </div>
@@ -1501,53 +1821,66 @@
         <td
           NOWRAP
           width="50%"
-          style="text-align:right;vertical-align:top;color:white;font-size:{modal_table_fontsize_body};"
-          >TOTAL BAYAR</td
+          style="text-align:right;vertical-align:top;color:{daylight
+            ? '#171717'
+            : 'white'};font-size:{modal_table_fontsize_body};">TOTAL BAYAR</td
         >
         <td
           NOWRAP
           width="1%"
-          style="text-align:center;vertical-align:top;color:white;font-size:{modal_table_fontsize_body};"
-          >:</td
+          style="text-align:center;vertical-align:top;color:{daylight
+            ? '#171717'
+            : 'white'};font-size:{modal_table_fontsize_body};">:</td
         >
         <td
           NOWRAP
           width="*"
-          style="text-align:right;vertical-align:top;color:white;font-size:{modal_table_fontsize_body};color:#fc0;"
-          >{new Intl.NumberFormat().format(subtotal_bayar)}</td
+          style="text-align:right;vertical-align:top;color:{daylight
+            ? '#171717'
+            : 'white'};font-size:{modal_table_fontsize_body};color:{daylight
+            ? '#00A86B'
+            : '#fc0'};">{new Intl.NumberFormat().format(subtotal_bayar)}</td
         >
       </tr>
       <tr>
         <td
           NOWRAP
-          style="text-align:right;vertical-align:top;color:white;font-size:12px;"
-          >TOTAL WINNER</td
+          style="text-align:right;vertical-align:top;color:{daylight
+            ? '#171717'
+            : 'white'};font-size:12px;">TOTAL WINNER</td
         >
         <td
           NOWRAP
-          style="text-align:center;vertical-align:top;color:white;font-size:12px;"
-          >:</td
+          style="text-align:center;vertical-align:top;color:{daylight
+            ? '#171717'
+            : 'white'};font-size:12px;">:</td
         >
         <td
           NOWRAP
-          style="text-align:right;vertical-align:top;color:white;font-size:12px;color:#fc0;"
+          style="text-align:right;vertical-align:top;color:{daylight
+            ? '#171717'
+            : 'white'};font-size:12px;color:{daylight ? '#00A86B' : '#fc0'};"
           >{new Intl.NumberFormat().format(subtotal_winner)}</td
         >
       </tr>
       <tr>
         <td
           NOWRAP
-          style="text-align:right;vertical-align:top;color:white;font-size:12px;"
-          >WINLOSE</td
+          style="text-align:right;vertical-align:top;color:{daylight
+            ? '#171717'
+            : 'white'};font-size:12px;">WINLOSE</td
         >
         <td
           NOWRAP
-          style="text-align:center;vertical-align:top;color:white;font-size:12px;"
-          >:</td
+          style="text-align:center;vertical-align:top;color:{daylight
+            ? '#171717'
+            : 'white'};font-size:12px;">:</td
         >
         <td
           NOWRAP
-          style="text-align:right;vertical-align:top;color:white;font-size:12px;color:#fc0;"
+          style="text-align:right;vertical-align:top;color:{daylight
+            ? '#171717'
+            : 'white'};font-size:12px;color:{daylight ? '#00A86B' : '#fc0'};"
           >{new Intl.NumberFormat().format(total_winlose)}</td
         >
       </tr>
@@ -1686,6 +2019,9 @@
     width: 122.19px;
   }
 
+  .btn.btn-play.mobile {
+    font-size: 11px;
+  }
   .btn.btn-play.dark {
     color: #fff;
     border-color: #fff;
@@ -1709,8 +2045,12 @@
     font-size: 15px;
     color: #171717;
   }
-
+  .user-detail.mobile {
+    font-size: 1rem;
+  }
   .user-detail.dark {
     color: #fff;
+  }
+  @media (min-width: 768px) {
   }
 </style>

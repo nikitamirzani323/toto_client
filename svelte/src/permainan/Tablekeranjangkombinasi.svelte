@@ -218,7 +218,11 @@
         </tr>
       </tbody>
     </table>
-    <p style="font-size:13px;padding: 5px;color:white;">
+    <p
+      style="font-size:13px;padding: 5px;color:{daylight
+        ? '#171717'
+        : 'white'};"
+    >
       <b>CARA BERMAIN</b>
       <br />
       Struktur ABCD<br /><br />

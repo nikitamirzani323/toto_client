@@ -560,7 +560,7 @@
             type="button"
             role="tab"
             aria-controls="pills-pasangan"
-            aria-selected="true">PASANGAN</button
+            aria-selected="true">BET HISTORY</button
           >
         </li>
 
@@ -1034,40 +1034,45 @@
     </Col>
   {:else}
     <div style="margin-top:5px;">&nbsp;</div>
-    <ul
-      class="nav nav-fill nav-pills mb-3"
-      id="pills-tab"
-      role="tablist"
-      style="background-color: #181818;"
-    >
-      <li class="nav-item" role="presentation">
-        <button
-          style="font-size:10px;"
-          class="nav-link active"
-          id="pills-keranjang-tab"
-          data-bs-toggle="pill"
-          data-bs-target="#pills-keranjang"
-          type="button"
-          role="tab"
-          aria-controls="pills-keranjang"
-          aria-selected="true">KERANJANG</button
-        >
-      </li>
-      <li class="nav-item" role="presentation">
-        <button
-          style="font-size:10px;"
-          class="nav-link"
-          id="pills-pasangan-tab"
-          data-bs-toggle="pill"
-          data-bs-target="#pills-pasangan"
-          type="button"
-          role="tab"
-          aria-controls="pills-pasangan"
-          aria-selected="true">PASANGAN</button
-        >
-      </li>
-    </ul>
+
     <div class="tab-content" id="pills-tabContent">
+      <ul
+        class="nav nav-fill nav-pills mb-3"
+        id="pills-tab"
+        role="tablist"
+        style="border:1px solid #f3f3f3; border-radius:4px; background-color: {daylight
+          ? '#fff'
+          : '#181818'};"
+      >
+        <li class="nav-item" role="presentation">
+          <button
+            style="font-size:10px;"
+            class="nav-link custom active"
+            class:custom-dark={daylight === false}
+            id="pills-keranjang-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#pills-keranjang"
+            type="button"
+            role="tab"
+            aria-controls="pills-keranjang"
+            aria-selected="true">KERANJANG</button
+          >
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            style="font-size:10px;"
+            class="nav-link custom"
+            class:custom-dark={daylight === false}
+            id="pills-pasangan-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#pills-pasangan"
+            type="button"
+            role="tab"
+            aria-controls="pills-pasangan"
+            aria-selected="true">BET HISTORY</button
+          >
+        </li>
+      </ul>
       <div
         class="tab-pane fade show active"
         id="pills-keranjang"

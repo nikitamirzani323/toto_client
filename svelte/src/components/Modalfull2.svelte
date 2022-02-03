@@ -29,14 +29,26 @@
         data-simplebar
         class="modal-body"
         id="streaminvoice"
-        style="font-size:12px;padding:0px;margin:0px;background:#121212;border:1px solid #0e0c13;color:white;{modal_body_height}"
+        style="font-size:12px;padding:0px;margin:0px;background:{daylight
+          ? '#fff'
+          : '#121212'};border:1px solid {daylight
+          ? '#cbcbcb'
+          : '#0e0c13'};color:{daylight
+          ? '#171717'
+          : 'white'};{modal_body_height};
+          border-bottom-left-radius:10px;
+          border-bottom-right-radius:10px;"
       >
         <slot name="body" />
       </div>
       {#if modal_footer_flag}
         <div
           class="modal-footer"
-          style="margin:0px;background: rgb(16, 16, 16);border-top: none;"
+          style="margin:0px;background: {daylight
+            ? '#f3f3f3'
+            : '#101010'};border-top: none;
+          border-bottom-left-radius:10px;
+          border-bottom-right-radius:10px;"
         >
           <slot name="footer" />
         </div>

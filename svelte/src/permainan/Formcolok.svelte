@@ -193,18 +193,27 @@
       reset();
     } else {
       css_loader = "display:none;";
-      switch (json.status) {
-        case "500":
-          group_btn_beli = true;
-          notifications.push(json.message);
-          break;
-        case "400":
-          group_btn_beli = true;
-          notifications.push(json.message);
-          break;
-        default:
-          notifications.push(json.message);
-          break;
+      group_btn_beli = true;
+      if (json.status == "500" || json.status == "400") {
+        group_btn_beli = true;
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: json.message,
+          showConfirmButton: false,
+          timer: 3000,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+          toast: true,
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: json.message,
+          background: daylight ? "#fff" : "#171717",
+          color: daylight ? "#00a86b" : "#ff9900",
+        });
       }
     }
   }
@@ -487,12 +496,30 @@
     if (parseInt(bet) < parseInt(min_bet_colokbebas)) {
       flag = false;
       bet_colokbebas = min_bet_colokbebas;
-      notifications.push("Minimal Bet : " + min_bet_colokbebas);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Minimal Bet : " + min_bet_colokbebas,
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (parseInt(bet) > parseInt(max_bet_colokbebas)) {
       flag = false;
       bet_colokbebas = max_bet_colokbebas;
-      notifications.push("Maximal Bet : " + max_bet_colokbebas);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Maximal Bet : " + max_bet_colokbebas,
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (flag == true) {
       diskon = bet * disc_bet_colokbebas;
@@ -540,7 +567,16 @@
       flag = false;
     }
     if (nomor == nomor2) {
-      notifications.push("Nomor tidak boleh sama");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Nomor tidak boleh sama",
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
       flag = false;
       form_clear("colokmacau");
     }
@@ -560,12 +596,30 @@
     if (parseInt(bet) < parseInt(min_bet_colokmacau)) {
       bet_colokmacau = min_bet_colokmacau;
       flag = false;
-      notifications.push("Minimal Bet : " + min_bet_colokmacau);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Minimal Bet : " + min_bet_colokmacau,
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (parseInt(bet) > parseInt(max_bet_colokmacau)) {
       bet_colokmacau = max_bet_colokmacau;
       flag = false;
-      notifications.push("Maximal Bet : " + max_bet_colokmacau);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Maximal Bet : " + max_bet_colokmacau,
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (flag == true) {
       diskon = bet * disc_bet_colokmacau;
@@ -614,17 +668,44 @@
       flag = false;
     }
     if (nomor == nomor2) {
-      notifications.push("Nomor tidak boleh sama");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Nomor tidak boleh sama",
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
       flag = false;
       form_clear("coloknaga");
     }
     if (nomor == nomor3) {
-      notifications.push("Nomor tidak boleh sama");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Nomor tidak boleh sama",
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
       flag = false;
       form_clear("coloknaga");
     }
     if (nomor2 == nomor3) {
-      notifications.push("Nomor tidak boleh sama");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Nomor tidak boleh sama",
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
       flag = false;
       form_clear("coloknaga");
     }
@@ -644,12 +725,30 @@
     if (parseInt(bet) < parseInt(min_bet_coloknaga)) {
       bet_coloknaga = min_bet_coloknaga;
       flag = false;
-      notifications.push("Minimal Bet : " + min_bet_coloknaga);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Minimal Bet : " + min_bet_coloknaga,
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (parseInt(bet) > parseInt(max_bet_coloknaga)) {
       bet_coloknaga = max_bet_coloknaga;
       flag = false;
-      notifications.push("Maximal Bet : " + max_bet_coloknaga);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Maximal Bet : " + max_bet_coloknaga,
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (flag == true) {
       diskon = bet * disc_bet_coloknaga;
@@ -690,7 +789,16 @@
     if (posisi == "") {
       select_pilihancolokjitu_input.focus();
       flag = false;
-      notifications.push("Posisi wajib diisi");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Posisi wajib diisi",
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (bet == "") {
       flag = false;
@@ -708,12 +816,30 @@
     if (parseInt(bet) < parseInt(min_bet_colokjitu)) {
       bet_colokjitu = min_bet_colokjitu;
       flag = false;
-      notifications.push("Minimal Bet : " + min_bet_colokjitu);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Minimal Bet : " + min_bet_colokjitu,
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (parseInt(bet) > parseInt(max_bet_colokjitu)) {
       bet_colokjitu = max_bet_colokjitu;
       flag = false;
-      notifications.push("Maximal Bet : " + max_bet_colokjitu);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Maximal Bet : " + max_bet_colokjitu,
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     if (flag == true) {
       diskon = bet * disc_bet_colokjitu;
@@ -921,7 +1047,16 @@
     }
 
     if (msg != "") {
-      notifications.push(msg);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: msg,
+        showConfirmButton: false,
+        timer: 3000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
     }
     form_clear("polacolok");
   }

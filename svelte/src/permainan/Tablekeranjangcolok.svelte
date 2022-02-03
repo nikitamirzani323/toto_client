@@ -196,7 +196,7 @@
     <h5 class="modal-title">COLOK</h5>
   </slot:template>
   <slot:template slot="body">
-    <TabContent style="padding: 0px;margin:0px;">
+    <TabContent class="periode-menu" style="padding: 0px;margin:0px;">
       <TabPane
         tabId="informasi_colokbebas"
         tab="COLOK BEBAS"
@@ -247,7 +247,11 @@
             </tr>
           </tbody>
         </table>
-        <p style="padding: 5px;color:white;font-size:13px;">
+        <p
+          style="padding: 5px;color:{daylight
+            ? '#171717'
+            : 'white'};font-size:13px;"
+        >
           CARA BERMAIN
           <br />
           Menebak salah satu angka dari 4D. Posisi angka bisa dimana saja
@@ -339,7 +343,11 @@
             </tr>
           </tbody>
         </table>
-        <p style="padding: 5px;color:white;font-size:13px;">
+        <p
+          style="padding: 5px;color:{daylight
+            ? '#171717'
+            : 'white'};font-size:13px;"
+        >
           CARA BERMAIN
           <br />
           Cara kerja seperti colok angka tapi mesti yang keluar 2 angka dari 4D.
@@ -428,7 +436,11 @@
             </tr>
           </tbody>
         </table>
-        <p style="padding: 5px;color:white;font-size:13px;">
+        <p
+          style="padding: 5px;color:{daylight
+            ? '#171717'
+            : 'white'};font-size:13px;"
+        >
           CARA BERMAIN
           <br />
           Cara kerja seperti colok angka tapi mesti yang keluar 3 angka dari 4D.
@@ -541,7 +553,11 @@
             </tr>
           </tbody>
         </table>
-        <p style="padding: 5px;color:white;font-size:13px;">
+        <p
+          style="padding: 5px;color:{daylight
+            ? '#171717'
+            : 'white'};font-size:13px;"
+        >
           CARA BERMAIN
           <br />
           Menebak satu angka pada posisi tertentu dari 4D.
