@@ -196,7 +196,10 @@
     <h5 class="modal-title">COLOK</h5>
   </slot:template>
   <slot:template slot="body">
-    <TabContent class="periode-menu" style="padding: 0px;margin:0px;">
+    <TabContent
+      class="periode-menu {daylight ? '' : 'dark'}"
+      style="padding: 0px;margin:0px;"
+    >
       <TabPane
         tabId="informasi_colokbebas"
         tab="COLOK BEBAS"

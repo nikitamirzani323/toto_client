@@ -260,7 +260,10 @@
     <h5 class="modal-title">50-50</h5>
   </slot:template>
   <slot:template slot="body">
-    <TabContent class="periode-menu" style="padding: 0px;margin:0px;">
+    <TabContent
+      class="periode-menu {daylight ? '' : 'dark'}"
+      style="padding: 0px;margin:0px;"
+    >
       <TabPane
         tabId="informasi_5050umum"
         tab="UMUM"
