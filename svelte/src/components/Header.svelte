@@ -34,7 +34,7 @@
     modal_table_fontsize_header = "11px";
     modal_table_fontsize_body = "11px";
   }
-  let display_credit = 0;
+  // let display_credit = 0;
   let clockmachine = "";
   let record = "";
   let filterBukuMimpi = [];
@@ -522,8 +522,7 @@
       filterBukuMimpi = [...listBukumimpi];
     }
   }
-  display_credit = new Intl.NumberFormat().format(client_credit);
-
+  $: display_credit = new Intl.NumberFormat().format(client_credit);
   const handleClickButtonTop = (e) => {
     let idmodal = "";
     switch (e) {

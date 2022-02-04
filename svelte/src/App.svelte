@@ -45,7 +45,7 @@
   let client_timezone = "";
   let client_website_status = "";
   let client_website_message = "";
-  let client_credit = 0;
+
   const pasaran = (e) => {
     pasaran_code = e.detail.code;
     pasaran_name = e.detail.name;
@@ -56,9 +56,15 @@
   let message_err = "";
   let css_err = "display:none;";
   let checked = false;
+  let balance_credit = 0;
   // let daylight = false;
   $: daylight = checked;
-
+  $: client_credit = balance_credit;
+  $: console.log(
+    "client credit and balance credit",
+    client_credit,
+    balance_credit
+  );
   // $: callday = daylights();
   function daylights() {
     const time = new Date().getHours();
@@ -124,7 +130,7 @@
             client_token = initJson.token;
             client_company = initJson.company;
             client_username = initJson.developer;
-            client_credit = initJson.credit;
+            balance_credit = initJson.credit;
             client_website_status = initJson.website_status;
             client_website_message = initJson.website_message;
             if (client_website_status == "OFFLINE") {
@@ -224,6 +230,7 @@
                 {pasaran_periode}
                 {permainan}
                 bind:checked
+                bind:balance_credit
                 {daylight}
               />
             </Row>
@@ -274,6 +281,7 @@
                 {pasaran_periode}
                 {permainan}
                 bind:checked
+                bind:balance_credit
                 {daylight}
               />
             {:else}

@@ -29,6 +29,7 @@
   export let pasaran_periode = 0;
   export let permainan_title = "4D / 3D / 2D";
   export let daylight = false;
+  export let balance_credit;
 
   let keranjang = [];
   let css_loader = "display:none;";
@@ -252,7 +253,7 @@
     const json = await res.json();
     if (json.status == "200") {
       css_loader = "display:none;";
-
+      balance_credit = json.balance;
       Swal.fire({
         position: "center",
         icon: "success",

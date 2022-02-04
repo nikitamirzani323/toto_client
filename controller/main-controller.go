@@ -138,6 +138,13 @@ type response struct {
 	Record  interface{} `json:"record"`
 	Message string      `json:"message"`
 }
+
+type betresponse struct {
+	Status  int         `json:"status"`
+	Record  interface{} `json:"record"`
+	Message string      `json:"message"`
+	Balance float32     `json:"balance"`
+}
 type responsedua struct {
 	Status int `json:"status"`
 	Record []struct {
@@ -792,7 +799,7 @@ func Savetransaksi(c *fiber.Ctx) error {
 
 	log.Println("cek pasaran", client.Pasaran_code, client.Pasaran_periode)
 	resp, err := axios.R().
-		SetResult(response{}).
+		SetResult(betresponse{}).
 		SetHeaders(map[string]string{
 			"Content-Type":      "application/json",
 			"User-Agent":        "isbtoto-agent",
@@ -819,12 +826,14 @@ func Savetransaksi(c *fiber.Ctx) error {
 		log.Println(err.Error())
 	}
 	fmt.Println("Response Info client: ", client.Company, resp.ReceivedAt(), resp)
-	result := resp.Result().(*response)
+	result := resp.Result().(*betresponse)
+	log.Println("record data", result.Record)
 	if result.Status == 200 {
 		return c.JSON(fiber.Map{
-			"status": http.StatusOK,
-			"record": result.Record,
-			"time":   time.Since(render_page).String(),
+			"status":  http.StatusOK,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+			"balance": result.Balance,
 		})
 	} else {
 		log.Println("error", result.Message)

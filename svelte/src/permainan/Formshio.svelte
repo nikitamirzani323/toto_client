@@ -21,6 +21,7 @@
   export let pasaran_periode = 0;
   export let permainan_title = "COLOK";
   export let daylight = false;
+  export let balance_credit;
 
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
@@ -115,6 +116,7 @@
     const json = await res.json();
     if (json.status == "200") {
       css_loader = "display:none;";
+      balance_credit = json.balance;
       Swal.fire({
         position: "center",
         icon: "success",

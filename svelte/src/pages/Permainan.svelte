@@ -30,6 +30,7 @@
   export let permainan = "";
   export let daylight = false;
   export let checked;
+  export let balance_credit;
 
   let home = false;
   let css_loader = "display:none;";
@@ -438,6 +439,7 @@
           {pasaran_periode}
           {permainan_title}
           {daylight}
+          bind:balance_credit
         />
       {/if}
       {#if permainan == "colok"}
@@ -457,6 +459,7 @@
           {permainan_title}
           {permainan_periode}
           {daylight}
+          bind:balance_credit
         />
       {/if}
       {#if permainan == "5050"}
@@ -476,6 +479,7 @@
           {permainan_title}
           {permainan_periode}
           {daylight}
+          bind:balance_credit
         />
       {/if}
       {#if permainan == "kombinasi"}
@@ -495,6 +499,7 @@
           {permainan_title}
           {permainan_periode}
           {daylight}
+          bind:balance_credit
         />
       {/if}
       {#if permainan == "dasar"}
@@ -514,6 +519,7 @@
           {permainan_title}
           {permainan_periode}
           {daylight}
+          bind:balance_credit
         />
       {/if}
       {#if permainan == "shio"}
@@ -533,6 +539,7 @@
           {permainan_title}
           {permainan_periode}
           {daylight}
+          bind:balance_credit
         />
       {/if}
     </Col>
@@ -1117,6 +1124,7 @@
             {pasaran_periode}
             {permainan_title}
             {daylight}
+            bind:balance_credit
           />
         {/if}
         {#if permainan == "colok"}
@@ -1135,6 +1143,7 @@
             {pasaran_periode}
             {permainan_title}
             {daylight}
+            bind:balance_credit
           />
         {/if}
         {#if permainan == "5050"}
@@ -1153,6 +1162,7 @@
             {pasaran_periode}
             {permainan_title}
             {daylight}
+            bind:balance_credit
           />
         {/if}
         {#if permainan == "kombinasi"}
@@ -1171,6 +1181,7 @@
             {pasaran_periode}
             {permainan_title}
             {daylight}
+            bind:balance_credit
           />
         {/if}
         {#if permainan == "dasar"}
@@ -1189,6 +1200,7 @@
             {pasaran_periode}
             {permainan_title}
             {daylight}
+            bind:balance_credit
           />
         {/if}
         {#if permainan == "shio"}
@@ -1207,6 +1219,7 @@
             {pasaran_periode}
             {permainan_title}
             {daylight}
+            bind:balance_credit
           />
         {/if}
       </div>
