@@ -311,7 +311,7 @@
     background-size: cover;
     background-position: center center;
     background-attachment: scroll;
-    height: 100%;
+    min-height: 100%;
   }
 
   .content.dark {

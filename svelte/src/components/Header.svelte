@@ -10,6 +10,7 @@
   import { faBell } from "@fortawesome/free-regular-svg-icons";
   import Placeholder from "../components/Placeholder.svelte";
   import Switch from "../components/Switch.svelte";
+  import Swal from "sweetalert2";
 
   dayjs.extend(utc);
   dayjs.extend(timezone);
