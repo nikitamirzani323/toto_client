@@ -31,7 +31,7 @@
   export let daylight = false;
   export let checked;
   export let balance_credit;
-
+  export let agent_home_url = "";
   let home = false;
   let css_loader = "display:none;";
 
@@ -109,12 +109,27 @@
     idtrxkeluaran = record["pasaran_idtransaction"];
     statuspasaran = record["pasaran_status"];
     pasaran_periode = record["pasaran_periode"];
+    pasaran_name = record["pasaran_name"];
     if (statuspasaran == "OFFLINE") {
       css_err = "display:inline-block";
-      message_err = "Pasaran OFFLINE";
-      setTimeout(function () {
-        css_err = "display: none;";
-      }, 5000);
+      message_err = `Pasaran ${pasaran_name} sedang OFFLINE`;
+      Swal.fire({
+        title: message_err,
+        icon: "error",
+        confirmButtonText: "Go back",
+        confirmButtonColor: "#00a86b",
+        heightAuto: false,
+        allowOutsideClick: false,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          location.href = agent_home_url;
+        }
+      });
+      // setTimeout(function () {
+      //   css_err = "display: none;";
+      // }, 5000);
     }
     invoicebet("all");
   }
@@ -338,11 +353,17 @@
       <Panel {daylight}>
         <slot:template slot="body">
           <nav class="navbar">
-            <a
-              class="navbar-brand branding"
-              href="/?token={client_token}&agent={client_company}"
-              ><Fa icon={faArrowLeft} size="1x" /> Back</a
-            >
+            {#if agent_home_url !== ""}
+              <a class="navbar-brand branding" href={agent_home_url}
+                ><Fa icon={faArrowLeft} size="1x" /> Back</a
+              >
+            {:else}
+              <a
+                class="navbar-brand branding"
+                href="/?token={client_token}&agent={client_company}"
+                ><Fa icon={faArrowLeft} size="1x" /> Back</a
+              >
+            {/if}
             <ul
               class="nav top-menu nav-pills justify-content-center"
               class:dark={daylight === false}
@@ -1380,16 +1401,19 @@
     }
   </style>
 {:else if statuspasaran == "OFFLINE"}
-  <Notif message={message_err} css_init={css_err} />
   <div style="margin-bottom:10px;margin-left: -10px;">
     <center>
       <div style="cursor: pointer;">
-        <a
-          href="/?token={client_token}&agent={client_company}"
-          title="nuketoto"
-        >
-          Back to Home
-        </a>
+        {#if agent_home_url !== ""}
+          <a href={agent_home_url} title="nuketoto"> Back to Home </a>
+        {:else}
+          <a
+            href="/?token={client_token}&agent={client_company}"
+            title="nuketoto"
+          >
+            Back to Home
+          </a>
+        {/if}
       </div>
     </center>
   </div>

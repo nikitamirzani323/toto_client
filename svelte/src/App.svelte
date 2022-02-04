@@ -17,6 +17,8 @@
   const urlParams = new URLSearchParams(queryString);
   const token_browser = urlParams.get("token");
   const agentCode = urlParams.get("agent");
+  const marketCode = urlParams.get("market");
+  const agent_home = urlParams.get("homeUrl");
   let client_device = "";
   if (token_browser === null) {
     console.log("TOKEN NOT FOUND");
@@ -45,6 +47,14 @@
   let client_timezone = "";
   let client_website_status = "";
   let client_website_message = "";
+  let agent_home_url = "";
+  $: if (marketCode) {
+    pasaran_code = marketCode;
+  }
+
+  $: if (agent_home) {
+    agent_home_url = agent_home;
+  }
 
   const pasaran = (e) => {
     pasaran_code = e.detail.code;
@@ -232,6 +242,7 @@
                 bind:checked
                 bind:balance_credit
                 {daylight}
+                {agent_home_url}
               />
             </Row>
           {:else}

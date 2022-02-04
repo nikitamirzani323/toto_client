@@ -602,18 +602,13 @@
         </Row>
         <Row>
           <div class="col">
-            <a
-              href="/?token={client_token}&agent={client_company}"
-              title="sdsb4d"
-            >
-              <img
-                id="imglogo"
-                alt="SDSB4D"
-                style="margin-top:0px;"
-                width="185"
-                src="logo-green.svg"
-              />
-            </a>
+            <img
+              id="imglogo"
+              alt="SDSB4D"
+              style="margin-top:0px;"
+              width="185"
+              src="logo-green.svg"
+            />
           </div>
           <div class="col">
             <form class="d-flex">
@@ -700,15 +695,13 @@
   <Row>
     <Col style="padding:5px;margin:0px;">
       <div style="margin:20px 10px;">
-        <a href="/?token={client_token}&agent={client_company}" title="SDSB4D">
-          <img
-            id="imglogo"
-            alt="SDSB4D"
-            style="margin-top:10px;"
-            width="123"
-            src="logo-green.svg"
-          />
-        </a>
+        <img
+          id="imglogo"
+          alt="SDSB4D"
+          style="margin-top:10px;"
+          width="123"
+          src="logo-green.svg"
+        />
       </div>
     </Col>
     <Col style="padding:5px;margin:0px;">
