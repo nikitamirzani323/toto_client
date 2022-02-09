@@ -447,6 +447,8 @@
   }
 
   async function fetch_jadwal_pasaran() {
+    listpasaran = [];
+
     const respasaran = await fetch("/api/listpasaran", {
       method: "POST",
       headers: {
@@ -1107,8 +1109,9 @@
                   title="kunjungi website ini : {rec.pasaran_url}"
                   href={rec.pasaran_url}
                   target="_blank"
-                  class="link-{daylight ? 'info' : 'light'}"
-                  >{rec.pasaran_togel}</a
+                  style="color:{daylight
+                    ? '#00A86B'
+                    : '#fc0'}; font-weight:bold;">{rec.pasaran_togel}</a
                 >
               </td>
               <td
@@ -1437,27 +1440,39 @@
     </h5>
   </slot:template>
   <slot:template slot="body">
-    <table class="table table-dark table-striped">
+    <table
+      class="table"
+      class:table-dark={daylight === false}
+      class:table-striped={daylight === false}
+    >
       <thead>
         <tr>
           <th
             width="1%"
-            style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+            style="text-align:center;vertical-align:top;background:{daylight
+              ? '#fff'
+              : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
             >NO</th
           >
           <th
             width="15%"
-            style="text-align:left;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+            style="text-align:left;vertical-align:top;background:{daylight
+              ? '#fff'
+              : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
             >PERMAINAN</th
           >
           <th
             width="50%"
-            style="text-align:right;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+            style="text-align:right;vertical-align:top;background:{daylight
+              ? '#fff'
+              : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
             >BAYAR</th
           >
           <th
             width="25%"
-            style="text-align:right;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+            style="text-align:right;vertical-align:top;background:{daylight
+              ? '#fff'
+              : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
             >MENANG</th
           >
         </tr>
@@ -1477,12 +1492,16 @@
             >4D</td
           >
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(total4d_bayar)}
           </td>
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalwin_4d)}
           </td>
@@ -1501,12 +1520,16 @@
             >3D</td
           >
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(total3d_bayar)}
           </td>
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalwin_3d)}
           </td>
@@ -1525,12 +1548,16 @@
             >2D</td
           >
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(total2d_bayar)}
           </td>
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalwin_2d)}
           </td>
@@ -1552,12 +1579,16 @@
             >COLOK BEBAS</td
           >
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalcolokbebas_bayar)}
           </td>
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalwin_colokbebas)}
           </td>
@@ -1579,12 +1610,16 @@
             >COLOK MACAU</td
           >
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalcolokmacau_bayar)}
           </td>
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalwin_colokmacau)}
           </td>
@@ -1606,12 +1641,16 @@
             >COLOK NAGA</td
           >
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalcoloknaga_bayar)}
           </td>
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalwin_coloknaga)}
           </td>
@@ -1633,12 +1672,16 @@
             >COLOK JITU</td
           >
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalcolokjitu_bayar)}
           </td>
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalwin_colokjitu)}
           </td>
@@ -1660,12 +1703,16 @@
             >50 - 50 UMUM</td
           >
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(total5050umum_bayar)}
           </td>
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalwin_5050umum)}
           </td>
@@ -1687,12 +1734,16 @@
             >50 - 50 SPECIAL</td
           >
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(total5050special_bayar)}
           </td>
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalwin_5050special)}
           </td>
@@ -1714,12 +1765,16 @@
             >50 - 50 KOMBINASI</td
           >
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(total5050kombinasi_bayar)}
           </td>
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalwin_5050kombinasi)}
           </td>
@@ -1741,12 +1796,16 @@
             >MACAU / KOMBINASI</td
           >
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalmacaukombinasi_bayar)}
           </td>
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalwin_macaukombinasi)}
           </td>
@@ -1768,12 +1827,16 @@
             >DASAR</td
           >
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totaldasar_bayar)}
           </td>
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalwin_dasar)}
           </td>
@@ -1795,12 +1858,16 @@
             >SHIO</td
           >
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalshio_bayar)}
           </td>
           <td
-            style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+            style="text-align:right;vertical-align:top;color:{daylight
+              ? '#00A86B'
+              : '#fc0'};;font-size:{modal_table_fontsize_body};"
           >
             {new Intl.NumberFormat().format(totalwin_shio)}
           </td>
@@ -1893,52 +1960,70 @@
     </h5>
   </slot:template>
   <slot:template slot="body">
-    <table class="table table-dark">
+    <table class="table" class:table-dark={daylight === false}>
       <thead>
         <tr>
           <th
             width="1%"
-            style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+            style="text-align:center;vertical-align:top;background:{daylight
+              ? '#fff'
+              : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
             >NO</th
           >
           <th
             width="1%"
-            style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+            style="text-align:center;vertical-align:top;background:{daylight
+              ? '#fff'
+              : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
             >STATUS</th
           >
           <th
             width="20%"
-            style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+            style="text-align:center;vertical-align:top;background:{daylight
+              ? '#fff'
+              : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
             >PERMAINAN</th
           >
           <th
             width="*"
-            style="text-align:center;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+            style="text-align:center;vertical-align:top;background:{daylight
+              ? '#fff'
+              : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
             >NOMOR</th
           >
           <th
             width="10%"
-            style="text-align:right;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+            style="text-align:right;vertical-align:top;background:{daylight
+              ? '#fff'
+              : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
             >BET</th
           >
           <th
             width="10%"
-            style="text-align:right;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+            style="text-align:right;vertical-align:top;background:{daylight
+              ? '#fff'
+              : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
             >DISC(%)</th
           >
           <th
             width="10%"
-            style="text-align:right;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+            style="text-align:right;vertical-align:top;background:{daylight
+              ? '#fff'
+              : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
             >KEI(%)</th
           >
           <th
             width="10%"
-            style="text-align:right;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+            style="text-align:right;vertical-align:top;background:{daylight
+              ? '#fff'
+              : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
             >BAYAR</th
           >
           <th
             width="10%"
-            style="text-align:right;vertical-align:top;background:#303030;font-size:{modal_table_fontsize_header};border-bottom:none;"
+            style="text-align:right;vertical-align:top;background:{daylight
+              ? '#fff'
+              : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
             >WIN</th
           >
         </tr>
@@ -1968,31 +2053,41 @@
             >
             <td
               NOWRAP
-              style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+              style="text-align:right;vertical-align:top;color:{daylight
+                ? '#00A86B'
+                : '#fc0'};font-size:{modal_table_fontsize_body};"
             >
               {new Intl.NumberFormat().format(rec.bet_bet)}
             </td>
             <td
               NOWRAP
-              style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+              style="text-align:right;vertical-align:top;color:{daylight
+                ? '#00A86B'
+                : '#fc0'};font-size:{modal_table_fontsize_body};"
             >
               {rec.bet_diskon.toFixed(2)}
             </td>
             <td
               NOWRAP
-              style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+              style="text-align:right;vertical-align:top;color:{daylight
+                ? '#00A86B'
+                : '#fc0'};font-size:{modal_table_fontsize_body};"
             >
               {rec.bet_kei.toFixed(2)}
             </td>
             <td
               NOWRAP
-              style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+              style="text-align:right;vertical-align:top;color:{daylight
+                ? '#00A86B'
+                : '#fc0'};font-size:{modal_table_fontsize_body};"
             >
               {new Intl.NumberFormat().format(rec.bet_bayar)}
             </td>
             <td
               NOWRAP
-              style="text-align:right;vertical-align:top;color:#fc0;font-size:{modal_table_fontsize_body};"
+              style="text-align:right;vertical-align:top;color:{daylight
+                ? '#00A86B'
+                : '#fc0'};font-size:{modal_table_fontsize_body};"
             >
               {new Intl.NumberFormat().format(rec.bet_win)}
             </td>
