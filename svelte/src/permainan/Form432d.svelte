@@ -184,6 +184,12 @@
     }
   }
   async function limittogel(e) {
+    db_form4d_4d_count_temp = 0;
+    db_form4d_3d_count_temp = 0;
+    db_form4d_3dd_count_temp = 0;
+    db_form4d_2d_count_temp = 0;
+    db_form4d_2dd_count_temp = 0;
+    db_form4d_2dt_count_temp = 0;
     const res = await fetch("/api/limittogel", {
       method: "POST",
       headers: {
@@ -260,6 +266,20 @@
         title: "Data telah berhasil disimpan",
         html:
           "Total belanja : " + new Intl.NumberFormat().format(totalkeranjang),
+        showConfirmButton: false,
+        timer: 5000,
+        background: daylight ? "#fff" : "#171717",
+        color: daylight ? "#00a86b" : "#ff9900",
+        toast: true,
+      });
+      dispatch("handleInvoice", "call");
+      reset();
+    } else if (res.status === 524) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Data telah berhasil disimpan",
+        html: "Pesanan Anda sedang di proses, silahkan muat ulang halaman.",
         showConfirmButton: false,
         timer: 5000,
         background: daylight ? "#fff" : "#171717",
@@ -585,6 +605,8 @@
     count_line_2d = count_2d + db_form4d_2d_count_temp;
     count_line_2dd = count_2dd + db_form4d_2dd_count_temp;
     count_line_2dt = count_2dt + db_form4d_2dt_count_temp;
+
+    css_loader = "display:none;";
   }
 
   //432 - INIT FORM
@@ -2770,6 +2792,15 @@
     }
   }
   function formwap_add() {
+    if (client_device == "WEBSITE") {
+      css_loader =
+        "position:absolute;z-index: 1000;left: 50%;top: 35%;display:inline;";
+    } else {
+      css_loader =
+        "position:absolute;z-index: 1000;left: 40%;top: 50%;display:inline;";
+    }
+    console.log(css_loader);
+
     let pemisah = nomorwap.split(",");
     let res_money = nomorwap.split("#");
     let totalpemisah = pemisah.length;
@@ -2818,6 +2849,7 @@
         }
       }
     }
+    css_loader = "display:none;";
     if (temp_bulk_error != "") {
       let myModal = new bootstrap.Modal(document.getElementById("modalError"));
       myModal.show();
@@ -2913,6 +2945,8 @@
                   0,
                   flag_fulldiskon
                 );
+              } else {
+                msg = "Maximal Line 2D : " + limitline_2d + "\n";
               }
             }
           }
@@ -2957,6 +2991,8 @@
                     0,
                     flag_fulldiskon
                   );
+                } else {
+                  msg = "Maximal Line 3D : " + limitline_3d + "\n";
                 }
               }
             }
@@ -3004,6 +3040,8 @@
                       0,
                       flag_fulldiskon
                     );
+                  } else {
+                    msg = "Maximal Line 4D : " + limitline_4d + "\n";
                   }
                 }
               }
@@ -4087,6 +4125,7 @@
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             handlePilihan("BB");
           }
+          Swal.dismiss();
         });
         // myModal = new bootstrap.Modal(document.getElementById(idmodal));
         // myModal.show();
@@ -4124,7 +4163,6 @@
         handleTambah("quick2D");
         break;
     }
-    myModal.hide();
   };
   const handleKeyboard_format = (e) => {
     let numbera;

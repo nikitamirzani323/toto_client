@@ -11,6 +11,7 @@
   import Placeholder from "../components/Placeholder.svelte";
   import Switch from "../components/Switch.svelte";
   import Swal from "sweetalert2";
+  import Marquee from "svelte-marquee-text-widget";
 
   dayjs.extend(utc);
   dayjs.extend(timezone);
@@ -79,6 +80,8 @@
   let subtotal_bayar = 0;
   let subtotal_winner = 0;
   let total_winlose = 0;
+  let paused_marquee = false;
+
   function updateClock() {
     let endtime = dayjs().tz(client_timezone).format("DD MMM YYYY | HH:mm:ss");
 
@@ -673,7 +676,9 @@
                     <div class="col-1">
                       <div style="padding-top:10px;">
                         <a
-                          href="#"
+                          href="#panelsStayOpen-collapseOne"
+                          data-bs-target="#panelsStayOpen-collapseOne"
+                          data-bs-toggle="collapse"
                           class="custom-icon"
                           class:dark={daylight === false}
                           title="notif"><Fa icon={faBell} size="2x" /></a
@@ -687,10 +692,6 @@
           </div>
         </Row>
       </Container>
-      <nav
-        class="navbar"
-        style="padding-top: 18px;padding-left:0; padding-right:0;"
-      />
     </Col>
   </Row>
 {:else}
@@ -2139,6 +2140,7 @@
   .user-detail.dark {
     color: #fff;
   }
+
   @media (min-width: 768px) {
   }
 </style>
