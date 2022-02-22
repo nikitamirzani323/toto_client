@@ -7,7 +7,7 @@
   import PanelFull from "../components/Panelfull.svelte";
   import { notifications } from "../components/Noti.svelte";
   import Fa from "svelte-fa";
-  import { faBell } from "@fortawesome/free-regular-svg-icons";
+  import { faBell, faBellSlash } from "@fortawesome/free-regular-svg-icons";
   import Placeholder from "../components/Placeholder.svelte";
   import Switch from "../components/Switch.svelte";
   import Swal from "sweetalert2";
@@ -24,6 +24,9 @@
   export let client_timezone = "";
   export let client_device = "";
   export let daylight = false;
+  export let revisi_note = "";
+  export let revisi_periode = "";
+  export let revisi_pasaran = "";
   export let checked;
   export let home;
 
@@ -81,9 +84,13 @@
   let subtotal_winner = 0;
   let total_winlose = 0;
   let paused_marquee = true;
-
+  let hide_img_notif = true;
   function setMarqueePaused(e) {
     paused_marquee = !paused_marquee;
+  }
+
+  function setImgNotif(e) {
+    hide_img_notif = !hide_img_notif;
   }
   function updateClock() {
     let endtime = dayjs().tz(client_timezone).format("DD MMM YYYY | HH:mm:ss");
@@ -585,6 +592,8 @@
       fetch_bukumimpi();
     }
   };
+
+  $: console.log(revisi_note);
 </script>
 
 {#if client_device == "WEBSITE"}
@@ -684,7 +693,12 @@
                           data-bs-toggle="collapse"
                           class="custom-icon"
                           class:dark={daylight === false}
-                          title="notif"><Fa icon={faBell} size="2x" /></a
+                          title="notif"
+                          on:click={setImgNotif}
+                          ><Fa
+                            icon={hide_img_notif ? faBell : faBellSlash}
+                            size="2x"
+                          /></a
                         >
                       </div>
                     </div>
@@ -696,26 +710,41 @@
         </Row>
       </Container>
       <div
-        style="padding-top: 18px;padding-left:0; padding-right:0;"
+        style=" margin:10px auto;padding-left:0; padding-right:0;"
         on:mouseover={setMarqueePaused}
         on:mouseleave={setMarqueePaused}
       >
-        <div class="d-none">
-          <Marquee duration={30} pauseOnHover={true} paused={paused_marquee}>
-            <div
-              id="panelsStayOpen-collapseOne"
-              class="accordion-collapse collapse"
-              aria-labelledby="panelsStayOpen-headingOne"
-            >
-              <div class="accordion-body">
-                <strong>This is the first item's accordion body.</strong> It is shown
-                by default, until the collapse plugin adds the appropriate classes
-                that we use to style each element. These classes control the overall
-                appearance, as well as the showing and hiding via CSS transitions.
+        {#if revisi_note !== ""}
+          <div
+            class="d-flex"
+            style="background-color: {daylight
+              ? '#fff'
+              : '#171717'}; border-radius:40px; padding: 0 20px;"
+          >
+            <img
+              class={hide_img_notif ? "d-flex" : "d-none"}
+              src="/notification.svg"
+              alt="notification"
+            />
+            <Marquee repeat={5} duration={15} pauseOnHover={true}>
+              <div
+                id="panelsStayOpen-collapseOne"
+                class="accordion-collapse collapse {revisi_note
+                  ? 'show'
+                  : 'hide'}"
+                aria-labelledby="panelsStayOpen-headingOne"
+              >
+                <div
+                  class="accordion-body"
+                  style="color:{daylight ? '#171717' : '#fff'}"
+                >
+                  Revisi pasaran {revisi_pasaran} #{revisi_periode} :
+                  <strong>{revisi_note}</strong>
+                </div>
               </div>
-            </div>
-          </Marquee>
-        </div>
+            </Marquee>
+          </div>
+        {/if}
       </div>
     </Col>
   </Row>
@@ -2168,6 +2197,9 @@
 
   .accordion-body {
     padding: 0.5em;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #171717;
   }
   @media (min-width: 768px) {
   }

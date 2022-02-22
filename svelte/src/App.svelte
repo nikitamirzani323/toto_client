@@ -66,6 +66,7 @@
   let message_err = "";
   let css_err = "display:none;";
   let checked = false;
+  let revisi_note = "";
   let balance_credit = 0;
   // let daylight = false;
   $: daylight = checked;
@@ -235,6 +236,7 @@
                 {permainan}
                 bind:checked
                 bind:balance_credit
+                bind:revisi_note
                 {daylight}
                 {agent_home_url}
               />

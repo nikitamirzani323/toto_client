@@ -28,6 +28,10 @@
   export let pasaran_name = "";
   export let pasaran_periode = 0;
   export let permainan = "";
+  export let revisi_note = "";
+  export let revisi_periode = "";
+  export let revisi_pasaran = "";
+
   export let daylight = false;
   export let checked;
   export let balance_credit;
@@ -131,6 +135,29 @@
       // }, 5000);
     }
     invoicebet("all");
+  }
+
+  async function checkrevisi() {
+    const res = await fetch("/api/checkrevisi", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        company: client_company,
+        timezone: client_timezone,
+        pasaran_code: pasaran_code,
+      }),
+    });
+
+    const json = await res.json();
+    record = json;
+    if (json.status == "200") {
+      css_loader = "display:none;";
+    }
+    revisi_note = record["pasaran_revisi"];
+    revisi_periode = record["pasaran_periode"];
+    revisi_pasaran = record["pasaran_name"];
   }
 
   async function invoicebet(e) {
@@ -269,6 +296,7 @@
     slipbet();
   };
   checkpasaran();
+  checkrevisi();
 
   const handleSelect = (event) => {
     changePermainan(event.target.value);
@@ -344,6 +372,9 @@
     {client_timezone}
     {client_device}
     bind:checked
+    {revisi_note}
+    {revisi_periode}
+    {revisi_pasaran}
     {daylight}
     {home}
   />

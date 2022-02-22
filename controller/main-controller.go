@@ -126,6 +126,20 @@ type responsecheckpasaran struct {
 	} `json:"record"`
 	Time string `json:"time"`
 }
+
+type responsecheckrevisi struct {
+	Status      int    `json:"status"`
+	Message     string `json:"message"`
+	Totalrecord int    `json:"totalrecord"`
+	Record      []struct {
+		PasaranIdtransaction string `json:"pasaran_idtransaction"`
+		PasaranName          string `json:"pasaran_name"`
+		PasaranPeriode       string `json:"pasaran_periode"`
+		PasaranIdcomp        string `json:"pasaran_idcomp"`
+		PasaranRevisi        string `json:"pasaran_revisi"`
+	} `json:"record"`
+	Time string `json:"time"`
+}
 type responseinvoicebet struct {
 	Status     int         `json:"status"`
 	Totalbayar int         `json:"totalbayar"`
@@ -319,6 +333,68 @@ func Checkpasaran(c *fiber.Ctx) error {
 		})
 	}
 }
+
+func Checkrevisi(c *fiber.Ctx) error {
+	client := new(clientcheckpasaran)
+	origin := c.Get("origin")
+	render_page := time.Now()
+	if err := c.BodyParser(client); err != nil {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": err.Error(),
+			"record":  nil,
+		})
+	}
+
+	axios := resty.New()
+	resp, err := axios.R().
+		SetResult(responsecheckrevisi{}).
+		SetHeaders(map[string]string{
+			"Content-Type":      "application/json",
+			"User-Agent":        "isbtoto-agent",
+			"x-endpoint-secret": API_SECRET,
+			"x-origin-hostname": origin,
+		}).
+		SetBody(map[string]interface{}{
+			"client_company": client.Company,
+			"pasaran_code":   client.Pasaran_code,
+			"hostname":       origin,
+		}).
+		Post(PATH + "api/servicecheckrevisi")
+	if err != nil {
+		log.Println(err.Error())
+	}
+	fmt.Println("Response Info:")
+	fmt.Println("  Error      :", err)
+	fmt.Println("  Status Code:", resp.StatusCode())
+	fmt.Println("  Status     :", resp.Status())
+	fmt.Println("  Proto      :", resp.Proto())
+	fmt.Println("  Time       :", resp.Time())
+	fmt.Println("  Received At:", resp.ReceivedAt())
+	log.Println("  Body       :\n", resp)
+	fmt.Println()
+	result := resp.Result().(*responsecheckrevisi)
+	if result.Status == 200 {
+		return c.JSON(fiber.Map{
+			"status":                http.StatusOK,
+			"pasaran_idtransaction": result.Record[0].PasaranIdtransaction,
+			"pasaran_name":          result.Record[0].PasaranName,
+			"pasaran_periode":       result.Record[0].PasaranPeriode,
+			"pasaran_idcomp":        result.Record[0].PasaranIdcomp,
+			"pasaran_revisi":        result.Record[0].PasaranRevisi,
+			"time":                  time.Since(render_page).String(),
+		})
+
+	} else {
+		return c.JSON(fiber.Map{
+			"status": http.StatusBadRequest,
+			"record": nil,
+			"time":   time.Since(render_page).String(),
+		})
+	}
+}
+
 func Inittogel_432d(c *fiber.Ctx) error {
 	client := new(clientinitpasaran)
 	origin := c.Get("origin")
