@@ -56,7 +56,6 @@
 
   const changePermainan = (e) => {
     permainan = e;
-    console.log(permainan);
     switch (e) {
       case "4-3-2":
         permainan_title = "4D / 3D / 2D";

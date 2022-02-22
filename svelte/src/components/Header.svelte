@@ -80,8 +80,11 @@
   let subtotal_bayar = 0;
   let subtotal_winner = 0;
   let total_winlose = 0;
-  let paused_marquee = false;
+  let paused_marquee = true;
 
+  function setMarqueePaused(e) {
+    paused_marquee = !paused_marquee;
+  }
   function updateClock() {
     let endtime = dayjs().tz(client_timezone).format("DD MMM YYYY | HH:mm:ss");
 
@@ -692,6 +695,28 @@
           </div>
         </Row>
       </Container>
+      <div
+        style="padding-top: 18px;padding-left:0; padding-right:0;"
+        on:mouseover={setMarqueePaused}
+        on:mouseleave={setMarqueePaused}
+      >
+        <div class="d-none">
+          <Marquee duration={30} pauseOnHover={true} paused={paused_marquee}>
+            <div
+              id="panelsStayOpen-collapseOne"
+              class="accordion-collapse collapse"
+              aria-labelledby="panelsStayOpen-headingOne"
+            >
+              <div class="accordion-body">
+                <strong>This is the first item's accordion body.</strong> It is shown
+                by default, until the collapse plugin adds the appropriate classes
+                that we use to style each element. These classes control the overall
+                appearance, as well as the showing and hiding via CSS transitions.
+              </div>
+            </div>
+          </Marquee>
+        </div>
+      </div>
     </Col>
   </Row>
 {:else}
@@ -2141,6 +2166,9 @@
     color: #fff;
   }
 
+  .accordion-body {
+    padding: 0.5em;
+  }
   @media (min-width: 768px) {
   }
 </style>

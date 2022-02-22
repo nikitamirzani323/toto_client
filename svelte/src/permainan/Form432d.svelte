@@ -274,7 +274,7 @@
       });
       dispatch("handleInvoice", "call");
       reset();
-    } else if (res.status === 524) {
+    } else if (res.status === "524") {
       Swal.fire({
         position: "center",
         icon: "success",
@@ -2799,7 +2799,6 @@
       css_loader =
         "position:absolute;z-index: 1000;left: 40%;top: 50%;display:inline;";
     }
-    console.log(css_loader);
 
     let pemisah = nomorwap.split(",");
     let res_money = nomorwap.split("#");

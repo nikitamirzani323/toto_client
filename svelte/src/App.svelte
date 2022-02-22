@@ -70,15 +70,10 @@
   // let daylight = false;
   $: daylight = checked;
   $: client_credit = balance_credit;
-  $: console.log(
-    "client credit and balance credit",
-    client_credit,
-    balance_credit
-  );
+
   // $: callday = daylights();
   function daylights() {
     const time = new Date().getHours();
-    console.log(time);
     if (time >= 6 && time < 18) {
       return true;
     }
@@ -101,7 +96,6 @@
     }
     initapp(token_browser, agentCode);
   }
-  $: console.log("check for daylight?", daylight);
   async function initapp(token, agent_code) {
     const resInit = await fetch("/api/init", {
       method: "POST",
