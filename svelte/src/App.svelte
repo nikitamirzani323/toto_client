@@ -144,8 +144,8 @@
               // css_err = "display:inline-block";
               Swal.fire({
                 icon: "warning",
-                title: "Sorry...",
-                text: client_website_message,
+                title: "Sorry we are offline now",
+                html: client_website_message.replace(",", "<br/>"),
                 heightAuto: false,
               });
             } else {
