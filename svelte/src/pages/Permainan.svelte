@@ -154,10 +154,10 @@
     record = json;
     if (json.status == "200") {
       css_loader = "display:none;";
+      revisi_note = record["pasaran_revisi"];
+      revisi_periode = record["pasaran_periode"];
+      revisi_pasaran = record["pasaran_name"];
     }
-    revisi_note = record["pasaran_revisi"];
-    revisi_periode = record["pasaran_periode"];
-    revisi_pasaran = record["pasaran_name"];
   }
 
   async function invoicebet(e) {
