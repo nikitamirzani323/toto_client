@@ -8,6 +8,12 @@
   import { notifications } from "../components/Noti.svelte";
   import Fa from "svelte-fa";
   import { faBell, faBellSlash } from "@fortawesome/free-regular-svg-icons";
+  import {
+    UiBellDay,
+    UiBellNotifDay,
+    UiBellNight,
+    UiBellNotifNight,
+  } from "../lib/icons";
   import Placeholder from "../components/Placeholder.svelte";
   import Switch from "../components/Switch.svelte";
   import Swal from "sweetalert2";
@@ -695,11 +701,19 @@
                           class:dark={daylight === false}
                           title="notif"
                           on:click={setImgNotif}
-                          ><Fa
-                            icon={hide_img_notif ? faBell : faBellSlash}
-                            size="2x"
-                          /></a
                         >
+                          {#if daylight}
+                            {#if revisi_note === ""}
+                              <UiBellDay />
+                            {:else}
+                              <UiBellNotifDay />
+                            {/if}
+                          {:else if revisi_note === ""}
+                            <UiBellNight />
+                          {:else}
+                            <UiBellNotifNight />
+                          {/if}
+                        </a>
                       </div>
                     </div>
                   </div>

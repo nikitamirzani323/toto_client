@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Row, Col, Container } from "sveltestrap";
   import Home from "./pages/Home.svelte";
   import Permainan from "./pages/Permainan.svelte";
