@@ -1090,7 +1090,7 @@
       diskonpercen = diskon;
       kei = parseInt(bet) * kei;
       diskon = parseInt(bet) * diskon;
-      bayar = parseInt(bet) - parseInt(kei);
+      bayar = parseInt(bet) - parseInt(diskon) - parseInt(kei);
 
       totalkeranjang = bayar + totalkeranjang;
 
