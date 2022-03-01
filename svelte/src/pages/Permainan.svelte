@@ -196,7 +196,8 @@
               kei: record[i]["kei"],
               bayar: record[i]["bayar"],
               win: record[i]["win"],
-              menang: record[i]["menang"],
+              menang: record[i]["estimasi_win"],
+              tipemain: record[i]["tipe_main"],
             },
           ];
         }
@@ -706,6 +707,11 @@
                     <th
                       width="10%"
                       style="text-align:center;vertical-align:top;font-size:13px;border-bottom:none;"
+                      NOWRAP>TIPE</th
+                    >
+                    <th
+                      width="10%"
+                      style="text-align:center;vertical-align:top;font-size:13px;border-bottom:none;"
                       NOWRAP>PERMAINAN</th
                     >
                     <th
@@ -737,6 +743,11 @@
                         class="table-fill text-center"
                         class:dark={daylight === false}
                         NOWRAP>{rec.nomor}</td
+                      >
+                      <td
+                        class="table-fill text-center"
+                        class:dark={daylight === false}
+                        NOWRAP>{rec.tipemain}</td
                       >
                       <td
                         class="table-fill text-center"
