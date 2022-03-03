@@ -217,6 +217,7 @@
   }
   async function fetch_resultbypasaran(e, y) {
     nmpasaran = y;
+    resulttogel = [];
     const res = await fetch("/api/resulttogel", {
       method: "POST",
       headers: {
