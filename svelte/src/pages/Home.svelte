@@ -106,7 +106,11 @@
           </div>
           <CardBody>
             <center>
-              <img class="mb-4" src="/flags/{pasaran_code}.svg" />
+              <img
+                class="mb-4"
+                src="/flags/{pasaran_code}.svg"
+                onerror="this.src='/favicon_green.png';"
+              />
               <br />
               <h4 class="head-fonts" class:custom-dark={daylight === false}>
                 {pasaran}
