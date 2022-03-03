@@ -4185,6 +4185,12 @@
         nomor2dt = "";
       }
     }
+    for (let i = 0; i < nomor3dd.length; i++) {
+      numbera = parseInt(nomor3dd[i]);
+      if (isNaN(numbera)) {
+        nomor3dd = "";
+      }
+    }
     for (let i = 0; i < nomorbbfs.length; i++) {
       numbera = parseInt(nomorbbfs[i]);
       if (isNaN(nomorbbfs)) {
@@ -4282,6 +4288,12 @@
       numbera = parseInt(bet_2dt[i]);
       if (isNaN(numbera)) {
         bet_2dt = "";
+      }
+    }
+    for (let i = 0; i < bet_3dd.length; i++) {
+      numbera = parseInt(bet_3dd[i]);
+      if (isNaN(numbera)) {
+        bet_3dd = "";
       }
     }
     for (let i = 0; i < nomorbbfs.length; i++) {

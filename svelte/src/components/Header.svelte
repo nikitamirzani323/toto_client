@@ -412,6 +412,7 @@
                 bet_no: record[i]["no"],
                 bet_background: background,
                 bet_status: record[i]["status"],
+                bet_tipe: record[i]["tipe"],
                 bet_permainan: record[i]["permainan"],
                 bet_nomor: record[i]["nomor"],
                 bet_bet: record[i]["bet"],
@@ -1229,7 +1230,7 @@
     <h5 class="modal-title" class:dark={daylight === false}>BUKU MIMPI</h5>
   </slot:template>
   <slot:template slot="headerbottom">
-    <div class="navbar mb-3">
+    <div class="navbar mb-3 mx-2">
       <ul
         class="nav nav-pills"
         id="pills-tab"
@@ -1321,7 +1322,7 @@
             ? '#f3f3f3'
             : '#303030'} none repeat scroll 0% 0%; color: {daylight
             ? '#171717'
-            : '#fff'}; font-size: {modal_table_fontsize_bukumimpi_header}; "
+            : '#fff'}; font-size: {modal_table_fontsize_bukumimpi_header}; margin-right: 5px;"
           placeholder="cari mimpi kamu"
           class="form-control"
           type="text"
@@ -2051,6 +2052,13 @@
             style="text-align:center;vertical-align:top;background:{daylight
               ? '#fff'
               : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
+            >TIPE</th
+          >
+          <th
+            width="20%"
+            style="text-align:center;vertical-align:top;background:{daylight
+              ? '#fff'
+              : '#303030'};font-size:{modal_table_fontsize_header};border-bottom:none;"
             >PERMAINAN</th
           >
           <th
@@ -2109,6 +2117,11 @@
               NOWRAP
               style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_body};{rec.bet_background}"
               >{rec.bet_status}</td
+            >
+            <td
+              NOWRAP
+              style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_body};"
+              >{rec.bet_tipe}</td
             >
             <td
               NOWRAP
@@ -2209,6 +2222,12 @@
     color: #fff;
   }
 
+  .modal-title {
+    font-size: 16px;
+    line-height: 12px;
+    font-family: "Poppins";
+    font-weight: 700;
+  }
   .accordion-body {
     padding: 0.5em;
     font-size: 1.2em;

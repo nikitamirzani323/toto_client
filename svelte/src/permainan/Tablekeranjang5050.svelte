@@ -300,12 +300,17 @@
               <td
                 style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;"
               >
-                BESAR : {discbesar_bet_5050umum * 100}% <br />
-                KECIL : {disckecil_bet_5050umum * 100}% <br />
-                GENAP : {discgenap_bet_5050umum * 100}% <br />
-                GANJIL : {discganjil_bet_5050umum * 100}% <br />
-                TENGAH : {disctengah_bet_5050umum * 100}% <br />
-                TEPI : {disctepi_bet_5050umum * 100}%
+                BESAR : {Number(discbesar_bet_5050umum * 100).toFixed(2)}%
+                <br />
+                KECIL : {Number(disckecil_bet_5050umum * 100).toFixed(2)}%
+                <br />
+                GENAP : {Number(discgenap_bet_5050umum * 100).toFixed(2)}%
+                <br />
+                GANJIL : {Number(discganjil_bet_5050umum * 100).toFixed(2)}%
+                <br />
+                TENGAH : {Number(disctengah_bet_5050umum * 100).toFixed(2)}%
+                <br />
+                TEPI : {Number(disctepi_bet_5050umum * 100).toFixed(2)}%
                 <br />
               </td>
             </tr>
@@ -317,12 +322,14 @@
               <td
                 style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;"
               >
-                BESAR : {keibesar_bet_5050umum * 100}% <br />
-                KECIL : {keikecil_bet_5050umum * 100}% <br />
-                GENAP : {keigenap_bet_5050umum * 100}% <br />
-                GANJIL : {keiganjil_bet_5050umum * 100}% <br />
-                TENGAH : {keitengah_bet_5050umum * 100}% <br />
-                TEPI : {keitepi_bet_5050umum * 100}%
+                BESAR : {Number(keibesar_bet_5050umum * 100).toFixed(2)}% <br />
+                KECIL : {Number(keikecil_bet_5050umum * 100).toFixed(2)}% <br />
+                GENAP : {Number(keigenap_bet_5050umum * 100).toFixed(2)}% <br />
+                GANJIL : {Number(keiganjil_bet_5050umum * 100).toFixed(2)}%
+                <br />
+                TENGAH : {Number(keitengah_bet_5050umum * 100).toFixed(2)}%
+                <br />
+                TEPI : {Number(keitepi_bet_5050umum * 100).toFixed(2)}%
                 <br />
               </td>
             </tr>
@@ -390,28 +397,60 @@
               <td
                 style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;"
               >
-                AS GANJIL : {discasganjil_bet_5050special * 100}% <br />
-                AS GENAP : {discasgenap_bet_5050special * 100}%
+                AS GANJIL : {Number(discasganjil_bet_5050special * 100).toFixed(
+                  2
+                )}% <br />
+                AS GENAP : {Number(discasgenap_bet_5050special * 100).toFixed(
+                  2
+                )}%
                 <br />
-                AS BESAR : {discasbesar_bet_5050special * 100}%
+                AS BESAR : {Number(discasbesar_bet_5050special * 100).toFixed(
+                  2
+                )}%
                 <br />
-                AS KECIL : {discaskecil_bet_5050special * 100}%
+                AS KECIL : {Number(discaskecil_bet_5050special * 100).toFixed(
+                  2
+                )}%
                 <br />
-                KOP GANIL : {disckopganjil_bet_5050special * 100}% <br />
-                KOP GENAP : {disckopgenap_bet_5050special * 100}%
+                KOP GANIL : {Number(
+                  disckopganjil_bet_5050special * 100
+                ).toFixed(2)}% <br />
+                KOP GENAP : {Number(disckopgenap_bet_5050special * 100).toFixed(
+                  2
+                )}%
                 <br />
-                KOP BESAR : {disckopbesar_bet_5050special * 100}% <br />
-                KOP KECIL : {disckopkecil_bet_5050special * 100}% <br />
-                KEPALA GANIL : {disckepalaganjil_bet_5050special * 100}% <br />
-                KEPALA GENAP : {disckepalagenap_bet_5050special * 100}%
+                KOP BESAR : {Number(disckopbesar_bet_5050special * 100).toFixed(
+                  2
+                )}% <br />
+                KOP KECIL : {Number(disckopkecil_bet_5050special * 100).toFixed(
+                  2
+                )}% <br />
+                KEPALA GANIL : {Number(
+                  disckepalaganjil_bet_5050special * 100
+                ).toFixed(2)}% <br />
+                KEPALA GENAP : {Number(
+                  disckepalagenap_bet_5050special * 100
+                ).toFixed(2)}%
                 <br />
-                KEPALA BESAR : {disckepalabesar_bet_5050special * 100}% <br />
-                KEPALA KECIL : {disckepalakecil_bet_5050special * 100}% <br />
-                EKOR GANIL : {discekorganjil_bet_5050special * 100}% <br />
-                EKOR GENAP : {discekorgenap_bet_5050special * 100}%
+                KEPALA BESAR : {Number(
+                  disckepalabesar_bet_5050special * 100
+                ).toFixed(2)}% <br />
+                KEPALA KECIL : {Number(
+                  disckepalakecil_bet_5050special * 100
+                ).toFixed(2)}% <br />
+                EKOR GANIL : {Number(
+                  discekorganjil_bet_5050special * 100
+                ).toFixed(2)}% <br />
+                EKOR GENAP : {Number(
+                  discekorgenap_bet_5050special * 100
+                ).toFixed(2)}%
                 <br />
-                EKOR BESAR : {discekorbesar_bet_5050special * 100}% <br />
-                EKOR KECIL : {discekorkecil_bet_5050special * 100}% <br />
+                EKOR BESAR : {Number(
+                  discekorbesar_bet_5050special * 100
+                ).toFixed(2)}% <br />
+                EKOR KECIL : {Number(
+                  discekorkecil_bet_5050special * 100
+                ).toFixed(2)}% <br />
               </td>
             </tr>
             <tr>
@@ -422,31 +461,63 @@
               <td
                 style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;"
               >
-                AS GANJIL : {keiasganjil_bet_5050special * 100}%
+                AS GANJIL : {Number(keiasganjil_bet_5050special * 100).toFixed(
+                  2
+                )}%
                 <br />
-                AS GENAP : {keiasgenap_bet_5050special * 100}%
+                AS GENAP : {Number(keiasgenap_bet_5050special * 100).toFixed(
+                  2
+                )}%
                 <br />
-                AS BESAR : {keiasbesar_bet_5050special * 100}%
+                AS BESAR : {Number(keiasbesar_bet_5050special * 100).toFixed(
+                  2
+                )}%
                 <br />
-                AS KECIL : {keiaskecil_bet_5050special * 100}%
+                AS KECIL : {Number(keiaskecil_bet_5050special * 100).toFixed(
+                  2
+                )}%
                 <br />
-                KOP GANIL : {keikopganjil_bet_5050special * 100}% <br />
-                KOP GENAP : {keikopgenap_bet_5050special * 100}%
+                KOP GANIL : {Number(keikopganjil_bet_5050special * 100).toFixed(
+                  2
+                )}% <br />
+                KOP GENAP : {Number(keikopgenap_bet_5050special * 100).toFixed(
+                  2
+                )}%
                 <br />
-                KOP BESAR : {keikopbesar_bet_5050special * 100}%
+                KOP BESAR : {Number(keikopbesar_bet_5050special * 100).toFixed(
+                  2
+                )}%
                 <br />
-                KOP KECIL : {keikopkecil_bet_5050special * 100}%
+                KOP KECIL : {Number(keikopkecil_bet_5050special * 100).toFixed(
+                  2
+                )}%
                 <br />
-                KEPALA GANIL : {keikepalaganjil_bet_5050special * 100}% <br />
-                KEPALA GENAP : {keikepalagenap_bet_5050special * 100}%
+                KEPALA GANIL : {Number(
+                  keikepalaganjil_bet_5050special * 100
+                ).toFixed(2)}% <br />
+                KEPALA GENAP : {Number(
+                  keikepalagenap_bet_5050special * 100
+                ).toFixed(2)}%
                 <br />
-                KEPALA BESAR : {keikepalabesar_bet_5050special * 100}% <br />
-                KEPALA KECIL : {keikepalakecil_bet_5050special * 100}% <br />
-                EKOR GANIL : {keiekorganjil_bet_5050special * 100}% <br />
-                EKOR GENAP : {keiekorgenap_bet_5050special * 100}%
+                KEPALA BESAR : {Number(
+                  keikepalabesar_bet_5050special * 100
+                ).toFixed(2)}% <br />
+                KEPALA KECIL : {Number(
+                  keikepalakecil_bet_5050special * 100
+                ).toFixed(2)}% <br />
+                EKOR GANIL : {Number(
+                  keiekorganjil_bet_5050special * 100
+                ).toFixed(2)}% <br />
+                EKOR GENAP : {Number(
+                  keiekorgenap_bet_5050special * 100
+                ).toFixed(2)}%
                 <br />
-                EKOR BESAR : {keiekorbesar_bet_5050special * 100}% <br />
-                EKOR KECIL : {keiekorkecil_bet_5050special * 100}% <br />
+                EKOR BESAR : {Number(
+                  keiekorbesar_bet_5050special * 100
+                ).toFixed(2)}% <br />
+                EKOR KECIL : {Number(
+                  keiekorkecil_bet_5050special * 100
+                ).toFixed(2)}% <br />
               </td>
             </tr>
           </tbody>
@@ -526,34 +597,63 @@
               <td
                 style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;"
               >
-                BELAKANG MONO : {disc_belakangmono_bet_5050kombinasi * 100}%
+                BELAKANG MONO : {Number(
+                  disc_belakangmono_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                BELAKANG STEREO : {disc_belakangstereo_bet_5050kombinasi * 100}%
+                BELAKANG STEREO : {Number(
+                  disc_belakangstereo_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                BELAKANG KEMBANG : {disc_belakangkembang_bet_5050kombinasi *
-                  100}% <br />
-                BELAKANG KEMPIS : {disc_belakangkempis_bet_5050kombinasi * 100}%
+                BELAKANG KEMBANG : {Number(
+                  disc_belakangkembang_bet_5050kombinasi * 100
+                ).toFixed(2)}% <br />
+                BELAKANG KEMPIS : {Number(
+                  disc_belakangkempis_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                BELAKANG KEMBAR : {disc_belakangkembar_bet_5050kombinasi * 100}%
+                BELAKANG KEMBAR : {Number(
+                  disc_belakangkembar_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                TENGAH MONO : {disc_tengahmono_bet_5050kombinasi * 100}%
+                TENGAH MONO : {Number(
+                  disc_tengahmono_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                TENGAH STEREO : {disc_tengahstereo_bet_5050kombinasi * 100}%
+                TENGAH STEREO : {Number(
+                  disc_tengahstereo_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                TENGAH KEMBANG : {disc_tengahkembang_bet_5050kombinasi * 100}%
+                TENGAH KEMBANG : {Number(
+                  disc_tengahkembang_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                TENGAH KEMPIS : {disc_tengahkempis_bet_5050kombinasi * 100}%
+                TENGAH KEMPIS : {Number(
+                  disc_tengahkempis_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                TENGAH KEMBAR : {disc_tengahkembar_bet_5050kombinasi * 100}%
+                TENGAH KEMBAR : {Number(
+                  disc_tengahkembar_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                DEPAN MONO : {disc_depanmono_bet_5050kombinasi * 100}% <br />
-                DEPAN STEREO : {disc_depanstereo_bet_5050kombinasi * 100}%
+                DEPAN MONO : {Number(
+                  disc_depanmono_bet_5050kombinasi * 100
+                ).toFixed(2)}% <br />
+                DEPAN STEREO : {Number(
+                  disc_depanstereo_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                DEPAN KEMBANG : {disc_depankembang_bet_5050kombinasi * 100}%
+                DEPAN KEMBANG : {Number(
+                  disc_depankembang_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                DEPAN KEMPIS : {disc_depankempis_bet_5050kombinasi * 100}%
+                DEPAN KEMPIS : {Number(
+                  disc_depankempis_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                DEPAN KEMBAR : {disc_depankembar_bet_5050kombinasi * 100}%
+                DEPAN KEMBAR : {Number(
+                  disc_depankembar_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
               </td>
             </tr>
@@ -565,33 +665,62 @@
               <td
                 style="border:1px solid #282828;text-align:right;font-size:12px;color:#ffd292;"
               >
-                BELAKANG MONO : {kei_belakangmono_bet_5050kombinasi * 100}%
+                BELAKANG MONO : {Number(
+                  kei_belakangmono_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                BELAKANG STEREO : {kei_belakangstereo_bet_5050kombinasi * 100}%
+                BELAKANG STEREO : {Number(
+                  kei_belakangstereo_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                BELAKANG KEMBANG : {kei_belakangkembang_bet_5050kombinasi *
-                  100}% <br />
-                BELAKANG KEMPIS : {kei_belakangkempis_bet_5050kombinasi * 100}%
+                BELAKANG KEMBANG : {Number(
+                  kei_belakangkembang_bet_5050kombinasi * 100
+                ).toFixed(2)}% <br />
+                BELAKANG KEMPIS : {Number(
+                  kei_belakangkempis_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                BELAKANG KEMBAR : {kei_belakangkembar_bet_5050kombinasi * 100}%
+                BELAKANG KEMBAR : {Number(
+                  kei_belakangkembar_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                TENGAH MONO : {kei_tengahmono_bet_5050kombinasi * 100}%
+                TENGAH MONO : {Number(
+                  kei_tengahmono_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                TENGAH STEREO : {kei_tengahstereo_bet_5050kombinasi * 100}%
+                TENGAH STEREO : {Number(
+                  kei_tengahstereo_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                TENGAH KEMBANG : {kei_tengahkembang_bet_5050kombinasi * 100}%
+                TENGAH KEMBANG : {Number(
+                  kei_tengahkembang_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                TENGAH KEMPIS : {kei_tengahkempis_bet_5050kombinasi * 100}%
+                TENGAH KEMPIS : {Number(
+                  kei_tengahkempis_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                TENGAH KEMBAR : {kei_tengahkembar_bet_5050kombinasi * 100}%
+                TENGAH KEMBAR : {Number(
+                  kei_tengahkembar_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                DEPAN MONO : {kei_depanmono_bet_5050kombinasi * 100}% <br />
-                DEPAN STEREO : {kei_depanstereo_bet_5050kombinasi * 100}% <br />
-                DEPAN KEMBANG : {kei_depankembang_bet_5050kombinasi * 100}%
+                DEPAN MONO : {Number(
+                  kei_depanmono_bet_5050kombinasi * 100
+                ).toFixed(2)}% <br />
+                DEPAN STEREO : {Number(
+                  kei_depanstereo_bet_5050kombinasi * 100
+                ).toFixed(2)}% <br />
+                DEPAN KEMBANG : {Number(
+                  kei_depankembang_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                DEPAN KEMPIS : {kei_depankempis_bet_5050kombinasi * 100}%
+                DEPAN KEMPIS : {Number(
+                  kei_depankempis_bet_5050kombinasi * 100
+                ).toFixed(2)}%
                 <br />
-                DEPAN KEMBAR : {kei_depankembar_bet_5050kombinasi * 100}% <br />
+                DEPAN KEMBAR : {Number(
+                  kei_depankembar_bet_5050kombinasi * 100
+                ).toFixed(2)}% <br />
               </td>
             </tr>
           </tbody>

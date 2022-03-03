@@ -14,7 +14,7 @@
         <slot name="header" />
         <button
           type="button"
-          class="btn-close"
+          class="btn-close custom"
           class:btn-close-white={daylight === false}
           data-bs-dismiss="modal"
           aria-label="Close"
@@ -60,22 +60,24 @@
 <style>
   .modal-content.custom {
     background: #fff;
-    border-color: #171717;
     color: #fff;
-    padding: 20px;
     border-radius: 20px;
   }
 
   .modal-content.custom.dark {
     background: #171717;
-    border-color: #fff;
     color: #171717;
   }
 
+  .btn-close.custom {
+    background: #fff url("/btn-close.svg") center/1em auto no-repeat;
+  }
   .modal-header.custom {
-    background: transparent;
+    background: linear-gradient(180deg, #00a86b 21.53%, #004029 87.36%);
+    border-radius: 20px 20px 0 0;
+    padding: 30px 20px;
     border-bottom: none;
-    color: #171717;
+    color: #fff;
   }
   .modal-header.custom.dark {
     color: #fff;
