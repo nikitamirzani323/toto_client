@@ -124,6 +124,11 @@
             style="text-align:right;vertical-align:top;font-size:13px;border-bottom:none;"
             NOWRAP>DISKON</th
           >
+          <th
+            width="20%"
+            style="text-align:right;vertical-align:top;font-size:13px;border-bottom:none;"
+            NOWRAP>KEI</th
+          >
 
           <th
             width="*"
@@ -155,6 +160,11 @@
             <td class="table-fill text-end" class:dark={daylight === false}>
               {new Intl.NumberFormat().format(Math.ceil(rec.diskon))} ({(
                 rec.diskonpercen * 100
+              ).toFixed(1)}%)
+            </td>
+            <td class="table-fill text-end" class:dark={daylight === false}>
+              {new Intl.NumberFormat().format(Math.ceil(rec.kei))} ({(
+                rec.kei_percen * 100
               ).toFixed(1)}%)
             </td>
             <td class="table-fill text-end" class:dark={daylight === false}>
